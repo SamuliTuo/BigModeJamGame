@@ -11,11 +11,15 @@ public class CasetteController : MonoBehaviour
 
     private Vector3 startPos;
     private Transform casetteModel;
+    private List<Vector3> teleporterPositions = new List<Vector3>();
 
     private void Start()
     {
         startPos = transform.position;
         casetteModel = transform.GetChild(0);
+        teleporterPositions.Add(transform.position);
+        if (receiver != null) 
+            teleporterPositions.Add(receiver.position);
     }
 
     void Update()
@@ -29,7 +33,8 @@ public class CasetteController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.SendMessage("CassetteCollected");
+
+            other.SendMessage("CassetteCollected", teleporterPositions);
         }
     }
 }

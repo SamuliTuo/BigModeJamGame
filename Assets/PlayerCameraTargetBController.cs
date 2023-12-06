@@ -10,7 +10,7 @@ public class PlayerCameraTargetBController : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         Vector3 playerOffsetFromPortal = cameraTargetA.position - otherPortal.position;
         transform.position = portal.position + playerOffsetFromPortal;

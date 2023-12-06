@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -407,9 +408,13 @@ namespace StarterAssets
             }
         }
 
-        public void CassetteCollected()
+        public void CassetteCollected(List<Vector3> portalPositions)
         {
             Mode = PlayerModes.ZONE;
+            Vector3 positionOffset = transform.position - portalPositions[0];
+            _controller.enabled = false;
+            transform.position = portalPositions[1] + positionOffset;
+            _controller.enabled = true;
         }
     }
 }
