@@ -7,6 +7,10 @@ public class CasetteController : MonoBehaviour
     [SerializeField] private float rotateSpeed = 1.0f;
     [SerializeField] private float bobSpeed = 1.0f;
     [SerializeField] private float bobRange = 1.0f;
+    [Space(10)]
+    [SerializeField] private float teleporterMaxSize = 10;
+    [SerializeField] private float teleporterGrowSpeed = 0.1f;
+    [SerializeField] private Transform teleporter = null;
     [SerializeField] private Transform receiver = null;
 
     private Vector3 startPos;
@@ -29,12 +33,27 @@ public class CasetteController : MonoBehaviour
         casetteModel.Rotate(Vector3.up, rotateSpeed * Time.deltaTime);
     }
 
+
+    Coroutine growRoutine = null;
+
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && growRoutine == null)
         {
+            other.SendMessage("TeleporterPositions", teleporterPositions);
+            StartCoroutine(TeleporterBigMode());
+        }
+    }
 
-            other.SendMessage("CassetteCollected", teleporterPositions);
+    IEnumerator TeleporterBigMode()
+    {
+        float t = 0;
+        while (t < 1)
+        {
+            t += teleporterGrowSpeed * Time.deltaTime;
+
+            teleporter.localScale = Vector3.Lerp(new Vector3(0.01f, 0.01f, 0.01f), new Vector3(teleporterMaxSize, teleporterMaxSize, teleporterMaxSize), t);
+            yield return null;
         }
     }
 }
