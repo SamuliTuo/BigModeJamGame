@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Cinemachine;
+using System.Collections.Generic;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -167,6 +168,7 @@ namespace StarterAssets
 
         private void Update()
         {
+            UpdatePlayerClone();
             if (Mode == PlayerModes.ZONE)
             {
                 _zoneModeController.UpdateZoneMode();
@@ -408,13 +410,37 @@ namespace StarterAssets
             }
         }
 
-        public void CassetteCollected(List<Vector3> portalPositions)
+
+        // Teleport effect to  M O D E : Z O N E
+        public Transform playerClone = null;
+        public CinemachineVirtualCamera camA = null;
+        public CinemachineVirtualCamera camB = null;
+        List<Vector3> portalPositions = new List<Vector3>();
+        public void TeleporterPositions(List<Vector3> portalPositions)
+        {
+            playerClone.gameObject.SetActive(true);
+            this.portalPositions = portalPositions;
+            MoveSpeed = SprintSpeed = 0.1f;
+        }
+        public void TeleportToZoneMode()
         {
             Mode = PlayerModes.ZONE;
             Vector3 positionOffset = transform.position - portalPositions[0];
             _controller.enabled = false;
+
+            //camA.ForceCameraPosition(camB.transform.position, camB.transform.rotation);
             transform.position = portalPositions[1] + positionOffset;
+            camA.PreviousStateIsValid = false;
             _controller.enabled = true;
+        }
+
+        void UpdatePlayerClone()
+        {
+            if (playerClone.gameObject.activeSelf)
+            {
+                playerClone.transform.position = transform.position + new Vector3(0, 0, 50);
+                playerClone.transform.rotation = transform.rotation;
+            }
         }
     }
 }
