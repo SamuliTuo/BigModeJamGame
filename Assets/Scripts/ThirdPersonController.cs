@@ -432,10 +432,14 @@ namespace StarterAssets
             transform.position = portalPositions[1] + positionOffset;
             camA.PreviousStateIsValid = false;
             _controller.enabled = true;
+            playerClone.gameObject.SetActive(false);
         }
 
         void UpdatePlayerClone()
         {
+            if (playerClone == null)
+                return;
+
             if (playerClone.gameObject.activeSelf)
             {
                 playerClone.transform.position = transform.position + new Vector3(0, 0, 50);

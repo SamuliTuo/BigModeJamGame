@@ -49,7 +49,6 @@ public class ZoneModeController : MonoBehaviour
     bool bafsf = false;
     public void UpdateZoneMode()
     {
-        print(transform.position);
         if (bafsf == false)
         {
             _animator.Play("ZoneMode");
