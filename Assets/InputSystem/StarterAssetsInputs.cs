@@ -13,6 +13,7 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool attack;
 		public bool ascend;
 		public bool descend;
 
@@ -43,6 +44,10 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+		public void OnAttack(InputValue value)
+		{
+			AttackInput(value.isPressed);
+		}
 		public void OnAscend(InputValue value)
 		{
 			AscendInput(value.isPressed);
@@ -70,7 +75,11 @@ namespace StarterAssets
 		{
 			sprint = newSprintState;
 		}
-		public void AscendInput(bool newAscendState)
+        public void AttackInput(bool newAttackState)
+        {
+            attack = newAttackState;
+        }
+        public void AscendInput(bool newAscendState)
 		{
 			ascend = newAscendState;
 		}
