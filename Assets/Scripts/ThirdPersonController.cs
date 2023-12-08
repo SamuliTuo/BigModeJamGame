@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 #endif
 
-/* Note: animations are called via the controller for both the character and capsule using animator null checks
- */
+//Note: animations are called via the controller for both the character and capsule using animator null checks
 
 public enum PlayerModes
 {
     NORMAL,
+    URBAN,
     ZONE,
 }
 
@@ -118,6 +119,7 @@ namespace StarterAssets
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
         private ZoneModeController _zoneModeController;
+        private PlayerAttacks _attacks;
 
         private const float _threshold = 0.01f;
 
@@ -155,6 +157,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
             _playerInput = GetComponent<PlayerInput>();
             _zoneModeController = GetComponent<ZoneModeController>();
+            _attacks = GetComponent<PlayerAttacks>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -180,10 +183,16 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            _attacks.UpdateAttacks();
         }
 
         private void LateUpdate()
         {
+            if (Mode == PlayerModes.ZONE)
+            {
+                _zoneModeController.UpdateZoneCamera();
+                return;
+            }
             CameraRotation();
         }
 
@@ -213,6 +222,9 @@ namespace StarterAssets
 
         private void CameraRotation()
         {
+            if (_zoneModeController.transitioning)
+                return;
+
             // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
@@ -421,6 +433,7 @@ namespace StarterAssets
             playerClone.gameObject.SetActive(true);
             this.portalPositions = portalPositions;
             MoveSpeed = SprintSpeed = 0.1f;
+            _zoneModeController.InitZoneMode();
         }
         public void TeleportToZoneMode()
         {
@@ -433,6 +446,7 @@ namespace StarterAssets
             camA.PreviousStateIsValid = false;
             _controller.enabled = true;
             playerClone.gameObject.SetActive(false);
+            _zoneModeController.ChangeCamera();
         }
 
         void UpdatePlayerClone()

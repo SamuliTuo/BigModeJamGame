@@ -1,13 +1,23 @@
+using Cinemachine;
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.Windows;
 
 public class ZoneModeController : MonoBehaviour
 {
+    [SerializeField] private GameObject CinemachineCameraTarget = null;
+    [SerializeField] private CinemachineVirtualCamera vCam1 = null;
+    [SerializeField] private CinemachineVirtualCamera vCam2 = null;
+    [SerializeField] private Camera cam1 = null;
+    [SerializeField] private Camera cam2 = null;
+    [SerializeField] private float transitionSpeed = 0.5f;
+    [SerializeField] private Vector3 cameraTargetDir = new Vector3(0, 0, 1);
+
     [SerializeField] private float moveSpeed = 1.0f;
     [SerializeField] private float sprintSpeed = 2.0f;
     [SerializeField] private float speedChangeRate = 1.0f;
@@ -20,6 +30,7 @@ public class ZoneModeController : MonoBehaviour
     [Tooltip("How fast the character turns to face movement direction")]
     [Range(0.0f, 0.3f)]
     public float RotationSmoothTime = 0.12f;
+    public bool transitioning = false;
 
     private Animator _animator;
     private CharacterController _controller;
@@ -32,6 +43,8 @@ public class ZoneModeController : MonoBehaviour
     private float _rotationVelocity;
     private float _verticalVelocity;
     private float _terminalVelocity = 53.0f;
+    private Vector2 _screenSize = Vector2.zero;
+    private Transform boundsCheckerXpos, boundsCheckerXneg, boundsCheckerYpos, boundsCheckerYneg;
 
 
     void Start()
@@ -43,9 +56,22 @@ public class ZoneModeController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _controller = GetComponent<CharacterController>();
         _input = GetComponent<StarterAssetsInputs>();
+
+        boundsCheckerXpos = transform.Find("zoneModeBoundsCheckers")?.GetChild(0);
+        boundsCheckerXneg = transform.Find("zoneModeBoundsCheckers")?.GetChild(1);
+        boundsCheckerYpos = transform.Find("zoneModeBoundsCheckers")?.GetChild(2);
+        boundsCheckerYneg = transform.Find("zoneModeBoundsCheckers")?.GetChild(3);  
     }
 
     
+    public void InitZoneMode()
+    {
+        print("init zone mode!");
+        _screenSize = new Vector2(Screen.width, Screen.height);
+        print(_screenSize);
+        StartCoroutine(TransitionCamera());
+    }
+
     bool bafsf = false;
     public void UpdateZoneMode()
     {
@@ -58,6 +84,74 @@ public class ZoneModeController : MonoBehaviour
         Move();
     }
 
+    public void UpdateZoneCamera() //called in LateUpdate
+    {
+        if (transitioning)
+            return;
+
+    }
+
+
+    IEnumerator TransitionCamera()
+    {
+        Quaternion startRot = CinemachineCameraTarget.transform.rotation;
+        Quaternion targetRot = Quaternion.LookRotation(cameraTargetDir);
+        transitioning = true;
+        float t = 0;
+        while (t < 1)
+        {
+            float perc = t * t * t * (t * (6f * t - 15f) + 10f);
+            CinemachineCameraTarget.transform.rotation = Quaternion.Slerp(startRot, targetRot, perc);
+            t += Time.deltaTime * transitionSpeed;
+            yield return null;
+        }
+        CinemachineCameraTarget.transform.rotation = targetRot;
+        t = 0;
+        Quaternion startRotation = transform.rotation;
+        while (t < 1)
+        {
+            float perc = t * t * t * (t * (6f * t - 15f) + 10f);
+            transform.localRotation = Quaternion.Slerp(startRotation, targetRot, perc);
+            t += Time.deltaTime * transitionSpeed;
+            yield return null;
+        }
+        transform.localRotation = targetRot;
+    }
+
+
+    public void ChangeCamera()
+    {
+        if (vCam1.gameObject.activeSelf)
+        {
+            cam1.GetComponent<Skybox>().material = cam2.GetComponent<Skybox>().material;
+            vCam1.gameObject.SetActive(false);
+            vCam2.gameObject.SetActive(true);
+            CinemachineCameraTarget.transform.parent = null;
+        }
+    }
+    /*
+    private void CameraRotation()
+    {
+        // if there is an input and camera position is not fixed
+        if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+        {
+            //Don't multiply mouse input by Time.deltaTime;
+            float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+
+            _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
+            _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+        }
+
+        // clamp our rotations so our values are limited 360 degrees
+        _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
+        _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+
+        // Cinemachine will follow this target
+        CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
+            _cinemachineTargetYaw, 0.0f);
+    }*/
+
+
     private void Move()
     {
         float targetSpeed = _input.sprint ? sprintSpeed : moveSpeed;
@@ -65,14 +159,14 @@ public class ZoneModeController : MonoBehaviour
         if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
         // a reference to the players current horizontal velocity
-        float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
+        float currentSpeed = new Vector3(_controller.velocity.x, _controller.velocity.y, 0).magnitude;
         float speedOffset = 0.1f;
         float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
         // accelerate or decelerate to target speed
-        if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
+        if (currentSpeed < targetSpeed - speedOffset || currentSpeed > targetSpeed + speedOffset)
         {
-            _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * speedChangeRate);
+            _speed = Mathf.Lerp(currentSpeed, targetSpeed * inputMagnitude, Time.deltaTime * speedChangeRate);
             // round speed to 3 decimal places
             _speed = Mathf.Round(_speed * 1000f) / 1000f;
         }
@@ -84,35 +178,20 @@ public class ZoneModeController : MonoBehaviour
         _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * speedChangeRate);
         if (_animationBlend < 0.01f) _animationBlend = 0f;
 
-        Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+        Vector3 inputDirection = new Vector3(_input.move.x, _input.move.y, 0).normalized;
+        //Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
-        if (_input.move != Vector2.zero)
-        {
-            _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                              _mainCamera.transform.eulerAngles.y;
-            float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-                RotationSmoothTime);
+        // Check for bounds
+        if (inputDirection.x > 0 && cam1.WorldToScreenPoint(boundsCheckerXpos.position).x >= _screenSize.x) inputDirection.x *= 0;
+        else if (inputDirection.x < 0 && cam1.WorldToScreenPoint(boundsCheckerXneg.position).x <= 0) inputDirection.x *= 0;
+        if (inputDirection.y > 0 && cam1.WorldToScreenPoint(boundsCheckerYpos.position).y >= _screenSize.y) inputDirection.y *= 0;
+        else if (inputDirection.y < 0 && cam1.WorldToScreenPoint(boundsCheckerYneg.position).y <= 0) inputDirection.y *= 0;
 
-            transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-        }
-
-
-        Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+        inputDirection = inputDirection.normalized;
         Vector3 oldVelo = _controller.velocity * Time.deltaTime;
-        Vector3 newVelo = Vector3.MoveTowards(oldVelo, targetDirection.normalized * (_speed * Time.deltaTime), velocityChangeRate) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime;
-
-        if (_input.ascend || _input.descend)
-        {
-            if (_input.ascend) 
-                _verticalVelocity = Mathf.MoveTowards(_verticalVelocity, ascendAndDescend_maxSpeed, ascendAndDescend_accelerate * Time.deltaTime);
-            if (_input.descend)
-                _verticalVelocity = Mathf.MoveTowards(_verticalVelocity, -ascendAndDescend_maxSpeed, ascendAndDescend_accelerate * Time.deltaTime);
-        }
-        else
-        {
-            _verticalVelocity = Mathf.MoveTowards(_verticalVelocity, 0, ascendAndDescend_decelerate * Time.deltaTime);
-        }
+        Vector3 newVelo = Vector3.MoveTowards(oldVelo, inputDirection * (_speed * Time.deltaTime), velocityChangeRate);// + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime;
 
         _controller.Move(newVelo);//targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+        //_controller.
     }
 }
