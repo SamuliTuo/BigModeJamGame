@@ -7,7 +7,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttacks : MonoBehaviour
 {
-    [SerializeField] private NormalAttackCollider attackCollider = null;
+    [SerializeField] private NormalAttackCollider attackCollider_normal = null;
+    [SerializeField] private UrbanAttackCollider attackCollider_urban = null;
+
+    [SerializeField] private float normalAttackColDuration = 0.2f;
+    [SerializeField] private float urbanAttackColDuration = 0.2f;
 
     private ThirdPersonController _controller;
     private Animator _animator;
@@ -21,7 +25,7 @@ public class PlayerAttacks : MonoBehaviour
     {
         _controller = GetComponent<ThirdPersonController>();
 
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
         _charController = GetComponent<CharacterController>();
         _input = GetComponent<StarterAssetsInputs>();
     }
@@ -36,34 +40,37 @@ public class PlayerAttacks : MonoBehaviour
         {
             if (_controller.Mode == PlayerModes.NORMAL)
             {
-                attackCollider.gameObject.SetActive(true);
-                attackCollider.InitAttack();
+                attackCollider_normal.gameObject.SetActive(true);
+                attackCollider_normal.InitAttack();
                 attacking = true;
+                _animator.Play("attack_normal");
                 StartCoroutine(NormalAttack());
             }
             else if (_controller.Mode == PlayerModes.URBAN)
             {
-
-            }
-            else if (_controller.Mode == PlayerModes.ZONE)
-            {
-
+                attackCollider_urban.gameObject.SetActive(true);
+                attackCollider_urban.InitAttack();
+                attacking = true;
+                _animator.Play("attack_urban");
+                StartCoroutine(UrbanAttack());
             }
             _input.attack = false;
         }
     }
 
-    private float normalAttackColDuration = 0.2f;
     IEnumerator NormalAttack()
     {
         yield return new WaitForSeconds(normalAttackColDuration);
         attacking = false;
-        attackCollider.StopAttack();
-        attackCollider.gameObject.SetActive(false);
+        attackCollider_normal.StopAttack();
+        attackCollider_normal.gameObject.SetActive(false);
     }
     IEnumerator UrbanAttack()
     {
-        yield return null;
+        yield return new WaitForSeconds(urbanAttackColDuration);
+        attacking = false;
+        attackCollider_urban.StopAttack();
+        attackCollider_urban.gameObject.SetActive(false);
     }
     IEnumerator ZoneAttack()
     {

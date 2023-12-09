@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147aa466389fcdf4fb9fabec26799773, type: 3}
+  m_Name: ZoneLevel_00
+  m_EditorClassIdentifier: 
+  levelLengthInSeconds: 120
+  obstacles:
+  - obstacleTime: 3
+    obstacleTimeToReachPlayer: 2
+    obstaclePrefab: {fileID: 8236325371729507922, guid: 588a4b8679491b047a62db11b225a2a7,
+      type: 3}
+    wallColor: {r: 0, g: 0, b: 0, a: 0}
+    obstacleScreenPos_y: 0.234
+    obstacleScreenPos_X: 0.24
+  melons: []

@@ -14,8 +14,9 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 		public bool attack;
-		public bool ascend;
-		public bool descend;
+        public bool attack2;
+        public bool changeModeUp;
+		public bool changeModeDown;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -48,13 +49,17 @@ namespace StarterAssets
 		{
 			AttackInput(value.isPressed);
 		}
-		public void OnAscend(InputValue value)
-		{
-			AscendInput(value.isPressed);
-		}
-        public void OnDescend(InputValue value)
+        public void OnAttack2(InputValue value)
         {
-            DescendInput(value.isPressed);
+            Attack2Input(value.isPressed);
+        }
+        public void OnChangeModeUp(InputValue value)
+		{
+            ChangeModeUpInput(value.isPressed);
+		}
+        public void OnChangeModeDown(InputValue value)
+        {
+            ChangeModeDownInput(value.isPressed);
         }
 #endif
 
@@ -79,13 +84,17 @@ namespace StarterAssets
         {
             attack = newAttackState;
         }
-        public void AscendInput(bool newAscendState)
+        public void Attack2Input(bool newAttackState)
+        {
+            attack2 = newAttackState;
+        }
+        public void ChangeModeUpInput(bool newAscendState)
 		{
-			ascend = newAscendState;
+            changeModeUp = newAscendState;
 		}
-		public void DescendInput(bool newDescendState)
+		public void ChangeModeDownInput(bool newDescendState)
 		{
-			descend = newDescendState;
+			changeModeDown = newDescendState;
 		}
 		private void OnApplicationFocus(bool hasFocus)
 		{
