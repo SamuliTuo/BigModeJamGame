@@ -53,7 +53,7 @@ public class ZoneModeController : MonoBehaviour
         {
             _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         }
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
         _controller = GetComponent<CharacterController>();
         _input = GetComponent<StarterAssetsInputs>();
 

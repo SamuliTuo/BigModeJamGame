@@ -9,7 +9,7 @@ public class PlayerClone_SyncAnimations : MonoBehaviour
 
     private void Awake()
     {
-        animSync = GameObject.Find("Player").GetComponent<Animator>();
+        animSync = GameObject.Find("Player").GetComponentInChildren<Animator>();
         animator = GetComponent<Animator>();
     }
 
