@@ -1,8 +1,10 @@
 ﻿using Cinemachine;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.Rendering;
 #endif
 
@@ -12,7 +14,11 @@ public enum PlayerModes
 {
     NORMAL,
     URBAN,
-    ZONE,
+}
+public enum PlayerBigModes
+{
+    NORMAL,
+    ZONE
 }
 
 namespace StarterAssets
@@ -26,7 +32,20 @@ namespace StarterAssets
         [Header("Player")]
 
         [Tooltip("How the player controls.")]
-        public PlayerModes Mode = PlayerModes.NORMAL;
+        [HideInInspector] public PlayerModes Mode = PlayerModes.NORMAL;
+        [HideInInspector] public PlayerBigModes BigMode = PlayerBigModes.NORMAL;
+        [HideInInspector] public List<PlayerModes> unlockedModes = new List<PlayerModes>();
+        [Header("NORMAL mode stats:")]
+        public float moveSpeed_normal = 1.0f;
+        public float sprintSpeed_normal = 2.0f;
+        public float jumpHeight_normal = 1.0f;
+        public float animSpeedMultiplier_normal = 1.0f;
+        [Header("URBAN mode stats:")]
+        public float moveSpeed_urban = 1.0f;
+        public float sprintSpeed_urban = 2.0f;
+        public float jumpHeight_urban = 1.0f;
+        public float animSpeedMultiplier_urban = 0.5f;
+        [Space(50)]
 
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -121,11 +140,11 @@ namespace StarterAssets
         private ZoneModeController _zoneModeController;
         private PlayerAttacks _attacks;
 
-        private const float _threshold = 0.01f;
+        public float _threshold = 0.01f;
 
         private bool _hasAnimator;
 
-        private bool IsCurrentDeviceMouse
+        public bool IsCurrentDeviceMouse
         {
             get
             {
@@ -159,6 +178,10 @@ namespace StarterAssets
             _playerInput = GetComponent<PlayerInput>();
             _zoneModeController = GetComponent<ZoneModeController>();
             _attacks = GetComponent<PlayerAttacks>();
+            unlockedModes.Add(PlayerModes.NORMAL);
+            unlockedModes.Add(PlayerModes.URBAN);
+            Mode = PlayerModes.NORMAL;
+            SetStatsByMode();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -173,7 +196,7 @@ namespace StarterAssets
         private void Update()
         {
             UpdatePlayerClone();
-            if (Mode == PlayerModes.ZONE)
+            if (BigMode == PlayerBigModes.ZONE)
             {
                 _zoneModeController.UpdateZoneMode();
                 return;
@@ -185,11 +208,12 @@ namespace StarterAssets
             GroundedCheck();
             Move();
             _attacks.UpdateAttacks();
+            ChangeMode();
         }
 
         private void LateUpdate()
         {
-            if (Mode == PlayerModes.ZONE)
+            if (BigMode == PlayerBigModes.ZONE)
             {
                 _zoneModeController.UpdateZoneCamera();
                 return;
@@ -308,10 +332,13 @@ namespace StarterAssets
             // update animator if using character
             if (_hasAnimator)
             {
-                _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+                
+                _animator.SetFloat(_animIDSpeed, _animationBlend * animSpeedMultiplier);
+                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude * animSpeedMultiplier);
             }
         }
+
+        float animSpeedMultiplier = 1;
 
         private void JumpAndGravity()
         {
@@ -429,6 +456,8 @@ namespace StarterAssets
         public CinemachineVirtualCamera camA = null;
         public CinemachineVirtualCamera camB = null;
         List<Vector3> portalPositions = new List<Vector3>();
+
+        [SerializeField] private ZoneLevelScriptable testLevel = null;
         public void TeleporterPositions(List<Vector3> portalPositions)
         {
             playerClone.gameObject.SetActive(true);
@@ -438,7 +467,7 @@ namespace StarterAssets
         }
         public void TeleportToZoneMode()
         {
-            Mode = PlayerModes.ZONE;
+            BigMode = PlayerBigModes.ZONE;
             Vector3 positionOffset = transform.position - portalPositions[0];
             _controller.enabled = false;
 
@@ -448,6 +477,7 @@ namespace StarterAssets
             _controller.enabled = true;
             playerClone.gameObject.SetActive(false);
             _zoneModeController.ChangeCamera();
+            ZoneLevelController.instance.StartZoneModeLevel(testLevel);
         }
 
         void UpdatePlayerClone()
@@ -459,6 +489,53 @@ namespace StarterAssets
             {
                 playerClone.transform.position = transform.position + new Vector3(0, 0, 50);
                 playerClone.transform.rotation = transform.rotation;
+            }
+        }
+
+
+        void ChangeMode()
+        {
+            //print("mode number: " + ((int)Mode) + ",  total number of modes" + System.Enum.GetNames(typeof(PlayerModes)).Length);
+            if (unlockedModes.Count > 1)
+            {
+                if (_input.changeModeUp == true)
+                {
+                    Mode++;
+                    if (((int)Mode) >= System.Enum.GetNames(typeof(PlayerModes)).Length)
+                    {
+                        Mode = 0;
+                    }
+                    _input.changeModeUp = _input.changeModeDown = false;
+                }
+
+                else if (_input.changeModeDown == true)
+                {
+                    Mode--;
+                    if ((int)Mode < 0)
+                    {
+                        Mode = PlayerModes.URBAN;
+                    }
+                    _input.changeModeUp = _input.changeModeDown = false;
+                }
+            }
+            SetStatsByMode();
+        }
+
+        void SetStatsByMode()
+        {
+            if (Mode == PlayerModes.NORMAL)
+            {
+                MoveSpeed = moveSpeed_normal;
+                SprintSpeed = sprintSpeed_normal;
+                JumpHeight = jumpHeight_normal;
+                animSpeedMultiplier = animSpeedMultiplier_normal;
+            }
+            else if (Mode == PlayerModes.URBAN)
+            {
+                MoveSpeed = moveSpeed_urban;
+                SprintSpeed = sprintSpeed_urban;
+                JumpHeight = jumpHeight_urban;
+                animSpeedMultiplier = animSpeedMultiplier_urban;
             }
         }
     }

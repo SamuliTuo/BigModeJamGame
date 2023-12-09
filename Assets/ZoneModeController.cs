@@ -34,6 +34,7 @@ public class ZoneModeController : MonoBehaviour
 
     private Animator _animator;
     private CharacterController _controller;
+    private ThirdPersonController _control;
     private StarterAssetsInputs _input;
     private GameObject _mainCamera;
 
@@ -55,6 +56,7 @@ public class ZoneModeController : MonoBehaviour
         }
         _animator = GetComponentInChildren<Animator>();
         _controller = GetComponent<CharacterController>();
+        _control = GetComponent<ThirdPersonController>();
         _input = GetComponent<StarterAssetsInputs>();
 
         boundsCheckerXpos = transform.Find("zoneModeBoundsCheckers")?.GetChild(0);
@@ -66,21 +68,14 @@ public class ZoneModeController : MonoBehaviour
     
     public void InitZoneMode()
     {
-        print("init zone mode!");
+        _animator.CrossFade("zone_mid", 0.5f);
         _screenSize = new Vector2(Screen.width, Screen.height);
-        print(_screenSize);
         StartCoroutine(TransitionCamera());
     }
 
-    bool bafsf = false;
     public void UpdateZoneMode()
     {
-        if (bafsf == false)
-        {
-            _animator.Play("ZoneMode");
-            bafsf = true;
-        }
-
+        UpdatePose();
         Move();
     }
 
@@ -193,5 +188,70 @@ public class ZoneModeController : MonoBehaviour
 
         _controller.Move(newVelo);//targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
         //_controller.
+    }
+
+
+    private enum poses { MID, UP, DOWN, LEFT, RIGHT }
+    private poses pose = poses.MID;
+    void UpdatePose()
+    {
+        if (_control.IsCurrentDeviceMouse)
+        {
+            if (_input.attack2 && pose != poses.MID)
+            {
+                pose = poses.MID;
+                _animator.CrossFade("zone_mid", 0.3f, 0, 0);
+                _input.attack2 = false;
+            }
+            if (_input.look.sqrMagnitude >= _control._threshold)
+            {
+                DetermineZoneDir();
+            }
+            
+        }
+        else
+        {
+            if (_input.look.sqrMagnitude >= _control._threshold)
+            {
+                DetermineZoneDir();
+            }
+            else if (pose != poses.MID)
+            {
+                pose = poses.MID;
+                _animator.CrossFade("zone_mid", 0.3f, 0, 0);
+            }
+        }   
+    }
+
+    void DetermineZoneDir()
+    {
+        float x = _input.look.x;
+        float y = _input.look.y;
+        if (Mathf.Abs(x) > Mathf.Abs(y))
+        {
+            if (x < 0 && pose != poses.LEFT)
+            {
+                pose = poses.LEFT;
+                _animator.CrossFade("zone_left", 0.3f, 0, 0);
+            }
+            else if (x > 0 && pose != poses.RIGHT)
+            {
+                pose = poses.RIGHT;
+                _animator.CrossFade("zone_right", 0.3f, 0, 0);
+            }
+        }
+        else if (Mathf.Abs(y) > Mathf.Abs(x))
+        {
+            if (y < 0 && pose != poses.UP)
+            {
+                pose = poses.UP;
+                _animator.CrossFade("zone_up", 0.3f, 0, 0);
+            }
+            else if (y > 0 && pose != poses.DOWN)
+            {
+                pose = poses.DOWN;
+                _animator.CrossFade("zone_down", 0.3f, 0, 0);
+            }
+        }
     }
 }
