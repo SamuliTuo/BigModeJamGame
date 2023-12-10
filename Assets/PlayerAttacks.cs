@@ -81,20 +81,4 @@ public class PlayerAttacks : MonoBehaviour
     }
 
 
-    // For stomping purposes
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        print(hit.collider.tag);
-        if (hit.collider.CompareTag("EnemyStomper"))
-        {
-            print("vihu osu");
-            hit.gameObject.GetComponent<EnemyStompCollider>()?.GetStompedOn();
-            _controller.StompJump();
-        }
-
-        if (hit.collider.CompareTag("Enemy"))
-        {
-            _controller.GotHit();
-        }
-    }
 }
