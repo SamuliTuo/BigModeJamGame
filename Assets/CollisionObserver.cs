@@ -30,10 +30,19 @@ public class CollisionObserver : MonoBehaviour
         {
             _controller.GotHit();
         }
+    }
 
-        else if (hit.collider.CompareTag("Melon"))
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Melon"))
         {
-            //_objectCollector.CollectMelon();
+            MelonController m = other.gameObject.GetComponentInParent<MelonController>();
+            if (m != null && m.wasCollected == false)
+            {
+                _objectCollector.CollectMelon(m);
+                m.ThisWasCollected();
+            }
+
         }
     }
 }
