@@ -9,6 +9,7 @@ public class ZoneLevelController : MonoBehaviour
     public Transform levelOrientation;
     public Vector2 screenSize;
     public Camera cam;
+    public Material holyWallMat;
 
     public static ZoneLevelController instance { get; private set; }
 
@@ -75,12 +76,21 @@ public class ZoneLevelController : MonoBehaviour
         Vector3 endpos = zoneLevelMidPoint.position + offset;
 
         GameObject clone = Instantiate(obstacle.obstaclePrefab, startpos, Quaternion.LookRotation(levelOrientation.up));
-        var wallMesh = CreateMesh(clone, playerDistFromCamera);
+        CreateMesh(clone, playerDistFromCamera);
+        var m = clone.GetComponent<MeshRenderer>();
+        var m2 = clone.transform.GetChild(0).GetComponent<MeshRenderer>();
+        m.material = holyWallMat;
+        m2.material = holyWallMat;
+        m.material.color = obstacle.wallColor;
+        m2.material.color = obstacle.wallColor;
+
+
         float t = 0;
+
 
         while (t < obstacle.obstacleTimeToReachPlayer)
         {
-            clone.transform.position = Vector3.Lerp(startpos, zoneLevelMidPoint.position, t / obstacle.obstacleTimeToReachPlayer);
+            clone.transform.position = Vector3.Lerp(startpos + offset, zoneLevelMidPoint.position + offset, t / obstacle.obstacleTimeToReachPlayer);
             t += Time.deltaTime;
             yield return null;
         }
@@ -130,7 +140,7 @@ public class ZoneLevelController : MonoBehaviour
             wallHole.transform.InverseTransformPoint(new Vector3(botLeftPoint.x, bounds.max.y, posZ)),
             wallHole.transform.InverseTransformPoint(new Vector3(botLeftPoint.x, topRightPoint.y, posZ)),
             wallHole.transform.InverseTransformPoint(new Vector3(topRightPoint.x, bounds.max.y, posZ)),
-            wallHole.transform.InverseTransformPoint(topRightPoint),
+            wallHole.transform.InverseTransformPoint(new Vector3(topRightPoint.x, topRightPoint.y, posZ)),
 
             wallHole.transform.InverseTransformPoint(new Vector3(botLeftPoint.x, bounds.min.y, posZ)),
             wallHole.transform.InverseTransformPoint(new Vector3(botLeftPoint.x, bounds.max.y, posZ)),
@@ -142,7 +152,7 @@ public class ZoneLevelController : MonoBehaviour
             wallHole.transform.InverseTransformPoint(new Vector3(topRightPoint.x, bounds.min.y, posZ)),
             wallHole.transform.InverseTransformPoint(new Vector3(topRightPoint.x, bounds.max.y, posZ)),
 
-            wallHole.transform.InverseTransformPoint(botLeftPoint),
+            wallHole.transform.InverseTransformPoint(new Vector3(botLeftPoint.x, botLeftPoint.y, posZ)),
             wallHole.transform.InverseTransformPoint(new Vector3(botLeftPoint.x, bounds.min.y, posZ)),
             wallHole.transform.InverseTransformPoint(new Vector3(topRightPoint.x, botLeftPoint.y, posZ)),
             wallHole.transform.InverseTransformPoint(new Vector3(topRightPoint.x, bounds.min.y, posZ)),

@@ -36,16 +36,21 @@ namespace StarterAssets
         [HideInInspector] public PlayerBigModes BigMode = PlayerBigModes.NORMAL;
         [HideInInspector] public List<PlayerModes> unlockedModes = new List<PlayerModes>();
         public float jumpHeight_stomp = 1.0f;
+
+
         [Header("NORMAL mode stats:")]
         public float moveSpeed_normal = 1.0f;
         public float sprintSpeed_normal = 2.0f;
         public float jumpHeight_normal = 1.0f;
         public float animSpeedMultiplier_normal = 1.0f;
+        public AnimatorOverrideController aoc_sicko;
+
         [Header("URBAN mode stats:")]
         public float moveSpeed_urban = 1.0f;
         public float sprintSpeed_urban = 2.0f;
         public float jumpHeight_urban = 1.0f;
         public float animSpeedMultiplier_urban = 0.5f;
+        public AnimatorOverrideController aoc_urban;
         [Space(50)]
 
         [Tooltip("Move speed of the character in m/s")]
@@ -512,6 +517,7 @@ namespace StarterAssets
                         Mode = 0;
                     }
                     _input.changeModeUp = _input.changeModeDown = false;
+                    SetStatsByMode();
                 }
 
                 else if (_input.changeModeDown == true)
@@ -522,15 +528,25 @@ namespace StarterAssets
                         Mode = PlayerModes.URBAN;
                     }
                     _input.changeModeUp = _input.changeModeDown = false;
+                    SetStatsByMode();
                 }
             }
-            SetStatsByMode();
         }
+        /*        // idk why but it works only like this :/ (at least it works)
+        AnimatorOverrideController aoc = new AnimatorOverrideController(this.myAnimator.runtimeAnimatorController);
+        aoc[myAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name] = GetAnimationClip;
+        myAnimator.runtimeAnimatorController = aoc;
 
+        AnimatorOverrideController aoc2 = new AnimatorOverrideController(this.myAnimator.runtimeAnimatorController);
+        aoc2[myAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name] = GetAnimationClip;
+        myAnimator.runtimeAnimatorController = aoc2;
+        */
         void SetStatsByMode()
         {
             if (Mode == PlayerModes.NORMAL)
             {
+                print("CHANGING TO SICKO");
+                _animator.runtimeAnimatorController = aoc_sicko;
                 MoveSpeed = moveSpeed_normal;
                 SprintSpeed = sprintSpeed_normal;
                 JumpHeight = jumpHeight_normal;
@@ -538,6 +554,8 @@ namespace StarterAssets
             }
             else if (Mode == PlayerModes.URBAN)
             {
+                print("CHANGING TO URBAN");
+                _animator.runtimeAnimatorController = aoc_urban;
                 MoveSpeed = moveSpeed_urban;
                 SprintSpeed = sprintSpeed_urban;
                 JumpHeight = jumpHeight_urban;
@@ -555,6 +573,11 @@ namespace StarterAssets
             _verticalVelocity = Mathf.Sqrt(jumpHeight_stomp * -2f * Gravity);
             _animator.SetBool(_animIDJump, true);
             _animator.Play("JumpStart");
+        }
+
+        void SetAnimations(AnimatorOverrideController aoc)
+        {
+            //&&_animator.runtimeAnimatorController
         }
     }
 }
