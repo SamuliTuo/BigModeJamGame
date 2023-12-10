@@ -11,19 +11,8 @@ public class EnemyStompCollider : MonoBehaviour
         controller = GetComponentInParent<EnemyController_basic>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GetStompedOn()
     {
-        
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        print(collision.collider.tag);
-        if (collision.collider.CompareTag("Player"))
-        {
-            //collision.collider push up
-            controller.GotStompedOn();
-        }
+        controller.GotStompedOn();
     }
 }

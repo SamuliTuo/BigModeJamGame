@@ -35,6 +35,7 @@ namespace StarterAssets
         [HideInInspector] public PlayerModes Mode = PlayerModes.NORMAL;
         [HideInInspector] public PlayerBigModes BigMode = PlayerBigModes.NORMAL;
         [HideInInspector] public List<PlayerModes> unlockedModes = new List<PlayerModes>();
+        public float jumpHeight_stomp = 1.0f;
         [Header("NORMAL mode stats:")]
         public float moveSpeed_normal = 1.0f;
         public float sprintSpeed_normal = 2.0f;
@@ -542,6 +543,18 @@ namespace StarterAssets
                 JumpHeight = jumpHeight_urban;
                 animSpeedMultiplier = animSpeedMultiplier_urban;
             }
+        }
+
+        public void GotHit()
+        {
+            Destroy(gameObject);
+        }
+
+        public void StompJump()
+        {
+            _verticalVelocity = Mathf.Sqrt(jumpHeight_stomp * -2f * Gravity);
+            _animator.SetBool(_animIDJump, true);
+            _animator.Play("JumpStart");
         }
     }
 }
