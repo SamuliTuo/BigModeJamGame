@@ -1834,8 +1834,8 @@ GameObject:
   - component: {fileID: 7414656372583203723}
   - component: {fileID: 6505583267318489083}
   - component: {fileID: 7423176136835601704}
-  - component: {fileID: 5885216829670671797}
   - component: {fileID: 5885216829670671796}
+  - component: {fileID: 5885216829670671797}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -2128,20 +2128,6 @@ MonoBehaviour:
   normalAttackColDuration: 0.4
   urbanAttackColDuration: 0.2
   kickPushForce: 10
---- !u!114 &5885216829670671797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6505583267318489079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0d26f067e8b4b349892c22e59d22b6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collectSpeed: 1
-  melons: 0
 --- !u!114 &5885216829670671796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2154,6 +2140,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103a0042ffd31f84885c95aa0c93c6a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5885216829670671797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6505583267318489079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0d26f067e8b4b349892c22e59d22b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectSpeed: 8
+  collectFlySpeed: 4
+  melons: 0
+  lootPosXOffset: 0.065
+  lootPosYOffset: 0.875
+  melonPrefab: {fileID: 5110993054315109847, guid: 21c54276d8fdb6d4596d4f257995e254,
+    type: 3}
+  cam: {fileID: 0}
 --- !u!1 &6576462718924178724
 GameObject:
   m_ObjectHideFlags: 0
