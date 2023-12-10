@@ -1903,10 +1903,12 @@ MonoBehaviour:
   sprintSpeed_normal: 9
   jumpHeight_normal: 0.9
   animSpeedMultiplier_normal: 1
+  aoc_sicko: {fileID: 22100000, guid: 7833d17183a00af4083e11ba35896dd9, type: 2}
   moveSpeed_urban: 2
   sprintSpeed_urban: 3
   jumpHeight_urban: 2.3
   animSpeedMultiplier_urban: 0.65
+  aoc_urban: {fileID: 22100000, guid: 130e93748471967428bc41ee9af23ae4, type: 2}
   MoveSpeed: 4
   SprintSpeed: 9
   RotationSmoothTime: 0.045

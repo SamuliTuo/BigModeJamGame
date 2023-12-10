@@ -29,9 +29,17 @@ public class NormalAttackCollider : MonoBehaviour
         if (!hitObjects.Contains(other.gameObject) && !other.CompareTag("Player"))
         {
             hitObjects.Add(other.gameObject);
+
+            // boxes
             if (other.CompareTag("Breakable"))
             {
                 other.GetComponent<BreakableObject>().DestroyMe();
+            }
+
+            // enemies
+            if (other.CompareTag("Enemy"))
+            {
+                other.GetComponentInParent<EnemyController_basic>().GotAttacked();
             }
         }
     }
