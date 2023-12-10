@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 
 public class PlayerAttacks : MonoBehaviour
 {
@@ -77,5 +78,23 @@ public class PlayerAttacks : MonoBehaviour
     IEnumerator ZoneAttack()
     {
         yield return null;
+    }
+
+
+    // For stomping purposes
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        print(hit.collider.tag);
+        if (hit.collider.CompareTag("EnemyStomper"))
+        {
+            print("vihu osu");
+            hit.gameObject.GetComponent<EnemyStompCollider>()?.GetStompedOn();
+            _controller.StompJump();
+        }
+
+        if (hit.collider.CompareTag("Enemy"))
+        {
+            _controller.GotHit();
+        }
     }
 }
