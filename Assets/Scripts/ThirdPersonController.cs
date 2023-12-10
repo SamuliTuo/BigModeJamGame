@@ -303,7 +303,12 @@ namespace StarterAssets
                 _speed = targetSpeed;
             }
 
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+            float aBlend = targetSpeed;
+            if (Mode == PlayerModes.URBAN)
+            {
+                aBlend *= 2.3f;
+            }
+            _animationBlend = Mathf.Lerp(_animationBlend, aBlend, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             // normalise input direction

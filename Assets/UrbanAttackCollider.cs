@@ -7,14 +7,18 @@ public class UrbanAttackCollider : MonoBehaviour
     private PlayerAttacks attScript;
     private List<GameObject> hitObjects = new List<GameObject>();
     private bool attacking = false;
+    private Transform root;
+    float pushForce;
 
     private void Start()
     {
         attScript = GetComponentInParent<PlayerAttacks>();
+        root = transform.parent;
     }
 
-    public void InitAttack()
+    public void InitAttack(float pushForce)
     {
+        this.pushForce = pushForce;
         attacking = true;
         hitObjects.Clear();
     }
@@ -31,7 +35,7 @@ public class UrbanAttackCollider : MonoBehaviour
             hitObjects.Add(other.gameObject);
             if (other.CompareTag("Breakable"))
             {
-                other.GetComponent<BreakableObject>().DestroyMe();
+                other.GetComponent<BreakableObject>().PushMe(root.position + Vector3.up * 0.65f, pushForce);
             }
         }
     }

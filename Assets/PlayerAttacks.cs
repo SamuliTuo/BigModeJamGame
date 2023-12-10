@@ -13,6 +13,8 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField] private float normalAttackColDuration = 0.2f;
     [SerializeField] private float urbanAttackColDuration = 0.2f;
 
+    [SerializeField] private float kickPushForce = 1.0f;
+
     private ThirdPersonController _controller;
     private Animator _animator;
     private CharacterController _charController;
@@ -49,7 +51,7 @@ public class PlayerAttacks : MonoBehaviour
             else if (_controller.Mode == PlayerModes.URBAN)
             {
                 attackCollider_urban.gameObject.SetActive(true);
-                attackCollider_urban.InitAttack();
+                attackCollider_urban.InitAttack(kickPushForce);
                 attacking = true;
                 _animator.Play("attack_urban");
                 StartCoroutine(UrbanAttack());
