@@ -33,7 +33,7 @@ public class CollisionObserver : MonoBehaviour
 
         else if (hit.collider.CompareTag("Melon"))
         {
-            _objectCollector.CollectMelon();
+            //_objectCollector.CollectMelon();
         }
     }
 }
