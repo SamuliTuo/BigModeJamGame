@@ -1901,12 +1901,12 @@ MonoBehaviour:
   jumpHeight_stomp: 2
   moveSpeed_normal: 4
   sprintSpeed_normal: 9
-  jumpHeight_normal: 0.9
+  jumpHeight_normal: 1.2
   animSpeedMultiplier_normal: 1
   aoc_sicko: {fileID: 22100000, guid: 7833d17183a00af4083e11ba35896dd9, type: 2}
   moveSpeed_urban: 2
   sprintSpeed_urban: 3
-  jumpHeight_urban: 2.3
+  jumpHeight_urban: 3
   animSpeedMultiplier_urban: 0.65
   aoc_urban: {fileID: 22100000, guid: 130e93748471967428bc41ee9af23ae4, type: 2}
   MoveSpeed: 4
@@ -1974,6 +1974,7 @@ MonoBehaviour:
   ascendAndDescend_decelerate: 2
   RotationSmoothTime: 0.154
   transitioning: 0
+  fadeSpeed: 0.1
 --- !u!114 &3938423008057996551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2011,6 +2012,7 @@ MonoBehaviour:
   attack2: 0
   changeModeUp: 0
   changeModeDown: 0
+  pause: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1

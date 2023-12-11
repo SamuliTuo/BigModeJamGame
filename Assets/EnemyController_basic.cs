@@ -12,12 +12,13 @@ public class EnemyController_basic : MonoBehaviour
     [SerializeField] private Animator animator = null;
     [SerializeField] private bool useMoveAnticipation = false;
     [SerializeField] private float anticipationTime = 0.0f;
+    [SerializeField] private audios movesound = audios.None;
 
     public List<Vector3> targets;
     int currentTarget = -1;
     Coroutine moveRoutine = null;
     private Collider col;
-    bool dead;
+    public bool dead;
 
     void Start()
     {
@@ -61,6 +62,7 @@ public class EnemyController_basic : MonoBehaviour
 
         t = 0;
         animator.Play("move", 0, 0);
+        AudioManager.instance.PlayClip(movesound, transform.position);
         while (t < maxT)
         {
             perc = t / maxT;
@@ -77,7 +79,6 @@ public class EnemyController_basic : MonoBehaviour
 
         if (timeBetweenMoves > 0)
         {
-            print("asd");
             animator.CrossFade("idle",0.2f,0,0);
             t = 0;
             while (t < timeBetweenMoves)
@@ -103,6 +104,7 @@ public class EnemyController_basic : MonoBehaviour
         {
             dead = true;
             animator.Play("die", 0);
+            AudioManager.instance.PlayClip(audios.WALRUS_DIE, transform.position);
             StopCoroutine(moveRoutine);
             StartCoroutine(Die());
         }
@@ -113,6 +115,7 @@ public class EnemyController_basic : MonoBehaviour
         {
             dead = true;
             animator.Play("squash", 0);
+            AudioManager.instance.PlayClip(audios.WALRUS_SQUASH, transform.position);
             StopCoroutine(moveRoutine);
             StartCoroutine(Die());
         }

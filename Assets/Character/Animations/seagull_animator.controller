@@ -20,7 +20,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 2845759425010373711, guid: 21f8ce9a6125cc44cb94c0d10990eb4c,
+  m_Motion: {fileID: 2845759425010373711, guid: b0d5d1d0a10648243ae958c360f0f09b,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -47,7 +47,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -1978303741906493279, guid: 21f8ce9a6125cc44cb94c0d10990eb4c,
+  m_Motion: {fileID: -1978303741906493279, guid: b0d5d1d0a10648243ae958c360f0f09b,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -74,7 +74,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -9131349657557742433, guid: 21f8ce9a6125cc44cb94c0d10990eb4c,
+  m_Motion: {fileID: -9131349657557742433, guid: b0d5d1d0a10648243ae958c360f0f09b,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -101,7 +101,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 8083788445550533016, guid: 21f8ce9a6125cc44cb94c0d10990eb4c,
+  m_Motion: {fileID: 8083788445550533016, guid: b0d5d1d0a10648243ae958c360f0f09b,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -114,7 +114,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: walrus_animator
+  m_Name: seagull_animator
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -150,7 +150,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 5220095499171558488, guid: 21f8ce9a6125cc44cb94c0d10990eb4c,
+  m_Motion: {fileID: 4725641289965140018, guid: b0d5d1d0a10648243ae958c360f0f09b,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 

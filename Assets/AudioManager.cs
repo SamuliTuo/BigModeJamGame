@@ -11,7 +11,7 @@ public enum audios
     None = 0,
     BGM_CRASH, BGM_ZONE1, BGM_URBAN, BGM_ZONE2, BGM_BOSS1, BGN_BOSS_ZONE,
     PAUSE, BUTTON_CLICK,
-    WALRUS_SLIDE,
+    WALRUS_SLIDE, WALRUS_SQUASH, WALRUS_DIE,
     MELON
 }
 public class AudioManager : MonoBehaviour
@@ -33,6 +33,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource pauseButton = null;
     [SerializeField] private AudioSource buttonClick = null;
     [SerializeField] private AudioSource walrus_slide = null;
+    [SerializeField] private AudioSource walrus_squash = null;
+    [SerializeField] private AudioSource walrus_die = null;
     [SerializeField] private AudioSource melon = null;
     [SerializeField] private List<AudioClip> melons = null;
 
@@ -91,6 +93,8 @@ public class AudioManager : MonoBehaviour
         audioLibrary.Add(audios.PAUSE, pauseButton);
         audioLibrary.Add(audios.BUTTON_CLICK, buttonClick);
         audioLibrary.Add(audios.WALRUS_SLIDE, walrus_slide);
+        audioLibrary.Add(audios.WALRUS_SQUASH, walrus_squash);
+        audioLibrary.Add(audios.WALRUS_DIE, walrus_die);  
     }
 
     void PlayMelon()
