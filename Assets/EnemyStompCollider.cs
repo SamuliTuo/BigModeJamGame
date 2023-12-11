@@ -13,6 +13,6 @@ public class EnemyStompCollider : MonoBehaviour
 
     public void GetStompedOn()
     {
-        controller.GotAttacked();
+        controller.GotStomped();
     }
 }
