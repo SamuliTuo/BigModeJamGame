@@ -37,7 +37,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private List<AudioClip> melons = null;
 
     private Dictionary<audios, AudioSource> audioLibrary = new Dictionary<audios, AudioSource>();
-    private bool paused = false;
     private float volume_SFX;
     private float volume_BGM;
 
@@ -75,16 +74,15 @@ public class AudioManager : MonoBehaviour
 
     public void Pause()
     {
-        if (!paused)
-        {
-            paused = true;
-            snapshot_paused.TransitionTo(3);
-        }
-        else if (paused)
-        {
-            paused = false;
-            snapshot_unpaused.TransitionTo(3);
-        }
+        bgm_player_1.Pause();
+        bgm_player_2.Pause();
+        snapshot_paused.TransitionTo(0);
+    }
+    public void UnPause()
+    {
+        snapshot_unpaused.TransitionTo(0);
+        bgm_player_1.UnPause();
+        bgm_player_2.UnPause();
     }
     
     private void PopulateAudioLibrary()

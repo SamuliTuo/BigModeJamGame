@@ -8,6 +8,8 @@ namespace StarterAssets
 {
 	public class StarterAssetsInputs : MonoBehaviour
 	{
+		public PlayerInput playerInput;
+
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
@@ -18,6 +20,7 @@ namespace StarterAssets
         public bool changeModeUp;
 		public bool changeModeDown;
 		public bool pause;
+		public bool unPause;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -30,6 +33,10 @@ namespace StarterAssets
         public void OnPause(InputValue value)
 		{
 			PauseInput(value.isPressed);
+		}
+		public void OnUnPause(InputValue value)
+		{
+			UnPauseInput(value.isPressed);
 		}
         public void OnMove(InputValue value)
 		{
@@ -73,6 +80,10 @@ namespace StarterAssets
 		{
 			pause = newPauseState;
 		}
+		public void UnPauseInput(bool newUnPauseState)
+		{
+			unPause = newUnPauseState;
+		}
         public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
@@ -109,10 +120,10 @@ namespace StarterAssets
 		{
 			SetCursorState(cursorLocked);
 		}
-		private void SetCursorState(bool newState)
+
+		public void SetCursorState(bool newState)
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 	}
-	
 }

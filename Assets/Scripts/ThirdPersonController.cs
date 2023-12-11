@@ -201,6 +201,8 @@ namespace StarterAssets
 
         private void Update()
         {
+            PauseGame();
+
             UpdatePlayerClone();
             if (BigMode == PlayerBigModes.ZONE)
             {
@@ -215,8 +217,6 @@ namespace StarterAssets
             Move();
             _attacks.UpdateAttacks();
             ChangeMode();
-
-            PauseGame();
         }
 
         private void LateUpdate()
@@ -508,7 +508,6 @@ namespace StarterAssets
 
         void ChangeMode()
         {
-            //print("mode number: " + ((int)Mode) + ",  total number of modes" + System.Enum.GetNames(typeof(PlayerModes)).Length);
             if (unlockedModes.Count > 1)
             {
                 if (_input.changeModeUp == true)
@@ -534,15 +533,8 @@ namespace StarterAssets
                 }
             }
         }
-        /*        // idk why but it works only like this :/ (at least it works)
-        AnimatorOverrideController aoc = new AnimatorOverrideController(this.myAnimator.runtimeAnimatorController);
-        aoc[myAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name] = GetAnimationClip;
-        myAnimator.runtimeAnimatorController = aoc;
+        
 
-        AnimatorOverrideController aoc2 = new AnimatorOverrideController(this.myAnimator.runtimeAnimatorController);
-        aoc2[myAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name] = GetAnimationClip;
-        myAnimator.runtimeAnimatorController = aoc2;
-        */
         void SetStatsByMode()
         {
             if (Mode == PlayerModes.NORMAL)
@@ -577,9 +569,31 @@ namespace StarterAssets
             _animator.Play("JumpStart");
         }
 
+        public bool gamePaused = false;
         void PauseGame()
         {
-
+            if (!gamePaused && _input.pause)
+            {
+                _input.cursorLocked = false;
+                _input.SetCursorState(_input.cursorLocked);
+                AudioManager.instance.Pause();
+                _input.playerInput.SwitchCurrentActionMap("UI");
+                _input.pause = false;
+                gamePaused = true;
+                PauseMenu.instance.GamePaused();
+                Time.timeScale = 0;
+            }
+            if (gamePaused && _input.unPause)
+            {
+                _input.cursorLocked = true;
+                _input.SetCursorState(_input.cursorLocked);
+                Time.timeScale = 1;
+                AudioManager.instance.UnPause();
+                _input.playerInput.SwitchCurrentActionMap("Player");
+                _input.unPause = false;
+                PauseMenu.instance.GameUnPaused();
+                gamePaused = false;
+            }
         }
     }
 }
