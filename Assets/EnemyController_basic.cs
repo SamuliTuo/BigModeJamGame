@@ -7,14 +7,25 @@ public class EnemyController_basic : MonoBehaviour
 {
     [SerializeField] private float timeBetweenMoves = 0.5f;
     [SerializeField] private float moveSpeed = 1.0f;
-    [SerializeField] private bool useSmoothing = false;
+    [SerializeField] private bool useSmoothStep = false;
+    [SerializeField] private bool useEaseOut = false;
+    [SerializeField] private Animator animator = null;
+    [SerializeField] private bool useMoveAnticipation = false;
+    [SerializeField] private float anticipationTime = 0.0f;
 
     public List<Vector3> targets;
     int currentTarget = -1;
     Coroutine moveRoutine = null;
+    private Collider col;
+    bool dead;
 
     void Start()
     {
+        dead = false;
+        animator = GetComponentInChildren<Animator>();
+        col = transform.GetChild(0).GetComponent<Collider>();
+
+
         var moveTargets = transform.Find("moveTargets");
         for (int i = 0; i < moveTargets.childCount; i++)
         {
@@ -34,21 +45,40 @@ public class EnemyController_basic : MonoBehaviour
     {
         Vector3 startpos = transform.position;
         Vector3 endpos = targets[currentTarget];
+        Vector3 dir = endpos - startpos;
         float maxT = (startpos - endpos).magnitude;
         float t = 0;
         float perc;
+
+        animator.Play("attackAnticipation", 0, 0);
+        Quaternion startrot = transform.rotation;
+        while (t < anticipationTime)
+        {
+            transform.rotation = Quaternion.Slerp(startrot, Quaternion.LookRotation(dir, Vector3.up), t/anticipationTime);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        t = 0;
+        animator.Play("move", 0, 0);
         while (t < maxT)
         {
             perc = t / maxT;
-            if (useSmoothing)
+            if (useSmoothStep)
                 perc = perc * perc * (3f - 2f * perc);
+            else if (useEaseOut)
+                perc = Mathf.Sin(perc * Mathf.PI * 0.5f);
+
             t += Time.deltaTime * moveSpeed;
             transform.position = Vector3.Lerp(startpos, endpos, perc);
+            transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
             yield return null;
         }
 
         if (timeBetweenMoves > 0)
         {
+            print("asd");
+            animator.CrossFade("idle",0.2f,0,0);
             t = 0;
             while (t < timeBetweenMoves)
             {
@@ -66,14 +96,37 @@ public class EnemyController_basic : MonoBehaviour
         moveRoutine = StartCoroutine(MoveCoroutine());
     }
 
+
     public void GotAttacked()
     {
-        StopCoroutine(moveRoutine);
-        Die();
+        if (!dead)
+        {
+            dead = true;
+            animator.Play("die", 0);
+            StopCoroutine(moveRoutine);
+            StartCoroutine(Die());
+        }
+    }
+    public void GotStomped()
+    {
+        if (!dead)
+        {
+            dead = true;
+            animator.Play("squash", 0);
+            StopCoroutine(moveRoutine);
+            StartCoroutine(Die());
+        }
     }
 
-    void Die()
+    IEnumerator Die()
     {
+        col.enabled = false;
+        float t = 0;
+        while(t < 1)
+        {
+            t += Time.deltaTime;
+            yield return null;
+        }
         Destroy(gameObject);
     }
 }
