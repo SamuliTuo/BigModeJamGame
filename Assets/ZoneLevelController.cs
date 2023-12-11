@@ -84,9 +84,7 @@ public class ZoneLevelController : MonoBehaviour
         m.material.color = obstacle.wallColor;
         m2.material.color = obstacle.wallColor;
 
-
         float t = 0;
-
 
         while (t < obstacle.obstacleTimeToReachPlayer)
         {
@@ -109,19 +107,23 @@ public class ZoneLevelController : MonoBehaviour
         Vector3 startpos = zoneLevelMidPoint.position + (levelOrientation.forward * spawnDistance) + offset;
         Vector3 endpos = zoneLevelMidPoint.position + offset;
 
-        var clone = Instantiate(melon.melonPrefab, startpos, levelOrientation.rotation);
+        var clone = Instantiate(melon.melonPrefab, startpos, Quaternion.LookRotation(levelOrientation.up));
         float t = 0;
 
         while (t < melon.melonTimeToReachPlayer)
         {
-            Debug.DrawLine(startpos, startpos, Color.yellow);
-
-            clone.transform.position = Vector3.Lerp(startpos, endpos, t / melon.melonTimeToReachPlayer);
+            if (clone != null)
+            {
+                clone.transform.position = Vector3.Lerp(startpos + offset, zoneLevelMidPoint.position + offset, t / melon.melonTimeToReachPlayer);
+            }
             t += Time.deltaTime;
             yield return null;
         }
 
-        Destroy(clone);
+        if (clone != null)
+        {
+            Destroy(clone);
+        }
     }
 
 

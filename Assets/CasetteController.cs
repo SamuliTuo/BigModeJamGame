@@ -40,6 +40,7 @@ public class CasetteController : MonoBehaviour
     {
         if (other.CompareTag("Player") && growRoutine == null)
         {
+            AudioManager.instance.ChangeBGM(AudioManager.instance.bgm_zone_1, 5f);
             other.SendMessage("TeleporterPositions", teleporterPositions);
             StartCoroutine(TeleporterBigMode());
         }
