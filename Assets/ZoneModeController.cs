@@ -190,6 +190,7 @@ public class ZoneModeController : MonoBehaviour
         //_controller.
     }
 
+    [SerializeField] private float fadeSpeed = 0.1f;
 
     private enum poses { MID, UP, DOWN, LEFT, RIGHT }
     private poses pose = poses.MID;
@@ -200,7 +201,7 @@ public class ZoneModeController : MonoBehaviour
             if (_input.attack2 && pose != poses.MID)
             {
                 pose = poses.MID;
-                _animator.CrossFade("zone_mid", 0.3f, 0, 0);
+                _animator.CrossFade("zone_mid", fadeSpeed, 0, 0);
                 _input.attack2 = false;
             }
             if (_input.look.sqrMagnitude >= _control._threshold)
@@ -218,7 +219,7 @@ public class ZoneModeController : MonoBehaviour
             else if (pose != poses.MID)
             {
                 pose = poses.MID;
-                _animator.CrossFade("zone_mid", 0.3f, 0, 0);
+                _animator.CrossFade("zone_mid", fadeSpeed, 0, 0);
             }
         }   
     }
@@ -232,12 +233,12 @@ public class ZoneModeController : MonoBehaviour
             if (x < 0 && pose != poses.LEFT)
             {
                 pose = poses.LEFT;
-                _animator.CrossFade("zone_left", 0.3f, 0, 0);
+                _animator.CrossFade("zone_left", fadeSpeed, 0, 0);
             }
             else if (x > 0 && pose != poses.RIGHT)
             {
                 pose = poses.RIGHT;
-                _animator.CrossFade("zone_right", 0.3f, 0, 0);
+                _animator.CrossFade("zone_right", fadeSpeed, 0, 0);
             }
         }
         else if (Mathf.Abs(y) > Mathf.Abs(x))
@@ -245,12 +246,12 @@ public class ZoneModeController : MonoBehaviour
             if (y < 0 && pose != poses.UP)
             {
                 pose = poses.UP;
-                _animator.CrossFade("zone_up", 0.3f, 0, 0);
+                _animator.CrossFade("zone_up", fadeSpeed, 0, 0);
             }
             else if (y > 0 && pose != poses.DOWN)
             {
                 pose = poses.DOWN;
-                _animator.CrossFade("zone_down", 0.3f, 0, 0);
+                _animator.CrossFade("zone_down", fadeSpeed, 0, 0);
             }
         }
     }

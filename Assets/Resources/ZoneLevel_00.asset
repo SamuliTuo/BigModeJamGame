@@ -98,4 +98,28 @@ MonoBehaviour:
     wallColor: {r: 0, g: 0, b: 0, a: 0}
     obstacleScreenPos_y: 0.1
     obstacleScreenPos_X: 0.9
-  melons: []
+  melons:
+  - melonTime: 6
+    melonTimeToReachPlayer: 3
+    melonPrefab: {fileID: 3660081165492779535, guid: b2741c758fa35d641b3c1be8627ac413,
+      type: 3}
+    melonScreenPos_y: 0.05
+    melonScreenPos_X: 0.36
+  - melonTime: 8
+    melonTimeToReachPlayer: 3
+    melonPrefab: {fileID: 3252360782626469252, guid: f2fea1fa5bb028e41b068b5f1ab375ef,
+      type: 3}
+    melonScreenPos_y: 0.398
+    melonScreenPos_X: 0.56
+  - melonTime: 10
+    melonTimeToReachPlayer: 3
+    melonPrefab: {fileID: 486176566393759512, guid: 706f29753e12df846a17b71def145f7f,
+      type: 3}
+    melonScreenPos_y: 0.588
+    melonScreenPos_X: 0.75
+  - melonTime: 12
+    melonTimeToReachPlayer: 3
+    melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
+      type: 3}
+    melonScreenPos_y: 0.769
+    melonScreenPos_X: 0.95

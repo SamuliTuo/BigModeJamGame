@@ -58,10 +58,10 @@ public class ObjectCollector : MonoBehaviour
 
     IEnumerator CollectSingle(Vector3 position)
     {
+        AudioManager.instance.PlayClip(audios.MELON, position);
         Transform melonDummy = GetInactiveMelon().transform;
         melonDummy.transform.position = position;
         melonDummy.gameObject.SetActive(true);
-
         float t = 0;
 
         while (t < 1)

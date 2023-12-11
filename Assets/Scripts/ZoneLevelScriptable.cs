@@ -32,6 +32,6 @@ public class ZoneLevelMelonSpawn
     public float melonTime;
     public float melonTimeToReachPlayer;
     public GameObject melonPrefab;
-    [Range(0.05f, 0.95f)] public float melonScreenPos_y;
-    [Range(0.05f, 0.95f)] public float melonScreenPos_X;
+    [Range(0.1f, 0.9f)] public float melonScreenPos_y;
+    [Range(0.1f, 0.9f)] public float melonScreenPos_X;
 }
