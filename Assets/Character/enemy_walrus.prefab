@@ -54,6 +54,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   useMoveAnticipation: 1
   anticipationTime: 0.35
+  movesound: 9
   targets: []
 --- !u!1 &1209674600264076500
 GameObject:
@@ -100,8 +101,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2189789, y: 0.1790592, z: 0.7440796}
-  m_Center: {x: 0.074409485, y: 0.36660996, z: 0.010620117}
+  m_Size: {x: 1.2189789, y: 0.1790592, z: 0.5123976}
+  m_Center: {x: 0.0744095, y: 0.36660996, z: 0.010620117}
 --- !u!54 &1209674600264076497
 Rigidbody:
   m_ObjectHideFlags: 0
