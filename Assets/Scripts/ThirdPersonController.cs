@@ -215,6 +215,8 @@ namespace StarterAssets
             Move();
             _attacks.UpdateAttacks();
             ChangeMode();
+
+            PauseGame();
         }
 
         private void LateUpdate()
@@ -575,9 +577,9 @@ namespace StarterAssets
             _animator.Play("JumpStart");
         }
 
-        void SetAnimations(AnimatorOverrideController aoc)
+        void PauseGame()
         {
-            //&&_animator.runtimeAnimatorController
+
         }
     }
 }

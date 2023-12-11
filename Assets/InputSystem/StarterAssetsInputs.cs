@@ -17,6 +17,7 @@ namespace StarterAssets
         public bool attack2;
         public bool changeModeUp;
 		public bool changeModeDown;
+		public bool pause;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -26,7 +27,11 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-		public void OnMove(InputValue value)
+        public void OnPause(InputValue value)
+		{
+			PauseInput(value.isPressed);
+		}
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -64,6 +69,10 @@ namespace StarterAssets
 #endif
 
 
+		public void PauseInput(bool newPauseState)
+		{
+			pause = newPauseState;
+		}
         public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
