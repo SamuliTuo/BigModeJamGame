@@ -13,11 +13,12 @@ public class EnemyController_basic : MonoBehaviour
     [SerializeField] private bool useMoveAnticipation = false;
     [SerializeField] private float anticipationTime = 0.0f;
     [SerializeField] private audios movesound = audios.None;
+    [SerializeField] private float deathTimer = 1.0f;
 
     public List<Vector3> targets;
     int currentTarget = -1;
     Coroutine moveRoutine = null;
-    private Collider col;
+    private Collider col, stompCol;
     public bool dead;
 
     void Start()
@@ -25,6 +26,7 @@ public class EnemyController_basic : MonoBehaviour
         dead = false;
         animator = GetComponentInChildren<Animator>();
         col = transform.GetChild(0).GetComponent<Collider>();
+        stompCol = transform.GetChild(1).GetComponent<Collider>();
 
 
         var moveTargets = transform.Find("moveTargets");
@@ -124,8 +126,9 @@ public class EnemyController_basic : MonoBehaviour
     IEnumerator Die()
     {
         col.enabled = false;
+        stompCol.enabled = false;
         float t = 0;
-        while(t < 1)
+        while(t < deathTimer)
         {
             t += Time.deltaTime;
             yield return null;
