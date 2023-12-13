@@ -47,6 +47,16 @@ public class UrbanAttackCollider : MonoBehaviour
                     hitObjects.Add(obj.transform.GetChild(i).gameObject);
                 }
             }
+            else if (other.CompareTag("Enemy"))
+            {
+                var script = other.transform.root.GetComponent<EnemyController_basic>();
+                script?.GotKicked(transform, pushForce);
+                hitObjects.Add(script.gameObject);
+                for (int i = 0; i < script.transform.childCount; i++)
+                {
+                    hitObjects.Add(script.transform.GetChild(i).gameObject);
+                }
+            }
         }
     }
 }

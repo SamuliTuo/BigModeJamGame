@@ -28,7 +28,14 @@ public class CollisionObserver : MonoBehaviour
 
         else if (hit.collider.CompareTag("Enemy"))
         {
-            _controller.GotHit();
+            var script = hit.transform.root.GetComponent<EnemyController_basic>();
+            if (script != null) 
+            { 
+                if (!script.pushed)
+                {
+                    _controller.GotHit();
+                }
+            }
         }
     }
 
