@@ -16,42 +16,42 @@ MonoBehaviour:
   obstacles:
   - obstacleTime: 6
     obstacleTimeToReachPlayer: 3
-    obstaclePrefab: {fileID: 919132149155446097, guid: 7a7153461a719a44bbbba7c933354926,
+    obstaclePrefab: {fileID: 8236325371729507922, guid: 588a4b8679491b047a62db11b225a2a7,
       type: 3}
     wallColor: {r: 0.9622642, g: 0.4765931, b: 0.4765931, a: 0}
     obstacleScreenPos_y: 0.501
     obstacleScreenPos_X: 0.493
   - obstacleTime: 7
     obstacleTimeToReachPlayer: 3
-    obstaclePrefab: {fileID: 919132149155446097, guid: 8e045a4de217e9843acec6a3115d7878,
+    obstaclePrefab: {fileID: 8236325371729507922, guid: 588a4b8679491b047a62db11b225a2a7,
       type: 3}
     wallColor: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 0}
     obstacleScreenPos_y: 0.9
     obstacleScreenPos_X: 0.1
   - obstacleTime: 10
     obstacleTimeToReachPlayer: 2
-    obstaclePrefab: {fileID: 919132149155446097, guid: 6f61d30214e988546b72bfad1025eabd,
+    obstaclePrefab: {fileID: 8236325371729507922, guid: 588a4b8679491b047a62db11b225a2a7,
       type: 3}
     wallColor: {r: 0.56326747, g: 0.8490566, b: 0.500623, a: 0}
     obstacleScreenPos_y: 0.502
     obstacleScreenPos_X: 0.514
   - obstacleTime: 12
     obstacleTimeToReachPlayer: 1.8
-    obstaclePrefab: {fileID: 919132149155446097, guid: 8e045a4de217e9843acec6a3115d7878,
+    obstaclePrefab: {fileID: 8236325371729507922, guid: 588a4b8679491b047a62db11b225a2a7,
       type: 3}
     wallColor: {r: 0.18098079, g: 0.7830189, b: 0.7705894, a: 0}
     obstacleScreenPos_y: 0.546
     obstacleScreenPos_X: 0.22
   - obstacleTime: 13
     obstacleTimeToReachPlayer: 1.7
-    obstaclePrefab: {fileID: 919132149155446097, guid: fd5bbb38c8af1cd4ca1d9e608233ef62,
+    obstaclePrefab: {fileID: 8236325371729507922, guid: 588a4b8679491b047a62db11b225a2a7,
       type: 3}
     wallColor: {r: 0.50357467, g: 0.17377181, b: 0.5188679, a: 0}
     obstacleScreenPos_y: 0.369
     obstacleScreenPos_X: 0.866
   - obstacleTime: 14
     obstacleTimeToReachPlayer: 1.7
-    obstaclePrefab: {fileID: 919132149155446097, guid: fd5c12eb696abf14085c942e288a2582,
+    obstaclePrefab: {fileID: 8236325371729507922, guid: 588a4b8679491b047a62db11b225a2a7,
       type: 3}
     wallColor: {r: 0.19854528, g: 0.0972321, b: 0.21698111, a: 0}
     obstacleScreenPos_y: 0.712
