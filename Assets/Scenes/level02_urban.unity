@@ -379,6 +379,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1574e5bef3391b848af52833c97f6c73, type: 3}
+--- !u!1 &6616742 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1209674599139197991, guid: 89de04e18c45c4443a98fbee5fb03388,
+    type: 3}
+  m_PrefabInstance: {fileID: 1232155939}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &6616746
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6616742}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &13984579 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3248315488105561783, guid: 687dbafc2b84b2846b9a4a7a7dae2a7e,
@@ -58358,6 +58377,8 @@ GameObject:
   m_Component:
   - component: {fileID: 172850646233569381}
   - component: {fileID: 172850646233569382}
+  - component: {fileID: 172850646233569384}
+  - component: {fileID: 172850646233569383}
   m_Layer: 7
   m_Name: enemy_seagull (4)
   m_TagString: Enemy
@@ -58396,6 +58417,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5050965bb0b201644a52b0f116f43954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dead: 0
+  pushed: 0
   hp: 1
   timeBetweenMoves: 0.5
   moveSpeed: 4
@@ -58408,7 +58431,35 @@ MonoBehaviour:
   stompedSound: 0
   attackedSound: 0
   targets: []
-  dead: 0
+--- !u!65 &172850646233569383
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172850646233569380}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.36951062, y: 0.4579512, z: 0.55340594}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &172850646233569384
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172850646233569380}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!4 &172850647358378128
 Transform:
   m_ObjectHideFlags: 0

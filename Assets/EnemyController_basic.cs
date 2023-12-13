@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class EnemyController_basic : MonoBehaviour
 {
+    public bool dead;
+    public bool pushed;
+
     [SerializeField] private int hp = 1;
     [SerializeField] private float timeBetweenMoves = 0.5f;
     [SerializeField] private float moveSpeed = 1.0f;
@@ -17,18 +20,20 @@ public class EnemyController_basic : MonoBehaviour
     [SerializeField] private audios stompedSound = audios.None;
     [SerializeField] private audios attackedSound = audios.None;
 
+    private Rigidbody rb;
     Transform model;
     public List<Vector3> targets;
     int currentTarget = -1;
     Coroutine moveRoutine = null;
-    private Collider col, stompCol;
-    public bool dead;
+    private Collider col, stompCol, kickedCol;
 
     void Start()
     {
-        dead = false;
+        rb = GetComponent<Rigidbody>();
+        pushed = dead = false;
         model = transform.GetChild(0);
         animator = GetComponentInChildren<Animator>();
+        kickedCol = GetComponent<Collider>();
         col = transform.GetChild(2).GetComponent<Collider>();
         stompCol = transform.GetChild(1).GetComponent<Collider>();
 
@@ -117,7 +122,10 @@ public class EnemyController_basic : MonoBehaviour
             dead = true;
             animator.Play("die", 0);
             AudioManager.instance.PlayClip(attackedSound, transform.position);
-            StopCoroutine(moveRoutine);
+            if (moveRoutine != null)
+            {
+                StopCoroutine(moveRoutine);
+            }
             StartCoroutine(Die());
         }
     }
@@ -143,15 +151,49 @@ public class EnemyController_basic : MonoBehaviour
         }
     }
 
+    public void GotKicked(Transform kicker, float pushforce)
+    {
+        if (pushed)
+            return;
+
+        if (moveRoutine != null)
+        {
+            StopCoroutine(moveRoutine);
+        }
+
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        stompCol.enabled = false;
+        col.enabled = false;
+        kickedCol.enabled = true;
+        rb.AddForce((kicker.forward + Vector3.up * 0.3f) * pushforce * rb.mass, ForceMode.Impulse);
+        animator.Play("idle");
+        AudioManager.instance.PlayClip(stompedSound, transform.position);
+        pushed = true;
+    }
+
     IEnumerator Die()
     {
-        col.enabled = false;
+        col.enabled = stompCol.enabled = kickedCol.enabled = false;
         float t = 0;
-        while(t < 1)
+        while (t < 1)
         {
             t += Time.deltaTime;
             yield return null;
         }
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!dead && pushed && collision.collider != this.col && collision.collider != this.kickedCol && collision.collider != this.stompCol && !collision.collider.CompareTag("Player"))
+        {
+            AudioManager.instance.PlayClip(attackedSound, transform.position);
+            DamageInstancePool.instance.SpawnDamageInstance_Sphere(transform.position, Quaternion.identity, 1.5f, 0.2f, 1, true, false);
+            if (!dead)
+            {
+                StartCoroutine(Die());
+            }
+        }
     }
 }
