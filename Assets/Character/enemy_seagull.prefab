@@ -31,6 +31,7 @@ Transform:
   m_Children:
   - {fileID: 8490058310116025298}
   - {fileID: 1209674600264076499}
+  - {fileID: 7404302771290791851}
   - {fileID: 2954637724260667405}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -56,6 +57,7 @@ MonoBehaviour:
   anticipationTime: 0.75
   movesound: 9
   targets: []
+  dead: 0
 --- !u!1 &1209674600264076500
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,8 +103,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.64604187, y: 0.15467882, z: 0.59158325}
-  m_Center: {x: 0.019554138, y: 0.2142365, z: 0.019760132}
+  m_Size: {x: 0.50131226, y: 0.22646856, z: 0.65774536}
+  m_Center: {x: -0.0012817383, y: 0.19974303, z: -0.03224182}
 --- !u!54 &1209674600264076497
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -115,7 +117,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
@@ -161,7 +163,7 @@ Transform:
   m_Children:
   - {fileID: 2954637725007896467}
   m_Father: {fileID: 1209674599139197990}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2954637724980500017
 GameObject:
@@ -358,6 +360,51 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4173579864277779324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7404302771290791851}
+  - component: {fileID: 5307821138709539018}
+  m_Layer: 7
+  m_Name: hit_collider
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7404302771290791851
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4173579864277779324}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1209674599139197990}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5307821138709539018
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4173579864277779324}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5561035, y: 0.41146612, z: 0.6809599}
+  m_Center: {x: 0, y: -0.12305713, z: 0.01624003}
 --- !u!1001 &8239342598501483577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -448,7 +495,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b0d5d1d0a10648243ae958c360f0f09b,
         type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5175306776348158130, guid: b0d5d1d0a10648243ae958c360f0f09b,
         type: 3}
@@ -469,32 +516,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8239342598501483577}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &2359466028465652062
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9122445260086180200}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.78666687, y: 0.5131507, z: 0.8399582}
-  m_Center: {x: 0, y: -0.15284836, z: -0.0037956238}
---- !u!65 &7551909837148894514
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9122445260086180200}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.54712296, y: 0.4678619, z: 0.23006439}
-  m_Center: {x: 0.011320114, y: -0.6736648, z: 0.1471901}
 --- !u!95 &7169955964452850150
 Animator:
   serializedVersion: 5

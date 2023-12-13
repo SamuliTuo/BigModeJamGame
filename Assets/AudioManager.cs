@@ -60,7 +60,6 @@ public class AudioManager : MonoBehaviour
 
     public void PlayClip(audios clip, Vector3 position)
     {
-        print(clip);
         if (clip == audios.MELON)
         {
             PlayMelon();
@@ -107,17 +106,14 @@ public class AudioManager : MonoBehaviour
     int currentDisctPlayer = 0; // 1 or 2
     public void ChangeBGM(AudioClip bgm, float changeSpeed)
     {
-        print("change music");
         if (currentDisctPlayer == 0)
         {
-            print("1");
             currentDisctPlayer = 1;
             bgm_player_1.clip = bgm;
             bgm_player_1.Play();
         }
         else if (currentDisctPlayer == 1)
         {
-            print("2");
             currentDisctPlayer = 2;
             bgm_player_2.clip = bgm;
             bgm_player_2.volume = 0;
@@ -127,7 +123,6 @@ public class AudioManager : MonoBehaviour
         }
         else if (currentDisctPlayer == 2)
         {
-            print("3");
             currentDisctPlayer = 1;
             bgm_player_1.clip = bgm;
             StartCoroutine(ChangeVolumeOverTime(bgm_player_1, 1, changeSpeed));

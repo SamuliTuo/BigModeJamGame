@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class BreakableObject : MonoBehaviour
 {
-    Rigidbody rb;
-
+    private Rigidbody rb;
+    private bool wasPushed = false;
 
     void Start()
     {
@@ -19,16 +19,31 @@ public class BreakableObject : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void PushMe(Vector3 pusherPos, float pushForce)
+    public void PushMe(Vector3 pusherForward, float pushForce)
     {
-        Vector3 dir = transform.position - pusherPos;
-        dir.y *= 0;
-        StartCoroutine(Pushed(dir.normalized, pushForce));
+        if (wasPushed)
+            return;
+        wasPushed = true;
+
+        //rb.AddForce(pusherForward * pushForce * rb.mass, ForceMode.Impulse);
+        rb.AddForce((pusherForward + Vector3.up * 0.3f) * pushForce * rb.mass, ForceMode.Impulse);
+        //StartCoroutine(Pushed(pusherForward, pushForce));
     }
 
-    IEnumerator Pushed(Vector3 dir, float pushForce)
+
+
+    IEnumerator Pushed(Vector3 pusherForward, float pushForce)
     {
-        rb.AddForce((dir + Vector3.up * 0.3f) * pushForce * rb.mass, ForceMode.Impulse);
+        //rb.AddForce((pusherForward + Vector3.up * 0.3f) * pushForce * rb.mass, ForceMode.Impulse);
         yield return null;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (wasPushed)
+        {
+            wasPushed = false;
+            DestroyMe();
+        }
     }
 }

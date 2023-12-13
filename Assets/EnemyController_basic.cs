@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemyController_basic : MonoBehaviour
 {
+    [SerializeField] private int hp = 1;
     [SerializeField] private float timeBetweenMoves = 0.5f;
     [SerializeField] private float moveSpeed = 1.0f;
     [SerializeField] private bool useSmoothStep = false;
@@ -13,18 +14,23 @@ public class EnemyController_basic : MonoBehaviour
     [SerializeField] private bool useMoveAnticipation = false;
     [SerializeField] private float anticipationTime = 0.0f;
     [SerializeField] private audios movesound = audios.None;
+    [SerializeField] private audios stompedSound = audios.None;
+    [SerializeField] private audios attackedSound = audios.None;
 
+    Transform model;
     public List<Vector3> targets;
     int currentTarget = -1;
     Coroutine moveRoutine = null;
-    private Collider col;
+    private Collider col, stompCol;
     public bool dead;
 
     void Start()
     {
         dead = false;
+        model = transform.GetChild(0);
         animator = GetComponentInChildren<Animator>();
-        col = transform.GetChild(0).GetComponent<Collider>();
+        col = transform.GetChild(2).GetComponent<Collider>();
+        stompCol = transform.GetChild(1).GetComponent<Collider>();
 
 
         var moveTargets = transform.Find("moveTargets");
@@ -33,10 +39,9 @@ public class EnemyController_basic : MonoBehaviour
             targets.Add(moveTargets.GetChild(i).position);
             moveTargets.GetChild(i).gameObject.SetActive(false);
         }
-        targets.Add(transform.position);
-        
         if (targets.Count > 0)
-        {   
+        {
+            targets.Add(transform.position);
             currentTarget = 0;
             moveRoutine = StartCoroutine(MoveCoroutine());
         }
@@ -51,18 +56,22 @@ public class EnemyController_basic : MonoBehaviour
         float t = 0;
         float perc;
 
-        animator.Play("attackAnticipation", 0, 0);
-        Quaternion startrot = transform.rotation;
-        while (t < anticipationTime)
+        if (useMoveAnticipation)
         {
-            transform.rotation = Quaternion.Slerp(startrot, Quaternion.LookRotation(dir, Vector3.up), t/anticipationTime);
-            t += Time.deltaTime;
-            yield return null;
+            animator.Play("attackAnticipation", 0, 0);
+            Quaternion startrot = model.rotation;
+            while (t < anticipationTime)
+            {
+                model.rotation = Quaternion.Slerp(startrot, Quaternion.LookRotation(dir, Vector3.up), t / anticipationTime);
+                col.transform.rotation = stompCol.transform.rotation = Quaternion.Slerp(startrot, Quaternion.LookRotation(new Vector3(dir.x, 0, dir.z), Vector3.up), t / anticipationTime);
+                t += Time.deltaTime;
+                yield return null;
+            }
+            t = 0;
         }
-
-        t = 0;
+        
         animator.Play("move", 0, 0);
-        AudioManager.instance.PlayClip(movesound, transform.position);
+        //AudioManager.instance.PlayClip(movesound, transform.position);
         while (t < maxT)
         {
             perc = t / maxT;
@@ -71,9 +80,12 @@ public class EnemyController_basic : MonoBehaviour
             else if (useEaseOut)
                 perc = Mathf.Sin(perc * Mathf.PI * 0.5f);
 
-            t += Time.deltaTime * moveSpeed;
+            //Vector3 startRot = model.forward;
+            //model.rotation = Quaternion.LookRotation(Vector3.RotateTowards(startRot, dir, Time.deltaTime, Time.deltaTime));
+            model.rotation = Quaternion.LookRotation(dir, Vector3.up);
             transform.position = Vector3.Lerp(startpos, endpos, perc);
-            transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+            col.transform.rotation = stompCol.transform.rotation = Quaternion.LookRotation(new Vector3(dir.x, 0, dir.z), Vector3.up);
+            t += Time.deltaTime * moveSpeed;
             yield return null;
         }
 
@@ -104,19 +116,29 @@ public class EnemyController_basic : MonoBehaviour
         {
             dead = true;
             animator.Play("die", 0);
-            AudioManager.instance.PlayClip(audios.WALRUS_DIE, transform.position);
+            AudioManager.instance.PlayClip(attackedSound, transform.position);
             StopCoroutine(moveRoutine);
             StartCoroutine(Die());
         }
     }
     public void GotStomped()
     {
+        hp--;
+        animator.Play("squash", 0);
+        AudioManager.instance.PlayClip(stompedSound, transform.position);
+
+        if (hp > 0)
+        {
+            return;
+        }
+
         if (!dead)
         {
             dead = true;
-            animator.Play("squash", 0);
-            AudioManager.instance.PlayClip(audios.WALRUS_SQUASH, transform.position);
-            StopCoroutine(moveRoutine);
+            if (moveRoutine != null)
+            {
+                StopCoroutine(moveRoutine);
+            }
             StartCoroutine(Die());
         }
     }

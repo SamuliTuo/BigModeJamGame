@@ -8,6 +8,7 @@ public enum Particles
 { 
     NULL,
     CRATE_BREAK,
+    TRASHCAN_BREAK,
 }
 
 public class ParticleEffects : MonoBehaviour
@@ -19,9 +20,11 @@ public class ParticleEffects : MonoBehaviour
 
 
     [SerializeField] private ParticleSystem crateBreak = null;
+    [SerializeField] private ParticleSystem trashcanBreak = null;
     void Start()
     {
         systems.Add(Particles.CRATE_BREAK, crateBreak);
+        systems.Add(Particles.TRASHCAN_BREAK, trashcanBreak);
     }
 
     void Awake()
