@@ -41,6 +41,10 @@ public class DamageInstance : MonoBehaviour
             hitCols = Physics.OverlapSphere(transform.position, radius);
             for (int i = 0; i < hitCols.Length; i++)
             {
+                if (hitCols[i].CompareTag("Breakable")) 
+                {
+                    hitCols[i].GetComponent<BreakableObject>().DestroyMe();
+                }
                 if (hitsEnemies) 
                 {
                     if (hitCols[i].CompareTag("Enemy"))

@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5050965bb0b201644a52b0f116f43954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 1
   timeBetweenMoves: 0.5
   moveSpeed: 3
   useSmoothStep: 0
@@ -56,6 +57,8 @@ MonoBehaviour:
   useMoveAnticipation: 1
   anticipationTime: 0.35
   movesound: 9
+  stompedSound: 10
+  attackedSound: 11
   targets: []
   dead: 0
 --- !u!1 &1209674600264076500
@@ -403,8 +406,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4482574, y: 0.47079015, z: 0.81840754}
-  m_Center: {x: 0.13307953, y: 0.22324646, z: -0.11489868}
+  m_Size: {x: 1.4482574, y: 0.3339157, z: 0.81840754}
+  m_Center: {x: 0.13307953, y: 0.14197731, z: -0.11489868}
 --- !u!1001 &3142934812194111454
 PrefabInstance:
   m_ObjectHideFlags: 0
