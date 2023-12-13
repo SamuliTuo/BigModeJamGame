@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5050965bb0b201644a52b0f116f43954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 1
   timeBetweenMoves: 0.5
   moveSpeed: 6
   useSmoothStep: 1
@@ -101,6 +102,8 @@ MonoBehaviour:
   useMoveAnticipation: 1
   anticipationTime: 0.75
   movesound: 9
+  stompedSound: 0
+  attackedSound: 0
   targets: []
   dead: 0
 --- !u!1 &1209674600264076500
@@ -440,37 +443,37 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2fb0790d8987fc44da211fcf79241901,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.20829964
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fb0790d8987fc44da211fcf79241901,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.17385864
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fb0790d8987fc44da211fcf79241901,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071599
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fb0790d8987fc44da211fcf79241901,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.7070538
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fb0790d8987fc44da211fcf79241901,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fb0790d8987fc44da211fcf79241901,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fb0790d8987fc44da211fcf79241901,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2fb0790d8987fc44da211fcf79241901,
         type: 3}
