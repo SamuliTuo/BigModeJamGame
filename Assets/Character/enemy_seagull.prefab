@@ -56,6 +56,7 @@ MonoBehaviour:
   useMoveAnticipation: 1
   anticipationTime: 0.75
   movesound: 9
+  deathTimer: 1
   targets: []
   dead: 0
 --- !u!1 &1209674600264076500
