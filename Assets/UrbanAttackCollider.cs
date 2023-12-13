@@ -32,10 +32,20 @@ public class UrbanAttackCollider : MonoBehaviour
     {
         if (!hitObjects.Contains(other.gameObject) && !other.CompareTag("Player"))
         {
-            hitObjects.Add(other.gameObject);
             if (other.CompareTag("Breakable"))
             {
-                other.GetComponent<BreakableObject>().PushMe(root.position + Vector3.up * 0.65f, pushForce);
+                hitObjects.Add(other.gameObject);
+                other.GetComponent<BreakableObject>().PushMe(transform.forward, pushForce);// root.position + Vector3.up * 0.7f, pushForce);
+            }
+            else if (other.CompareTag("Trashcan"))
+            {
+                var obj = other.GetComponentInParent<TrashcanController>();
+                obj.GetKicked(transform, pushForce); //root.position + Vector3.up * 0.7f, pushForce);
+                hitObjects.Add(obj.gameObject);
+                for (int i = 0; i < obj.transform.childCount; i++)
+                {
+                    hitObjects.Add(obj.transform.GetChild(i).gameObject);
+                }
             }
         }
     }

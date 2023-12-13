@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - EnemyStomper
   - Melon
+  - Trashcan
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - 
   - PortalCameraA
   - PortalCameraB
-  - 
+  - Trashcan
   - 
   - 
   - 

@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e09b7c9b2bde5a45a2a321bb533cdd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zoneMode: 0
   value: 10
   wasCollected: 0
   rotateSpeed: 50
@@ -65,17 +66,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 42fec5a8d9411f64eaff0370d746fc1b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 42fec5a8d9411f64eaff0370d746fc1b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 42fec5a8d9411f64eaff0370d746fc1b,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 42fec5a8d9411f64eaff0370d746fc1b,
         type: 3}
