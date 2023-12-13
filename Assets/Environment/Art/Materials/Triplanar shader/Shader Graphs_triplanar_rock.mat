@@ -81,8 +81,8 @@ Material:
     - _CastShadows: 1
     - _Cull: 2
     - _DstBlend: 0
-    - _Grass_Height_Blend: 5.29
-    - _Grass_Threshold: 0.917
+    - _Grass_Height_Blend: 17.1
+    - _Grass_Threshold: 0.203
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
