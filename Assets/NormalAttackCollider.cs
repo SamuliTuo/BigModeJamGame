@@ -32,17 +32,17 @@ public class NormalAttackCollider : MonoBehaviour
 
             if (other.CompareTag("Breakable"))
             {
-                other.GetComponent<BreakableObject>().DestroyMe();
+                other.GetComponent<BreakableObject>()?.DestroyMe();
             }
 
             else if (other.CompareTag("Enemy"))
             {
-                other.GetComponentInParent<EnemyController_basic>().GotAttacked();
+                other.GetComponentInParent<EnemyController_basic>()?.GotAttacked();
             }
 
             else if (other.CompareTag("Trashcan"))
             {
-                other.GetComponentInParent<TrashcanController>().GetSpinnedOn();
+                other.GetComponentInParent<TrashcanController>()?.GetSpinnedOn();
             }
         }
     }

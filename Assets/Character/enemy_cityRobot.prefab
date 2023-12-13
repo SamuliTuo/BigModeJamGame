@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5050965bb0b201644a52b0f116f43954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 1
   timeBetweenMoves: 0.5
   moveSpeed: 3
   useSmoothStep: 0
@@ -56,6 +57,8 @@ MonoBehaviour:
   useMoveAnticipation: 1
   anticipationTime: 0.35
   movesound: 9
+  stompedSound: 0
+  attackedSound: 0
   targets: []
   dead: 0
 --- !u!1 &1209674600264076500
@@ -103,8 +106,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.299469, y: 0.22198725, z: 0.73776245}
-  m_Center: {x: 0.109298706, y: 0.34514594, z: -0.00010681152}
+  m_Size: {x: 0.9646976, y: 0.22198725, z: 0.6702604}
+  m_Center: {x: 0.109298706, y: 0.34514594, z: -0.010301113}
 --- !u!54 &1209674600264076497
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -403,8 +406,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.1985474, y: 0.7048702, z: 0.6907959}
-  m_Center: {x: 0.09927368, y: -0.14756489, z: -0.021453857}
+  m_Size: {x: 1.1985474, y: 0.39227915, z: 0.88105524}
+  m_Center: {x: 0.09927368, y: -0.30386043, z: -0.021453857}
 --- !u!1001 &3142934812194111454
 PrefabInstance:
   m_ObjectHideFlags: 0
