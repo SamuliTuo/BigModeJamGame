@@ -148,6 +148,7 @@ namespace StarterAssets
 
         public float _threshold = 0.01f;
 
+        private Vector3 _cloneOffset;
         private bool _hasAnimator;
 
         public bool IsCurrentDeviceMouse
@@ -476,8 +477,10 @@ namespace StarterAssets
         [SerializeField] private ZoneLevelScriptable testLevel = null;
         public void TeleporterPositions(List<Vector3> portalPositions)
         {
-            playerClone.gameObject.SetActive(true);
             this.portalPositions = portalPositions;
+            _cloneOffset = portalPositions[1] - portalPositions[0];
+            playerClone.transform.position = transform.position + _cloneOffset;
+            playerClone.gameObject.SetActive(true);
             MoveSpeed = SprintSpeed = 0.1f;
             _zoneModeController.InitZoneMode();
         }
@@ -503,7 +506,7 @@ namespace StarterAssets
 
             if (playerClone.gameObject.activeSelf)
             {
-                playerClone.transform.position = transform.position + new Vector3(0, 0, 50);
+                playerClone.transform.position = transform.position + _cloneOffset;
                 playerClone.transform.rotation = transform.rotation;
             }
         }

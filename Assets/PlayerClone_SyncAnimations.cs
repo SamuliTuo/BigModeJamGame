@@ -18,7 +18,7 @@ public class PlayerClone_SyncAnimations : MonoBehaviour
     {
         if (animator == null)
         {
-            animator = GetComponent<Animator>();
+            animator = GetComponentInChildren<Animator>();
         }
         animator.Play(0, -1, animSync.GetCurrentAnimatorStateInfo(0).normalizedTime);
 
