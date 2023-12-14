@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
@@ -186,8 +187,6 @@ namespace StarterAssets
             _playerInput = GetComponent<PlayerInput>();
             _zoneModeController = GetComponent<ZoneModeController>();
             _attacks = GetComponent<PlayerAttacks>();
-            unlockedModes.Add(PlayerModes.NORMAL);
-            unlockedModes.Add(PlayerModes.URBAN);
             Mode = PlayerModes.NORMAL;
             SetStatsByMode();
 #else
@@ -209,6 +208,7 @@ namespace StarterAssets
                 transform.rotation = SaveGameManager.instance.cpRot;
                 _controller.enabled = true;
             }
+            CheckPlayerModes();
         }
 
         private void Update()
@@ -267,12 +267,11 @@ namespace StarterAssets
 
         [SerializeField] private float minCamSpeedMult = 0.2f;
         [SerializeField] private float maxCamSpeedMult = 2.0f;
-        private float camSpeedMult = 0.5f;
+        private float camSpeedMult = 1f;
 
         public void SetCameraSpeed(float perc)
         {
             camSpeedMult = Mathf.Lerp(minCamSpeedMult, maxCamSpeedMult, perc);
-            print(camSpeedMult);
         }
         private void CameraRotation()
         {
@@ -536,7 +535,6 @@ namespace StarterAssets
             }
         }
 
-
         GameUIController _UI;
         void ChangeMode()
         {
@@ -565,6 +563,15 @@ namespace StarterAssets
                     ChangeModeUI();
                     SetStatsByMode();
                 }
+            }
+        }
+        public void ChangeMode(PlayerModes mode)
+        {
+            if (unlockedModes.Contains(mode))
+            {
+                Mode = mode;
+                ChangeModeUI();
+                SetStatsByMode();
             }
         }
         void ChangeModeUI()
@@ -599,7 +606,6 @@ namespace StarterAssets
 
         public void GotHit()
         {
-            print("huh?");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
@@ -644,6 +650,11 @@ namespace StarterAssets
             _input.unPause = false;
             PauseMenu.instance.GameUnPaused();
             gamePaused = false;
+        }
+
+        public void CheckPlayerModes()
+        {
+            unlockedModes = SaveGameManager.instance.GetUnlockedModes();
         }
     }
 }

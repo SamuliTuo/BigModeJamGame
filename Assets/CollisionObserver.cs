@@ -37,6 +37,11 @@ public class CollisionObserver : MonoBehaviour
                 }
             }
         }
+
+        else if (hit.collider.CompareTag("KillBox")) 
+        {
+            _controller.GotHit();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,7 +54,14 @@ public class CollisionObserver : MonoBehaviour
                 _objectCollector.CollectMelon(m);
                 m.ThisWasCollected();
             }
+        }
 
+        else if (other.CompareTag("UrbanMode"))
+        {
+            SaveGameManager.instance.AddPlayerMode(PlayerModes.URBAN);
+            _controller.CheckPlayerModes();
+            _controller.ChangeMode(PlayerModes.URBAN);
+            other.transform.root.GetComponent<DiskController>().Loot();
         }
     }
 }
