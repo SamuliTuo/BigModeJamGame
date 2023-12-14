@@ -475,6 +475,8 @@ namespace StarterAssets
         List<Vector3> portalPositions = new List<Vector3>();
 
         [SerializeField] private ZoneLevelScriptable testLevel = null;
+
+        // This gets triggered when player touch the CASETTE
         public void TeleporterPositions(List<Vector3> portalPositions)
         {
             this.portalPositions = portalPositions;
@@ -483,7 +485,11 @@ namespace StarterAssets
             playerClone.gameObject.SetActive(true);
             MoveSpeed = SprintSpeed = 0.1f;
             _zoneModeController.InitZoneMode();
+            print("stop player movements here");
+            ZoneLevelController.instance.StartZoneModeLevel(testLevel);
         }
+
+        // This gets triggered when the camera touches the growing PORTAL
         public void TeleportToZoneMode()
         {
             BigMode = PlayerBigModes.ZONE;
@@ -496,7 +502,6 @@ namespace StarterAssets
             _controller.enabled = true;
             playerClone.gameObject.SetActive(false);
             _zoneModeController.ChangeCamera();
-            ZoneLevelController.instance.StartZoneModeLevel(testLevel);
         }
 
         void UpdatePlayerClone()
