@@ -76,7 +76,7 @@ public class EnemyController_basic : MonoBehaviour
         }
         
         animator.Play("move", 0, 0);
-        //AudioManager.instance.PlayClip(movesound, transform.position);
+        AudioManager.instance.PlayClip(movesound, transform.position);
         while (t < maxT)
         {
             perc = t / maxT;

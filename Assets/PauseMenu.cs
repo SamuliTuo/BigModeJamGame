@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
-        pausePanel = transform.GetChild(0);
+        pausePanel = transform.GetChild(1);
     }
 
     public void GamePaused()
@@ -41,23 +42,28 @@ public class PauseMenu : MonoBehaviour
 
     public void OnBGMValueChanged(float newValue)
     {
-        print(newValue);
+        AudioManager.instance.changeBGMVolume(newValue);
     }
     public void OnSFXValueChanged(float newValue)
     {
-        print(newValue);
+        AudioManager.instance.ChangeSFXVolume(newValue);
     }
+    ThirdPersonController plrControl = null;
     public void OnCamSpeedValueChanged(float newValue)
     {
-        print(newValue);
+        if (plrControl == null)
+        {
+            plrControl = GameObject.Find("Player").GetComponent<ThirdPersonController>();
+        }
+        plrControl?.SetCameraSpeed(newValue);
     }
 
     public void OnContinue()
     {
-
-    }
-    public void OnExitGame()
-    {
-
+        if (plrControl == null)
+        {
+            plrControl = GameObject.Find("Player").GetComponent<ThirdPersonController>();
+        }
+        plrControl?.ActualUnpause();
     }
 }

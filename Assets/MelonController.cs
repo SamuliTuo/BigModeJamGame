@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MelonController : MonoBehaviour
+public class MelonController : MonoBehaviourID
 {
     public bool zoneMode = false;
     public int value = 1;
@@ -19,8 +19,8 @@ public class MelonController : MonoBehaviour
 
     private void Start()
     {
-        //startPos = transform.position;
         model = transform.GetChild(0);
+        WasICollected();
     }
 
     private void Update()
@@ -32,7 +32,16 @@ public class MelonController : MonoBehaviour
 
     public void ThisWasCollected()
     {
+        SaveGameManager.instance.IWasLooted_melon(this.ID);
         wasCollected = true;
         Destroy(gameObject);
+    }
+
+    void WasICollected()
+    {
+        if (SaveGameManager.instance.WasILootedAlready_melon(this.ID))
+        {
+            Destroy(gameObject);
+        }
     }
 }

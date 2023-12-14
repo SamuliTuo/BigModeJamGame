@@ -3,19 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BreakableObject : MonoBehaviour
+public class BreakableObject : MonoBehaviourID
 {
+    public int melonsInside = 3;
+
+    private Transform box_noMelons, box_melons;
     private Rigidbody rb;
     private bool wasPushed = false;
 
     void Start()
     {
+        box_noMelons = transform.GetChild(0);
+        box_melons = transform.GetChild(1);
         rb = GetComponent<Rigidbody>();
+        WasIBrokenAlready();
     }
 
     public void DestroyMe()
     {
         ParticleEffects.instance.PlayParticle(Particles.CRATE_BREAK, transform.position, Quaternion.identity);
+        if (melonsInside > 0)
+        {
+            SaveGameManager.instance.GetCollector().CollectMelon(transform.position, melonsInside);
+        }
+        SaveGameManager.instance.IWasBroken_box(ID);
         Destroy(gameObject);
     }
 
@@ -31,11 +42,15 @@ public class BreakableObject : MonoBehaviour
     }
 
 
-
-    IEnumerator Pushed(Vector3 pusherForward, float pushForce)
+    void WasIBrokenAlready()
     {
-        //rb.AddForce((pusherForward + Vector3.up * 0.3f) * pushForce * rb.mass, ForceMode.Impulse);
-        yield return null;
+        if (melonsInside == 0 || SaveGameManager.instance.WasIBrokenAlready(ID))
+        {
+            box_melons.gameObject.SetActive(false);
+            box_noMelons.gameObject.SetActive(true);
+            melonsInside = 0;
+        }
+        //SaveGameManager.
     }
 
     private void OnCollisionEnter(Collision collision)

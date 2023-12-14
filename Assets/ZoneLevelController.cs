@@ -39,20 +39,21 @@ public class ZoneLevelController : MonoBehaviour
 
         while (t < levelData.levelLengthInSeconds)
         {
-            for (var i = obstacles.Count - 1; i >= 0; i--)
+            if (obstacles.Count > 0)
             {
-                if (t >= obstacles[i].obstacleTime - obstacles[i].obstacleTimeToReachPlayer)
+                if (t >= obstacles[0].obstacleTime - obstacles[0].obstacleTimeToReachPlayer)
                 {
-                    StartCoroutine(ObstacleCoroutine(obstacles[i]));
-                    obstacles.RemoveAt(i);
+                    StartCoroutine(ObstacleCoroutine(obstacles[0]));
+                    obstacles.RemoveAt(0);
                 }
-            }
-            for (var i = melons.Count - 1; i >= 0; i--)
+            } 
+
+            if (melons.Count > 0)
             {
-                if (t >= melons[i].melonTime - melons[i].melonTimeToReachPlayer)
+                if (t >= melons[0].melonTime - melons[0].melonTimeToReachPlayer)
                 {
-                    StartCoroutine(MelonCoroutine(melons[i]));
-                    melons.RemoveAt(i);
+                    StartCoroutine(MelonCoroutine(melons[0]));
+                    melons.RemoveAt(0);
                 }
             }
 
