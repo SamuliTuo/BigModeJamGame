@@ -8,7 +8,6 @@ public class ObjectCollector : MonoBehaviour
 {
     public float collectSpeed = 1.0f;
     public float collectFlySpeed = 1.0f;
-    [HideInInspector] public int melons = 0;
 
     [Space(20)]
     [SerializeField] [Range(0,1)] private float lootPosXOffset = 0;
@@ -19,6 +18,7 @@ public class ObjectCollector : MonoBehaviour
     private List<GameObject> melonDummies = new List<GameObject>();
     private Vector2 screenSize;
 
+    
 
     private void Start()
     {
@@ -36,6 +36,10 @@ public class ObjectCollector : MonoBehaviour
     {
         StartCoroutine(CollectRoutine(melon.transform.GetChild(0).position, melon.value));
     }
+    public void CollectMelon(Vector3 pos, int count)
+    {
+        StartCoroutine(CollectRoutine(pos, count));
+    }
 
     IEnumerator CollectRoutine(Vector3 pos, int count)
     {
@@ -50,7 +54,7 @@ public class ObjectCollector : MonoBehaviour
                 t += Time.deltaTime * collectSpeed;
                 yield return null;
             }
-            melons++;
+            SaveGameManager.instance.AddMelon();
             c--;
             yield return null;
         }

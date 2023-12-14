@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering.VirtualTexturing;
 using static Unity.Burst.Intrinsics.Arm;
+using static UnityEngine.Rendering.DebugUI;
 
 public enum audios
 {
@@ -18,6 +19,9 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; private set; }
 
+    [SerializeField] private float maxVolume = 0;
+    [SerializeField] private float minVolume = -10;
+    [SerializeField] private AudioMixer mixer = null;
     [SerializeField] private AudioMixerSnapshot snapshot_paused, snapshot_unpaused;
     [Space(20)]
     [SerializeField] private AudioSource bgm_player_1 = null;
@@ -39,23 +43,29 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private List<AudioClip> melons = null;
 
     private Dictionary<audios, AudioSource> audioLibrary = new Dictionary<audios, AudioSource>();
+
     private float volume_SFX;
     private float volume_BGM;
 
 
     void Awake()
-    { // make singleton
+    { 
         if (instance != null && instance != this) Destroy(this);
         else instance = this;
+        PopulateAudioLibrary();
     }
     void Start()
     {
         ChangeBGM(bgm_crash, 0);
-        PopulateAudioLibrary();
     }
 
-    private void Update()
+    public void ChangeSFXVolume(float value)
     {
+        volume_SFX = Mathf.Lerp(minVolume, maxVolume, value);
+    }
+    public void changeBGMVolume(float value)
+    {
+        volume_BGM = Mathf.Lerp(minVolume, maxVolume, value);
     }
 
     public void PlayClip(audios clip, Vector3 position)
@@ -68,8 +78,10 @@ public class AudioManager : MonoBehaviour
         {
             AudioSource audioSource;
             audioLibrary.TryGetValue(clip, out audioSource);
-            audioSource.transform.position = position;
-            audioSource.Play();
+            if (audioSource != null) {
+                audioSource.transform.position = position;
+                audioSource.Play();
+            }
         }
     }
 
@@ -82,6 +94,8 @@ public class AudioManager : MonoBehaviour
     public void UnPause()
     {
         snapshot_unpaused.TransitionTo(0);
+        mixer.SetFloat("SFX", volume_SFX);
+        mixer.SetFloat("BGM", volume_BGM);
         bgm_player_1.UnPause();
         bgm_player_2.UnPause();
     }
@@ -119,13 +133,13 @@ public class AudioManager : MonoBehaviour
             bgm_player_2.volume = 0;
             bgm_player_2.Play();
             StartCoroutine(ChangeVolumeOverTime(bgm_player_1, 0, changeSpeed));
-            StartCoroutine(ChangeVolumeOverTime(bgm_player_2, 0.5f, changeSpeed));
+            StartCoroutine(ChangeVolumeOverTime(bgm_player_2, volume_BGM, changeSpeed));
         }
         else if (currentDisctPlayer == 2)
         {
             currentDisctPlayer = 1;
             bgm_player_1.clip = bgm;
-            StartCoroutine(ChangeVolumeOverTime(bgm_player_1, 1, changeSpeed));
+            StartCoroutine(ChangeVolumeOverTime(bgm_player_1, volume_BGM, changeSpeed));
             StartCoroutine(ChangeVolumeOverTime(bgm_player_2, 0, changeSpeed));
         }
     }

@@ -1899,7 +1899,7 @@ MonoBehaviour:
   Mode: 0
   BigMode: 0
   unlockedModes: 
-  jumpHeight_stomp: 4.2
+  jumpHeight_stomp: 3.5
   moveSpeed_normal: 4
   sprintSpeed_normal: 9
   jumpHeight_normal: 1.2
@@ -1943,6 +1943,8 @@ MonoBehaviour:
   CameraAngleOverride: 0
   LockCameraPosition: 0
   _threshold: 0.01
+  minCamSpeedMult: 0.1
+  maxCamSpeedMult: 3
   playerClone: {fileID: 0}
   camA: {fileID: 0}
   camB: {fileID: 0}
@@ -2162,7 +2164,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectSpeed: 12
   collectFlySpeed: 4
-  melons: 0
   lootPosXOffset: 0.065
   lootPosYOffset: 0.875
   melonPrefab: {fileID: 5110993054315109847, guid: 21c54276d8fdb6d4596d4f257995e254,

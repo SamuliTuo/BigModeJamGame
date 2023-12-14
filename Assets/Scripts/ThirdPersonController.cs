@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 #endif
 
 //Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -198,6 +199,16 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            // move to checkpoint if reached one
+            if (SaveGameManager.instance.cpPos != Vector3.zero)
+            {
+                print("moving to checkpoint");
+                _controller.enabled = false;
+                transform.position = SaveGameManager.instance.cpPos;
+                transform.rotation = SaveGameManager.instance.cpRot;
+                _controller.enabled = true;
+            }
         }
 
         private void Update()
@@ -254,6 +265,15 @@ namespace StarterAssets
             }
         }
 
+        [SerializeField] private float minCamSpeedMult = 0.2f;
+        [SerializeField] private float maxCamSpeedMult = 2.0f;
+        private float camSpeedMult = 0.5f;
+
+        public void SetCameraSpeed(float perc)
+        {
+            camSpeedMult = Mathf.Lerp(minCamSpeedMult, maxCamSpeedMult, perc);
+            print(camSpeedMult);
+        }
         private void CameraRotation()
         {
             if (_zoneModeController.transitioning)
@@ -265,8 +285,8 @@ namespace StarterAssets
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
-                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * camSpeedMult;
+                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * camSpeedMult;
             }
 
             // clamp our rotations so our values are limited 360 degrees
@@ -517,6 +537,7 @@ namespace StarterAssets
         }
 
 
+        GameUIController _UI;
         void ChangeMode()
         {
             if (unlockedModes.Count > 1)
@@ -529,6 +550,7 @@ namespace StarterAssets
                         Mode = 0;
                     }
                     _input.changeModeUp = _input.changeModeDown = false;
+                    ChangeModeUI();
                     SetStatsByMode();
                 }
 
@@ -540,9 +562,18 @@ namespace StarterAssets
                         Mode = PlayerModes.URBAN;
                     }
                     _input.changeModeUp = _input.changeModeDown = false;
+                    ChangeModeUI();
                     SetStatsByMode();
                 }
             }
+        }
+        void ChangeModeUI()
+        {
+            if (_UI == null)
+            {
+                _UI = GameObject.Find("Canvas").GetComponentInChildren<GameUIController>();
+            }
+            _UI?.SetMode(Mode);
         }
         
 
@@ -550,7 +581,6 @@ namespace StarterAssets
         {
             if (Mode == PlayerModes.NORMAL)
             {
-                print("CHANGING TO SICKO");
                 _animator.runtimeAnimatorController = aoc_sicko;
                 MoveSpeed = moveSpeed_normal;
                 SprintSpeed = sprintSpeed_normal;
@@ -559,7 +589,6 @@ namespace StarterAssets
             }
             else if (Mode == PlayerModes.URBAN)
             {
-                print("CHANGING TO URBAN");
                 _animator.runtimeAnimatorController = aoc_urban;
                 MoveSpeed = moveSpeed_urban;
                 SprintSpeed = sprintSpeed_urban;
@@ -570,7 +599,8 @@ namespace StarterAssets
 
         public void GotHit()
         {
-            Destroy(gameObject);
+            print("huh?");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         public void StompJump()
@@ -585,26 +615,35 @@ namespace StarterAssets
         {
             if (!gamePaused && _input.pause)
             {
-                _input.cursorLocked = false;
-                _input.SetCursorState(_input.cursorLocked);
-                AudioManager.instance.Pause();
-                _input.playerInput.SwitchCurrentActionMap("UI");
-                _input.pause = false;
-                gamePaused = true;
-                PauseMenu.instance.GamePaused();
-                Time.timeScale = 0;
+                ActualPause();
             }
             if (gamePaused && _input.unPause)
             {
-                _input.cursorLocked = true;
-                _input.SetCursorState(_input.cursorLocked);
-                Time.timeScale = 1;
-                AudioManager.instance.UnPause();
-                _input.playerInput.SwitchCurrentActionMap("Player");
-                _input.unPause = false;
-                PauseMenu.instance.GameUnPaused();
-                gamePaused = false;
+                ActualUnpause();
             }
+        }
+
+        void ActualPause()
+        {
+            _input.cursorLocked = false;
+            _input.SetCursorState(_input.cursorLocked);
+            AudioManager.instance.Pause();
+            _input.playerInput.SwitchCurrentActionMap("UI");
+            _input.pause = false;
+            gamePaused = true;
+            PauseMenu.instance.GamePaused();
+            Time.timeScale = 0;
+        }
+        public void ActualUnpause()
+        {
+            _input.cursorLocked = true;
+            _input.SetCursorState(_input.cursorLocked);
+            Time.timeScale = 1;
+            AudioManager.instance.UnPause();
+            _input.playerInput.SwitchCurrentActionMap("Player");
+            _input.unPause = false;
+            PauseMenu.instance.GameUnPaused();
+            gamePaused = false;
         }
     }
 }
