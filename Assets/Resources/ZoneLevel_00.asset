@@ -14,48 +14,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelLengthInSeconds: 120
   obstacles:
-  - obstacleTime: 14
-    obstacleTimeToReachPlayer: 1.7
-    obstaclePrefab: {fileID: 3944868201679771651, guid: 19e4ed0bf428b1046927c6a77a7874a8,
+  - obstacleTime: 17
+    obstacleTimeToReachPlayer: 5
+    obstaclePrefab: {fileID: 4177015209516682082, guid: 1d37a91e15772c5489232d5ba2d3c769,
       type: 3}
     wallColor: {r: 0.19854528, g: 0.0972321, b: 0.21698111, a: 0}
-    obstacleScreenPos_y: 0.712
-    obstacleScreenPos_X: 0.133
-  - obstacleTime: 15
-    obstacleTimeToReachPlayer: 1.7
+    obstacleScreenPos_y: 0.5
+    obstacleScreenPos_X: 0.5
+  - obstacleTime: 20
+    obstacleTimeToReachPlayer: 5
     obstaclePrefab: {fileID: 5861939474482473444, guid: b4ca60bcd06d3304f89384e1519b11c9,
       type: 3}
     wallColor: {r: 0.10693864, g: 0.06741722, b: 0.14150941, a: 0}
-    obstacleScreenPos_y: 0.1
-    obstacleScreenPos_X: 0.532
-  - obstacleTime: 16
-    obstacleTimeToReachPlayer: 1.7
-    obstaclePrefab: {fileID: 3944868201679771651, guid: 19e4ed0bf428b1046927c6a77a7874a8,
-      type: 3}
-    wallColor: {r: 1, g: 1, b: 1, a: 0}
-    obstacleScreenPos_y: 0.1
-    obstacleScreenPos_X: 0.1
-  - obstacleTime: 20
-    obstacleTimeToReachPlayer: 1.7
-    obstaclePrefab: {fileID: 3944868201679771651, guid: 19e4ed0bf428b1046927c6a77a7874a8,
-      type: 3}
-    wallColor: {r: 1, g: 1, b: 1, a: 0}
-    obstacleScreenPos_y: 0.1
-    obstacleScreenPos_X: 0.1
+    obstacleScreenPos_y: 0.274
+    obstacleScreenPos_X: 0.389
   - obstacleTime: 25
-    obstacleTimeToReachPlayer: 1.7
-    obstaclePrefab: {fileID: 4262935185932607735, guid: bad5a5759d996a34db150b09591fffbc,
+    obstacleTimeToReachPlayer: 4
+    obstaclePrefab: {fileID: 5170918696155339073, guid: 95381fed39771c54db0c0980b53cd379,
+      type: 3}
+    wallColor: {r: 1, g: 1, b: 1, a: 0}
+    obstacleScreenPos_y: 0.607
+    obstacleScreenPos_X: 0.404
+  - obstacleTime: 45
+    obstacleTimeToReachPlayer: 3
+    obstaclePrefab: {fileID: 4177015209516682082, guid: 1d37a91e15772c5489232d5ba2d3c769,
       type: 3}
     wallColor: {r: 1, g: 1, b: 1, a: 0}
     obstacleScreenPos_y: 0.1
     obstacleScreenPos_X: 0.1
+  - obstacleTime: 55
+    obstacleTimeToReachPlayer: 3
+    obstaclePrefab: {fileID: 3944868201679771651, guid: 19e4ed0bf428b1046927c6a77a7874a8,
+      type: 3}
+    wallColor: {r: 1, g: 1, b: 1, a: 0}
+    obstacleScreenPos_y: 0.238
+    obstacleScreenPos_X: 0.199
   melons:
   - melonTime: 8
     melonTimeToReachPlayer: 5
     melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
       type: 3}
-    melonScreenPos_y: 0.274
-    melonScreenPos_X: 0.36
+    melonScreenPos_y: 0.9
+    melonScreenPos_X: 0.9
   - melonTime: 10
     melonTimeToReachPlayer: 3
     melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
