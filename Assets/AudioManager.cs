@@ -1,12 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Pool;
-using UnityEngine.Rendering.VirtualTexturing;
-using static Unity.Burst.Intrinsics.Arm;
-using static UnityEngine.Rendering.DebugUI;
 
 public enum audios
 {
@@ -20,6 +16,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; private set; }
 
+    [SerializeField] private GameObject audioSourceObj = null;
     [SerializeField] private float maxVolume = 0;
     [SerializeField] private float minVolume = -10;
     [SerializeField] private AudioMixer mixer = null;
@@ -28,35 +25,37 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource bgm_player_1 = null;
     [SerializeField] private AudioSource bgm_player_2 = null;
     [Space(20)]
-    public AudioClip bgm_crash = null;
-    public AudioClip bgm_zone_1 = null;
-    public AudioClip bgm_urban = null;
-    public AudioClip bgm_zone_2 = null;
-    public AudioClip bgm_boss_1 = null;
-    public AudioClip bgm_boss_zone = null;
+    public AudioClipPacket bgm_crash = null;
+    public AudioClipPacket bgm_zone_1 = null;
+    public AudioClipPacket bgm_urban = null;
+    public AudioClipPacket bgm_zone_2 = null;
+    public AudioClipPacket bgm_boss_1 = null;
+    public AudioClipPacket bgm_boss_zone = null;
     [Space(20)]
-    [SerializeField] private AudioSource pauseButton = null;
-    [SerializeField] private AudioSource buttonClick = null;
-    [SerializeField] private AudioSource walrus_slide = null;
-    [SerializeField] private AudioSource walrus_squash = null;
-    [SerializeField] private AudioSource walrus_die = null;
-    [SerializeField] private AudioSource melon = null;
-    [SerializeField] private List<AudioClip> melons = null;
+    [SerializeField] private AudioClipPacket pauseButton = null;
+    [SerializeField] private AudioClipPacket buttonClick = null;
+    [SerializeField] private AudioClipPacket walrus_slide = null;
+    [SerializeField] private AudioClipPacket walrus_squash = null;
+    [SerializeField] private AudioClipPacket walrus_die = null;
+    [SerializeField] private AudioClipPacket melons = null;
 
-    private Dictionary<audios, AudioSource> audioLibrary = new Dictionary<audios, AudioSource>();
-
+    private Dictionary<audios, AudioClipPacket> audioLibrary = new Dictionary<audios, AudioClipPacket>();
     private float volume_SFX;
     private float volume_BGM;
+    
+    private IObjectPool<GameObject> audioSourcePool;
+    private GameObject clone;
 
     void Awake()
     { 
         if (instance != null && instance != this) Destroy(this);
         else instance = this;
+        audioSourcePool = new ObjectPool<GameObject>(CreateAudioSource, OnTakeAudioSourceFromPool, OnReturnAudioSourceToPool);
         PopulateAudioLibrary();
     }
     void Start()
     {
-        ChangeBGM(bgm_crash, 0);
+        //ChangeBGM(bgm_crash.clip, 0);
     }
 
     public void ChangeSFXVolume(float value)
@@ -70,19 +69,18 @@ public class AudioManager : MonoBehaviour
 
     public void PlayClip(audios clip, Vector3 position)
     {
-        if (clip == audios.MELON)
-        {
-            PlayMelon();
-        }
-        else if (clip != audios.None)
-        {
-            AudioSource audioSource;
-            audioLibrary.TryGetValue(clip, out audioSource);
-            if (audioSource != null) {
-                audioSource.transform.position = position;
-                audioSource.Play();
-            }
-        }
+        if (clip == audios.None)
+            return;
+
+        AudioClipPacket audioClipPack;
+        audioLibrary.TryGetValue(clip, out audioClipPack);
+        if (audioClipPack == null)
+            return;
+
+        clone = audioSourcePool.Get();
+        print(clone);
+        clone.GetComponent<AudioSourceObj>().InitAudioSourceObj(audioClipPack, position);
+        clone = null;
     }
 
     public void Pause()
@@ -110,36 +108,30 @@ public class AudioManager : MonoBehaviour
         audioLibrary.Add(audios.WALRUS_DIE, walrus_die);  
     }
 
-    void PlayMelon()
-    {
-        var r = Random.Range(0, melons.Count);
-        melon.clip = melons[r];
-        melon.Play();
-    }
-
+    // ===== BGM PLAYER =====
     int currentDisctPlayer = 0; // 1 or 2
-    public void ChangeBGM(AudioClip bgm, float changeSpeed)
+    public void ChangeBGM(AudioClipPacket bgm, float changeSpeed)
     {
         if (currentDisctPlayer == 0)
         {
             currentDisctPlayer = 1;
-            bgm_player_1.clip = bgm;
+            bgm_player_1.clip = bgm.clip[0];
             bgm_player_1.Play();
         }
         else if (currentDisctPlayer == 1)
         {
             currentDisctPlayer = 2;
-            bgm_player_2.clip = bgm;
+            bgm_player_2.clip = bgm.clip[0];
             bgm_player_2.volume = 0;
             bgm_player_2.Play();
             StartCoroutine(ChangeVolumeOverTime(bgm_player_1, 0, changeSpeed));
-            StartCoroutine(ChangeVolumeOverTime(bgm_player_2, volume_BGM, changeSpeed));
+            StartCoroutine(ChangeVolumeOverTime(bgm_player_2, bgm.volume, changeSpeed));
         }
         else if (currentDisctPlayer == 2)
         {
             currentDisctPlayer = 1;
-            bgm_player_1.clip = bgm;
-            StartCoroutine(ChangeVolumeOverTime(bgm_player_1, volume_BGM, changeSpeed));
+            bgm_player_1.clip = bgm.clip[0];
+            StartCoroutine(ChangeVolumeOverTime(bgm_player_1, bgm.volume, changeSpeed));
             StartCoroutine(ChangeVolumeOverTime(bgm_player_2, 0, changeSpeed));
         }
     }
@@ -163,4 +155,23 @@ public class AudioManager : MonoBehaviour
     }
 
 
+    // ===== Audiosource pools =====
+    public void ClearPools()
+    {
+        audioSourcePool.Clear();
+    }
+    GameObject CreateAudioSource()
+    {
+        var instance = Instantiate(audioSourceObj) as GameObject;
+        instance.GetComponent<AudioSourceObj>().SetPool(audioSourcePool);
+        return instance;
+    }
+    void OnTakeAudioSourceFromPool(GameObject audi)
+    {
+        audi.SetActive(true);
+    }
+    void OnReturnAudioSourceToPool(GameObject audi)
+    {
+        audi.SetActive(false);
+    }
 }
