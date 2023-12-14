@@ -28,7 +28,6 @@ public class GameUIController : MonoBehaviour
     {
         if (mode == PlayerModes.NORMAL)
         {
-            print("hehei");
             modeUI.sprite = sickoMode;
         }
         else if (mode == PlayerModes.URBAN)

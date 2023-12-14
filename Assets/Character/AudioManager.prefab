@@ -861,7 +861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVolume: 5
-  minVolume: -50
+  minVolume: -40
   mixer: {fileID: 24100000, guid: ddad6fe7770c61248a62645031cdd731, type: 2}
   snapshot_paused: {fileID: -693793772146303394, guid: ddad6fe7770c61248a62645031cdd731,
     type: 2}

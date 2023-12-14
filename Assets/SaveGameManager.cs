@@ -19,21 +19,33 @@ public class SaveGameManager : MonoBehaviour
     private List<string> lvl2_crates = new List<string>();
 
     private int melonCount = 0;
-    private int idGen = 0;
     private GameUIController gameUIController;
+    private List<PlayerModes> unlockedModes = new List<PlayerModes>();
 
     private void Awake()
     {
         if (instance != null && instance != this) Destroy(this);
         else instance = this;
         DontDestroyOnLoad(this);
+        unlockedModes.Add(PlayerModes.NORMAL);
     }
 
-    // Player respawn
+    // ===== CHECKPOINTS =====
     public void SetCurrentCheckpoint(Vector3 cpPos, Quaternion cpRot)
     {
         this.cpPos = cpPos;
         this.cpRot = cpRot;
+    }
+
+    // ===== PLAYER MODES =====
+    public void AddPlayerMode(PlayerModes mode)
+    {
+        if (!unlockedModes.Contains(mode))
+            unlockedModes.Add(mode);
+    }
+    public List<PlayerModes> GetUnlockedModes()
+    {
+        return unlockedModes;
     }
 
     // ===== MELONS ======

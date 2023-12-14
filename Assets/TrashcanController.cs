@@ -113,8 +113,13 @@ public class TrashcanController : MonoBehaviour
         }
     }
 
+    bool destroying = false;
     public void DestroyMe()
     {
+        if (destroying) 
+            return;
+        destroying = true;
+
         DamageInstancePool.instance.SpawnDamageInstance_Sphere(transform.position, Quaternion.identity, 2f, 0.2f, 1, hitsEnemy, hitsPlayer);
         ParticleEffects.instance.PlayParticle(Particles.TRASHCAN_BREAK, transform.position, Quaternion.identity);
         Destroy(gameObject);
