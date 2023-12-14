@@ -50,27 +50,87 @@ MonoBehaviour:
     obstacleScreenPos_y: 0.1
     obstacleScreenPos_X: 0.1
   melons:
-  - melonTime: 6
-    melonTimeToReachPlayer: 3
-    melonPrefab: {fileID: 3660081165492779535, guid: b2741c758fa35d641b3c1be8627ac413,
-      type: 3}
-    melonScreenPos_y: 0.05
-    melonScreenPos_X: 0.36
   - melonTime: 8
-    melonTimeToReachPlayer: 3
-    melonPrefab: {fileID: 3252360782626469252, guid: f2fea1fa5bb028e41b068b5f1ab375ef,
+    melonTimeToReachPlayer: 5
+    melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
       type: 3}
-    melonScreenPos_y: 0.398
-    melonScreenPos_X: 0.56
+    melonScreenPos_y: 0.274
+    melonScreenPos_X: 0.36
   - melonTime: 10
     melonTimeToReachPlayer: 3
+    melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
+      type: 3}
+    melonScreenPos_y: 0.273
+    melonScreenPos_X: 0.49
+  - melonTime: 11
+    melonTimeToReachPlayer: 2
     melonPrefab: {fileID: 486176566393759512, guid: 706f29753e12df846a17b71def145f7f,
       type: 3}
-    melonScreenPos_y: 0.588
-    melonScreenPos_X: 0.75
+    melonScreenPos_y: 0.634
+    melonScreenPos_X: 0.771
   - melonTime: 12
     melonTimeToReachPlayer: 3
     melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
       type: 3}
-    melonScreenPos_y: 0.769
-    melonScreenPos_X: 0.95
+    melonScreenPos_y: 0.41
+    melonScreenPos_X: 0.381
+  - melonTime: 12.5
+    melonTimeToReachPlayer: 4
+    melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
+      type: 3}
+    melonScreenPos_y: 0.553
+    melonScreenPos_X: 0.371
+  - melonTime: 13
+    melonTimeToReachPlayer: 1
+    melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
+      type: 3}
+    melonScreenPos_y: 0.616
+    melonScreenPos_X: 0.418
+  - melonTime: 12
+    melonTimeToReachPlayer: 3
+    melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
+      type: 3}
+    melonScreenPos_y: 0.201
+    melonScreenPos_X: 0.149
+  - melonTime: 11.2
+    melonTimeToReachPlayer: 3
+    melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
+      type: 3}
+    melonScreenPos_y: 0.352
+    melonScreenPos_X: 0.407
+  - melonTime: 11.2
+    melonTimeToReachPlayer: 3
+    melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
+      type: 3}
+    melonScreenPos_y: 0.352
+    melonScreenPos_X: 0.407
+  - melonTime: 11.2
+    melonTimeToReachPlayer: 3
+    melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
+      type: 3}
+    melonScreenPos_y: 0.352
+    melonScreenPos_X: 0.407
+  - melonTime: 11.2
+    melonTimeToReachPlayer: 3
+    melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
+      type: 3}
+    melonScreenPos_y: 0.352
+    melonScreenPos_X: 0.407
+  - melonTime: 11.2
+    melonTimeToReachPlayer: 3
+    melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
+      type: 3}
+    melonScreenPos_y: 0.352
+    melonScreenPos_X: 0.407
+  - melonTime: 11.2
+    melonTimeToReachPlayer: 3
+    melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
+      type: 3}
+    melonScreenPos_y: 0.352
+    melonScreenPos_X: 0.407
+  - melonTime: 11.2
+    melonTimeToReachPlayer: 3
+    melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
+      type: 3}
+    melonScreenPos_y: 0.352
+    melonScreenPos_X: 0.407
