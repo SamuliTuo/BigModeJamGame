@@ -119,7 +119,7 @@ public class AudioManager : MonoBehaviour
             bgm_player_2.volume = 0;
             bgm_player_2.Play();
             StartCoroutine(ChangeVolumeOverTime(bgm_player_1, 0, changeSpeed));
-            StartCoroutine(ChangeVolumeOverTime(bgm_player_2, 1, changeSpeed));
+            StartCoroutine(ChangeVolumeOverTime(bgm_player_2, 0.5f, changeSpeed));
         }
         else if (currentDisctPlayer == 2)
         {
