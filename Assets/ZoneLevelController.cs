@@ -1,6 +1,8 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ZoneLevelController : MonoBehaviour
 {
@@ -67,9 +69,14 @@ public class ZoneLevelController : MonoBehaviour
             t += Time.deltaTime;
             yield return null;
         }
-        //end level
+
+        LoadNextScene(levelData.nextLevelSceneName);
     }
 
+    void LoadNextScene(string levelName)
+    {
+        SceneManager.LoadScene(levelName);
+    }
 
 
     // Update the instantiated objects:
