@@ -57,6 +57,17 @@ public class UrbanAttackCollider : MonoBehaviour
                     hitObjects.Add(script.transform.GetChild(i).gameObject);
                 }
             }
+            else if (other.CompareTag("BOSS"))
+            {
+                var bossController = other.transform.root.GetComponent<BossController>();
+                if (bossController != null)
+                {
+                    if (bossController.stunned)
+                    {
+                        bossController.TakeDamage();
+                    }
+                }
+            }
         }
     }
 }

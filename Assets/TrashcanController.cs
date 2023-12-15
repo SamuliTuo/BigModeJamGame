@@ -112,7 +112,7 @@ public class TrashcanController : MonoBehaviour
             return;
 
         if (col.collider.CompareTag("BOSS") && gotKicked)
-            col.gameObject.GetComponent<BossController>().TrashcanHit();
+            col.transform.root.GetComponent<BossController>().TrashcanHit();
 
         ContactPoint[] contact = new ContactPoint[col.contactCount];
         int points = col.GetContacts(contact);

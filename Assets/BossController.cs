@@ -361,6 +361,8 @@ public class BossController : MonoBehaviour
             t += Time.deltaTime;
             yield return null;
         }
+        stunned = true;
+
         transform.position = endpos;
         transform.rotation = stunnedSpot.rotation;
         t = 0;
@@ -370,14 +372,15 @@ public class BossController : MonoBehaviour
             t += Time.deltaTime;
             yield return null;
         }
-        _anim.Play("idle", 0, 0);
         currentSpot = stunnedSpot;
         nextAction = BossActions.NONE;
-        busy = false;
+        //busy = false;
     }
-
+    public bool stunned = false;
     public void TakeDamage()
     {
-
+        busy = true;
+        phase++;
+        StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)]));
     }
 }

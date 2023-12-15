@@ -3851,6 +3851,9 @@ MonoBehaviour:
   - {fileID: 783556084}
   - {fileID: 2119573727}
   - {fileID: 517924106}
+  birbSpawnSpots_left: []
+  birbSpawnSpots_right: []
+  birbSpawnSpots_up: []
   birdSpawnSpots: []
   trashtruckSpawnSpot_left: {fileID: 518892756}
   trashtruckSpawnSpot_up: {fileID: 1577432487}
@@ -3866,6 +3869,7 @@ MonoBehaviour:
   summonForwardOffset: 3
   summonSpeed: 0.5
   walrusSummonY: 8.309
+  stunned: 0
 --- !u!1001 &746329221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14739,6 +14743,11 @@ PrefabInstance:
       propertyPath: vCam2
       value: 
       objectReference: {fileID: 1905786800}
+    - target: {fileID: 7423176136771012695, guid: 49d593eb803cd1148a61232e6d8a8199,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49d593eb803cd1148a61232e6d8a8199, type: 3}
 --- !u!4 &7444007820220044593
