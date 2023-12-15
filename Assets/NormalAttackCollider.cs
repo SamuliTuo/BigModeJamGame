@@ -44,6 +44,18 @@ public class NormalAttackCollider : MonoBehaviour
             {
                 other.GetComponentInParent<TrashcanController>()?.GetSpinnedOn();
             }
+
+            else if (other.CompareTag("BOSS"))
+            {
+                var bossController = other.transform.root.GetComponent<BossController>();
+                if (bossController != null)
+                {
+                    if (bossController.stunned)
+                    {
+                        bossController.TakeDamage();
+                    }
+                }
+            }
         }
     }
 }
