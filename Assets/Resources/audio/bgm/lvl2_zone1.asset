@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: lvl2_zone1
   m_EditorClassIdentifier: 
   clip:
-  - {fileID: 8300000, guid: 23a98cb84a3a4394cb3cb47ed6469a56, type: 3}
+  - {fileID: 8300000, guid: fd7675e882a8e0544b3ede160bf9c973, type: 3}
   volume: 0.611
   minPitch: 1
   maxPitch: 1

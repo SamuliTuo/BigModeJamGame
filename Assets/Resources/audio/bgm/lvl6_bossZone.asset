@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: lvl6_bossZone
   m_EditorClassIdentifier: 
   clip:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 8ff7cd2086744254d8d500dd2dd11190, type: 3}
   volume: 1
   minPitch: 1
   maxPitch: 1
