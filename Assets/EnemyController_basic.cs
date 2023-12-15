@@ -247,23 +247,6 @@ public class EnemyController_basic : MonoBehaviour
             yield return null;
         }
 
-        if (timeBetweenMoves > 0)
-        {
-            animator.CrossFade("idle", 0.2f, 0, 0);
-            t = 0;
-            while (t < timeBetweenMoves)
-            {
-                t += Time.deltaTime;
-                yield return null;
-            }
-        }
-
-        currentTarget++;
-        if (currentTarget >= targets.Count)
-        {
-            currentTarget = 0;
-        }
-
-        moveRoutine = StartCoroutine(MoveCoroutine());
+        Die();
     }
 }

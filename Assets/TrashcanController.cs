@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Sprites;
 using UnityEngine;
 
 public class TrashcanController : MonoBehaviour
@@ -62,7 +63,6 @@ public class TrashcanController : MonoBehaviour
     {
         Start();
         rolling = true;
-
         var rollDir = Random.Range(0, 2) == 0 ? kicker.right : -kicker.right;
         if (rollDir == -kicker.right)
             animator.Play("trashcanSpin_counterClockwise");
@@ -72,7 +72,23 @@ public class TrashcanController : MonoBehaviour
         col1.material = col2.material = frictionlessMat;
         hitsPlayer = true;
         hitsEnemy = true;
-        StartCoroutine(RollingRoutine(kicker.forward, 10));
+        StartCoroutine(RollingRoutine(kicker.forward, speed));
+    }
+    public void GotThrown(Vector3 position, Vector3 forward, Vector3 right, float speed)
+    {
+        Start();
+        rolling = true;
+        var rollDir = Random.Range(0, 2) == 0 ? right : -right;
+        if (rollDir == -right)
+            animator.Play("trashcanSpin_counterClockwise");
+        else
+            animator.Play("trashcanSpin_clockwise");
+        transform.rotation = Quaternion.LookRotation(rollDir, Vector3.up);
+        col1.material = col2.material = frictionlessMat;
+        hitsPlayer = true;
+        hitsEnemy = true;
+        StartCoroutine(RollingRoutine(forward, speed));
+
     }
 
     IEnumerator RollingRoutine(Vector3 pusherForward, float pushForce)

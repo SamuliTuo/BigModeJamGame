@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
+public enum BossActions { NONE, JUMP, THROW, SUMMON_WALRUS, }
 public class BossController : MonoBehaviour
 {
     public float spotChangeTime = 1;
@@ -26,6 +28,7 @@ public class BossController : MonoBehaviour
     public float trashcanThrowSpeed_normal = 10;
     public float trashcanThrowSpeed_fast = 20;
 
+    private BossActions nextAction = BossActions.NONE;
     private Transform currentSpot;
     private int phase = 0;
     private bool busy = false;
@@ -59,13 +62,23 @@ public class BossController : MonoBehaviour
     void PhaseOne()
     {
         busy = true;
+        if (nextAction != BossActions.NONE)
+        {
+            switch (nextAction)
+            {
+                case BossActions.JUMP: StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)])); break;
+                case BossActions.THROW: StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, Random.Range(2, 7))); break;
+                case BossActions.SUMMON_WALRUS: StartCoroutine(Summon(walrus, currentSpot)); break;
+            }
+            return;
+        }
+
         float rand = Random.Range(0.00f, 10.00f);
-        if (rand > 8)
-            StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)]));
-        else if (rand > 4)
-            StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, Random.Range((int)1, (int)5)));
+        if (rand > 5)
+            StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, Random.Range(2, 7)));
         else
             StartCoroutine(Summon(walrus, currentSpot));
+        
             // throw barrels
             // calc offset
             // ThrowBarrel(currentSpot + offset, throwSpeed_normal);
@@ -106,20 +119,29 @@ public class BossController : MonoBehaviour
             yield return null;
         }
         currentSpot = spot;
+        nextAction = BossActions.NONE;
         busy = false;
     }
     IEnumerator ThrowBarrel(Transform _throwSpot, float _throwSpeed, int _count)
     {
-        var clone = Instantiate(trashcan, _throwSpot.position, Quaternion.LookRotation(_throwSpot.right));
-        clone.GetComponent<TrashcanController>().GotThrown(_throwSpot, _throwSpeed);
-        float t = 0;
-        while (t < trashcanInterval_normal)
+        int i = 0;
+        while (i < _count)
         {
-            t += Time.deltaTime;
+            print("i "+i);
+            Vector3 spot = _throwSpot.position + (transform.right * Random.Range(-4, 4));
+            var clone = Instantiate(trashcan, spot, Quaternion.LookRotation(_throwSpot.right));
+            clone.GetComponent<TrashcanController>().GotThrown(spot, _throwSpot.forward, _throwSpot.right, _throwSpeed);
+            float t = 0;
+            while (t < trashcanInterval_normal)
+            {
+                t += Time.deltaTime;
+                yield return null;
+            }
+            i++;
             yield return null;
         }
+        nextAction = BossActions.JUMP;
         busy = false;
-        yield return null;
     }
 
     public float summonForwardOffset = 3;
@@ -127,16 +149,47 @@ public class BossController : MonoBehaviour
     public float walrusSummonY = 8.309f;
     IEnumerator Summon(GameObject _enemy, Transform _spawnSpot)
     {
-        Vector3 pos = transform.position + transform.forward * summonForwardOffset;
-        pos = new Vector3(pos.x, walrusSummonY, pos.z);
-        Instantiate(_enemy, pos, transform.rotation);
-        float t = 0;
-        while (t < summonSpeed) 
+        bool facingRight = false;
+        bool facingDown = false;
+
+        if (Vector3.Dot(_spawnSpot.forward, new Vector3(1, 0, 0)) >= 0.8f)
+            facingDown = true;
+        else if (Vector3.Dot(_spawnSpot.forward, new Vector3(0, 0, 1)) >= 0.8f)
+            facingRight = true;
+
+        float i = 0;
+        int summons = Random.Range(5, 10);
+        Transform spownposition;
+
+        nextAction = BossActions.JUMP;
+        busy = false;
+
+        float t2 = 0;
+        while (t2 < 0.4f)
         {
-            t += Time.deltaTime;
+            t2 += Time.deltaTime;
             yield return null;
         }
-        busy = false;
+
+        while (i < summons)
+        {
+            if (facingRight)
+                spownposition = walrusSpawnSpots_left[Random.Range(0, walrusSpawnSpots_left.Count)];
+            else if (facingDown)
+                spownposition = walrusSpawnSpots_up[Random.Range(0, walrusSpawnSpots_up.Count)];
+            else
+                spownposition = walrusSpawnSpots_right[Random.Range(0, walrusSpawnSpots_right.Count)];
+            Instantiate(_enemy, spownposition.position, _spawnSpot.rotation);
+
+            float t = 0;
+            while (t < summonSpeed)
+            {
+                t += Time.deltaTime;
+                yield return null;
+            }
+            i++;
+            yield return null;
+        }
     }
 
 
