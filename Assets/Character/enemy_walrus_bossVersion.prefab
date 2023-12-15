@@ -97,12 +97,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dead: 0
   pushed: 0
-  bossMode: 0
+  bossMode: 1
   hp: 1
   timeBetweenMoves: 0.5
   moveSpeed: 3
   useSmoothStep: 0
-  useEaseOut: 0
+  useEaseOut: 1
   animator: {fileID: 0}
   useMoveAnticipation: 1
   anticipationTime: 0.35
