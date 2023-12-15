@@ -7,6 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ZoneLevel", menuName = "ScriptableObjects/NewZoneLevel", order = 1)]
 public class ZoneLevelScriptable : ScriptableObject
 {
+    [Range(0,1)] public float START_LEVEL_AT_SECONDS_TESTER;
     public float levelLengthInSeconds;
     public List<ZoneLevelObstacle> obstacles = new List<ZoneLevelObstacle>();
     public List<ZoneLevelMelonSpawn> melons = new List<ZoneLevelMelonSpawn>();
@@ -22,7 +23,7 @@ public class ZoneLevelObstacle
     public GameObject obstaclePrefab;
     public Color wallColor;
     [Range(0.1f, 0.9f)] public float obstacleScreenPos_y;
-    [Range(0.1f, 0.9f)] public float obstacleScreenPos_X;
+    [Range(0.12f, 0.88f)] public float obstacleScreenPos_X;
 }
 
 [Serializable]

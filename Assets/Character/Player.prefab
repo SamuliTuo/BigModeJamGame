@@ -2162,7 +2162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d26f067e8b4b349892c22e59d22b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectSpeed: 12
+  collectSpeed: 9
   collectFlySpeed: 4
   lootPosXOffset: 0.065
   lootPosYOffset: 0.875

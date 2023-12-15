@@ -12,6 +12,7 @@ TagManager:
   - Trashcan
   - UrbanMode
   - KillBox
+  - BOSS
   layers:
   - Default
   - TransparentFX
