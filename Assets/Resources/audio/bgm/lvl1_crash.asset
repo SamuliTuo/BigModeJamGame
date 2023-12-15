@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: lvl1_crash
   m_EditorClassIdentifier: 
   clip:
-  - {fileID: 8300000, guid: feec285b07e941c489e79c2863981bf6, type: 3}
+  - {fileID: 8300000, guid: 6d95331e557af074eb959e0c1d24b9cc, type: 3}
   volume: 1
   minPitch: 1
   maxPitch: 1
