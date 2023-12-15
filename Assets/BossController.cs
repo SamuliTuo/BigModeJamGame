@@ -366,7 +366,7 @@ public class BossController : MonoBehaviour
         transform.position = endpos;
         transform.rotation = stunnedSpot.rotation;
         t = 0;
-        _anim.Play("jump_landing", 0, 0);
+        _anim.Play("stunned", 0, 0);
         while (t < 0.3f)
         {
             t += Time.deltaTime;
