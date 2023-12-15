@@ -642,11 +642,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: stunned
-      takeName: stunned
+      name: morgan01|stunned (1)
+      takeName: morgan01|stunned
       internalID: -3649224233829801637
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
