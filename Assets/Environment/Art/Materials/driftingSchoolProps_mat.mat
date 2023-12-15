@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8986217232478997392
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,18 +7,46 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: house05
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Name: driftingSchoolProps_mat
+  m_Shader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
   m_ValidKeywords:
-  - _EMISSION
-  m_InvalidKeywords: []
+  - N_F_EAL_ON
+  - N_F_RDC_ON
+  - N_F_RELGI_ON
+  - N_F_SS_ON
+  - N_F_TRANSAFFSHA_ON
+  m_InvalidKeywords:
+  - N_F_TRANSAFFSHA
+  - _CUSTOMLIGHTDIRECTIONFOLLOWOBJECTROTATION_OFF
+  - _GIFLATSHADE_OFF
+  - _GLOSSTEXTUREFOLLOWOBJECTROTATION_OFF
+  - _LIGHTAFFECTOUTLINECOLOR_OFF
+  - _LIGHTAFFECTRIMLIGHTCOLOR_OFF
+  - _LIGHTAFFECTSHADOW_OFF
+  - _LIGHTFALLOFFAFFECTSHADOWT_OFF
+  - _LIGIGNOYNORDIR_OFF
+  - _MCIALO_OFF
+  - _MIXMAINTEXTOOUTLINE_OFF
+  - _MVCOL_OFF
+  - _OUTLINEWIDTHAFFECTEDBYVIEWDISTANCE_OFF
+  - _PSGLOTEX_OFF
+  - _SELFSHADOWAFFECTEDBYLIGHTSHADOWSTRENGTH_OFF
+  - _SELFSHADOWSHADOWTATVIEWDIRECTION_OFF
+  - _SHOWNORMAL_OFF
+  - _SPECMODE_OFF
+  - _STIL_OFF
+  - _TEXTUREPATTERNSTYLE_OFF
+  - _USESECONDARYCUTOUT_OFF
+  - _VERTEXCOLORBLUEAFFECTOUTLINEWITDH_OFF
+  - _VERTEXCOLORGREENCONTROLSELFSHADOWTHRESHOLD_OFF
+  - _VERTEXCOLORREDCONTROLSMOOTHOBJECTNORMAL_OFF
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
-  disabledShaderPasses: []
+  stringTagMap: {}
+  disabledShaderPasses:
+  - SRPDEFAULTUNLIT
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -76,7 +91,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 61c497c08968c6542893431edfa6ca1d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskGloss:
@@ -201,7 +216,7 @@ Material:
     - _MVCOL: 0
     - _MaiColPo: 0.8
     - _MaxFadDistance: 2
-    - _Metallic: 0.048
+    - _Metallic: 0
     - _MinFadDistance: 0
     - _MixMainTexToOutline: 0
     - _N_F_CA: 0
@@ -222,7 +237,7 @@ Material:
     - _N_F_NFD: 0
     - _N_F_NLASOBF: 0
     - _N_F_NM: 0
-    - _N_F_O: 1
+    - _N_F_O: 0
     - _N_F_OFLMB: 0
     - _N_F_PT: 0
     - _N_F_R: 0
@@ -306,14 +321,14 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.972549, g: 0.7858196, b: 0.81926364, a: 1}
-    - _Color: {r: 0.972549, g: 0.78581953, b: 0.81926364, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CustomLightDirection: {r: 0, g: 0, b: 10, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GlossColor: {r: 1, g: 1, b: 1, a: 1}
     - _Glow_Color: {r: 1, g: 1, b: 1, a: 1}
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MainColor: {r: 0.9716981, g: 0.7104397, b: 0.75755185, a: 1}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 1}
     - _OverallShadowColor: {r: 0, g: 0, b: 0, a: 1}
@@ -326,3 +341,16 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _XYZPosition: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+--- !u!114 &6555006861770073996
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

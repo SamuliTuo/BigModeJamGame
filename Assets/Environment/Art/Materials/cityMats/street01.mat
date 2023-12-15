@@ -306,8 +306,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.57254905, g: 0.49411765, b: 0.41568628, a: 1}
-    - _Color: {r: 0.57254905, g: 0.49411762, b: 0.41568625, a: 1}
+    - _BaseColor: {r: 0.659889, g: 0.6759861, b: 0.681, a: 1}
+    - _Color: {r: 0.659889, g: 0.6759861, b: 0.681, a: 1}
     - _CustomLightDirection: {r: 0, g: 0, b: 10, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GlossColor: {r: 1, g: 1, b: 1, a: 1}
