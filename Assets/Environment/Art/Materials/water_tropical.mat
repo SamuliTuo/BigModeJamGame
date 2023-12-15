@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: water
+  m_Name: water_tropical
   m_Shader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
   m_ValidKeywords:
   - N_F_EAL_ON
@@ -328,7 +328,7 @@ Material:
     - _GlossColor: {r: 1, g: 1, b: 1, a: 1}
     - _Glow_Color: {r: 1, g: 1, b: 1, a: 1}
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MainColor: {r: 0.112273075, g: 0.8207547, b: 0.6472084, a: 1}
+    - _MainColor: {r: 0.021359911, g: 0.9056604, b: 0.63841206, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 1}
     - _OverallShadowColor: {r: 0, g: 0, b: 0, a: 1}
