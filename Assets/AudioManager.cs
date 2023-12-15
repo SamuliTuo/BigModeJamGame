@@ -72,14 +72,12 @@ public class AudioManager : MonoBehaviour
         if (clip == audios.None)
             return;
 
-        print(clip);
         AudioClipPacket audioClipPack;
         audioLibrary.TryGetValue(clip, out audioClipPack);
         if (audioClipPack == null)
             return;
 
         clone = audioSourcePool.Get();
-        print(clone);
         clone.GetComponent<AudioSourceObj>().InitAudioSourceObj(audioClipPack, position);
         clone = null;
     }
@@ -142,6 +140,10 @@ public class AudioManager : MonoBehaviour
         if (currentDisctPlayer == 1)
         {
             bgm_player_1.time = bgm_player_1.clip.length * time;
+        }
+        else if (currentDisctPlayer == 2)
+        {
+            bgm_player_2.time = bgm_player_2.clip.length * time;
         }
     }
 

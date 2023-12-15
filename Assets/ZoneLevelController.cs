@@ -27,6 +27,7 @@ public class ZoneLevelController : MonoBehaviour
 
     public void StartZoneModeLevel(ZoneLevelScriptable levelData)
     {
+        SaveGameManager.instance.inZone = true;
         screenSize = new Vector2(Screen.width, Screen.height);
         StartCoroutine(ZoneLevelCoroutine(levelData));
     }
@@ -38,12 +39,13 @@ public class ZoneLevelController : MonoBehaviour
         float t = 0;
 
         //testing the level
-        t = levelData.START_LEVEL_AT_SECONDS_TESTER;
-        AudioManager.instance.SkipBGMTo(t);
+        t = levelData.START_LEVEL_AT_SECONDS_TESTER * levelData.levelLengthInSeconds;
+        AudioManager.instance.SkipBGMTo(levelData.START_LEVEL_AT_SECONDS_TESTER);
         //testing the level END
 
         while (t < levelData.levelLengthInSeconds)
         {
+            print(t);
             if (obstacles.Count > 0)
             {
                 if (t >= obstacles[0].obstacleTime - obstacles[0].obstacleTimeToReachPlayer)
@@ -57,6 +59,7 @@ public class ZoneLevelController : MonoBehaviour
             {
                 if (t >= melons[0].melonTime - melons[0].melonTimeToReachPlayer)
                 {
+                    print("spawning melon");
                     StartCoroutine(MelonCoroutine(melons[0]));
                     melons.RemoveAt(0);
                 }
@@ -128,6 +131,7 @@ public class ZoneLevelController : MonoBehaviour
 
         if (clone != null)
         {
+            print("destroying melon");
             Destroy(clone);
         }
     }
