@@ -39,8 +39,10 @@ public class MelonController : MonoBehaviourID
 
     void WasICollected()
     {
+        print(ID+" asking if im collected");
         if (SaveGameManager.instance.WasILootedAlready_melon(this.ID))
         {
+            print(ID + " i was collected");
             Destroy(gameObject);
         }
     }

@@ -9,6 +9,7 @@ public class SaveGameManager : MonoBehaviour
 
     public ObjectCollector playerCollector;
     public int currentLevel = 1;
+    public bool inZone = false;
     public Vector3 cpPos = Vector3.zero;
     public Quaternion cpRot = Quaternion.identity;
 
@@ -58,6 +59,9 @@ public class SaveGameManager : MonoBehaviour
     }
     public bool WasILootedAlready_melon(string ID)
     {
+        if (inZone)
+            return false;
+
         if (currentLevel == 1)
         {
             if (lvl1_melons.Contains(ID))
