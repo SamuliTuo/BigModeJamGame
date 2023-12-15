@@ -12,6 +12,7 @@ public class TrashtruckController : MonoBehaviour
     [SerializeField] private Transform trashThrowSpot3 = null;
     [SerializeField] private float interval = 1.0f;
     [SerializeField] private float throwSpeed = 10;
+    [SerializeField] private float upFactor = 0.3f;
 
     private Coroutine throwing = null;// private bool throwing = false;
 
@@ -27,6 +28,13 @@ public class TrashtruckController : MonoBehaviour
         }
     }
 
+    public void InitBossMode(float throwForce, float throwSpeed)
+    {
+        this.throwSpeed = throwForce;
+        this.interval = throwSpeed;
+        throwing = StartCoroutine(Trashthrow());
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (throwing == null && other.CompareTag("Player"))
@@ -39,7 +47,7 @@ public class TrashtruckController : MonoBehaviour
     {
         float t = 0;
         var clone = Instantiate(trashcan, trashThrowSpot1.position, Quaternion.LookRotation(trashThrowSpot1.right));
-        clone.GetComponent<TrashcanController>().GotThrown(trashThrowSpot1, throwSpeed);
+        clone.GetComponent<TrashcanController>().GotThrown(trashThrowSpot1, throwSpeed, upFactor);
         while (t < interval) 
         { 
             t += Time.deltaTime;
@@ -48,7 +56,7 @@ public class TrashtruckController : MonoBehaviour
 
         t = 0;
         var clone2 = Instantiate(trashcan, trashThrowSpot2.position, Quaternion.LookRotation(trashThrowSpot1.right));
-        clone2.GetComponent<TrashcanController>().GotThrown(trashThrowSpot2, throwSpeed);
+        clone2.GetComponent<TrashcanController>().GotThrown(trashThrowSpot2, throwSpeed, upFactor);
         while (t < interval)
         {
             t += Time.deltaTime;
@@ -57,7 +65,7 @@ public class TrashtruckController : MonoBehaviour
 
         t = 0;
         var clone3 = Instantiate(trashcan, trashThrowSpot3.position, Quaternion.LookRotation(trashThrowSpot3.right));
-        clone3.GetComponent<TrashcanController>().GotThrown(trashThrowSpot3, throwSpeed);
+        clone3.GetComponent<TrashcanController>().GotThrown(trashThrowSpot3, throwSpeed, upFactor);
         while (t < interval)
         {
             t += Time.deltaTime;

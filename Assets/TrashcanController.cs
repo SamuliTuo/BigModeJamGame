@@ -30,7 +30,6 @@ public class TrashcanController : MonoBehaviour
 
     public void GetSpinnedOn()
     {
-        print("spin on me");
         animatorinfo = this.animator.GetCurrentAnimatorClipInfo(0);
         if (animatorinfo[0].clip.name != "hit")
             animator.Play("hit");
@@ -40,8 +39,16 @@ public class TrashcanController : MonoBehaviour
     {
         if (gotKicked)
             return;
+
         gotKicked = true;
         rolling = true;
+
+        gameObject.layer = LayerMask.NameToLayer("TrashcanKICKED");
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("TrashcanKICKED");
+        }
+
         if (rollingRoutine != null) 
         { 
             StopCoroutine(rollingRoutine);
@@ -56,10 +63,10 @@ public class TrashcanController : MonoBehaviour
         col1.material = col2.material = frictionlessMat;
         hitsEnemy = true;
         hitsPlayer = false;
-        StartCoroutine(RollingRoutine(kicker.forward, pushForce));
+        StartCoroutine(RollingRoutine(kicker.forward, pushForce, 0.3f));
     }
 
-    public void GotThrown(Transform kicker, float speed)
+    public void GotThrown(Transform kicker, float speed, float upFactor)
     {
         Start();
         rolling = true;
@@ -72,9 +79,9 @@ public class TrashcanController : MonoBehaviour
         col1.material = col2.material = frictionlessMat;
         hitsPlayer = true;
         hitsEnemy = true;
-        StartCoroutine(RollingRoutine(kicker.forward, speed));
+        StartCoroutine(RollingRoutine(kicker.forward, speed, upFactor));
     }
-    public void GotThrown(Vector3 position, Vector3 forward, Vector3 right, float speed)
+    public void GotThrown(Vector3 position, Vector3 forward, Vector3 right, float speed, float upFactor)
     {
         Start();
         rolling = true;
@@ -87,15 +94,14 @@ public class TrashcanController : MonoBehaviour
         col1.material = col2.material = frictionlessMat;
         hitsPlayer = true;
         hitsEnemy = true;
-        StartCoroutine(RollingRoutine(forward, speed));
-
+        StartCoroutine(RollingRoutine(forward, speed, upFactor));
     }
 
-    IEnumerator RollingRoutine(Vector3 pusherForward, float pushForce)
+    IEnumerator RollingRoutine(Vector3 pusherForward, float pushForce, float upFactor)
     {
         rb.velocity = Vector3.zero;
         rb.freezeRotation = true;
-        rb.AddForce((pusherForward + Vector3.up * 0.3f) * pushForce * rb.mass, ForceMode.Impulse);
+        rb.AddForce((pusherForward + Vector3.up * upFactor) * pushForce * rb.mass, ForceMode.Impulse);
         rollDirection = pusherForward;
         yield return null;
     }
@@ -105,8 +111,8 @@ public class TrashcanController : MonoBehaviour
         if (rolling == false) 
             return;
 
-        if (col.collider.CompareTag("BOSS") && !gotKicked)
-            return;
+        if (col.collider.CompareTag("BOSS") && gotKicked)
+            col.gameObject.GetComponent<BossController>().TrashcanHit();
 
         ContactPoint[] contact = new ContactPoint[col.contactCount];
         int points = col.GetContacts(contact);
@@ -128,7 +134,6 @@ public class TrashcanController : MonoBehaviour
             {
                 StopCoroutine(rollingRoutine);
             }
-            print(col.gameObject.name);
             DestroyMe();
         }
     }

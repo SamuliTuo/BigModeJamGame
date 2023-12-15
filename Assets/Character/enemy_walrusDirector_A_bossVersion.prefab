@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 8700169649561664834}
   - component: {fileID: 8700169649561664835}
   m_Layer: 7
-  m_Name: enemy_walrusDirector_A
+  m_Name: enemy_walrusDirector_A_bossVersion
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,10 +204,10 @@ MonoBehaviour:
   dead: 0
   pushed: 0
   bossMode: 0
-  bossMode_director: 0
+  bossMode_director: 1
   hp: 1
   timeBetweenMoves: 0.33
-  moveSpeed: 5
+  moveSpeed: 8
   useSmoothStep: 0
   useEaseOut: 1
   animator: {fileID: 0}

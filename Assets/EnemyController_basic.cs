@@ -8,6 +8,7 @@ public class EnemyController_basic : MonoBehaviour
     public bool dead;
     public bool pushed;
     public bool bossMode;
+    public bool bossMode_director;
 
     [SerializeField] private int hp = 1;
     [SerializeField] private float timeBetweenMoves = 0.5f;
@@ -38,7 +39,12 @@ public class EnemyController_basic : MonoBehaviour
         col = transform.GetChild(2).GetComponent<Collider>();
         stompCol = transform.GetChild(1).GetComponent<Collider>();
 
-
+        if (bossMode_director)
+        {
+            moveRoutine = StartCoroutine(BossDirectorCoroutine());
+            return;
+        }
+            
         var moveTargets = transform.Find("moveTargets");
         for (int i = 0; i < moveTargets.childCount; i++)
         {
@@ -51,7 +57,7 @@ public class EnemyController_basic : MonoBehaviour
             currentTarget = 0;
             if (bossMode)
                 moveRoutine = StartCoroutine(BossMoveCoroutine());
-            else 
+            else
                 moveRoutine = StartCoroutine(MoveCoroutine());
         }
     }
@@ -247,6 +253,22 @@ public class EnemyController_basic : MonoBehaviour
             yield return null;
         }
 
-        Die();
+        StartCoroutine(Die());
+    }
+
+    public GameObject walrusSpawn;
+    IEnumerator BossDirectorCoroutine()
+    {
+        print("start director");
+        Vector3 spawnPos = transform.position - transform.right * 2 - transform.up;
+        float t = 0;
+        while (t < 2f)
+        {
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        Instantiate(walrusSpawn, spawnPos, Quaternion.LookRotation(-transform.right, Vector3.up));
+        moveRoutine =  StartCoroutine(BossDirectorCoroutine());
     }
 }
