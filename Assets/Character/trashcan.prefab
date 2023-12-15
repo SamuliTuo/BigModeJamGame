@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4946030624830789364}
   - component: {fileID: 1011840406801383726}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: colliders
   m_TagString: Trashcan
   m_Icon: {fileID: 0}
@@ -57,9 +57,9 @@ GameObject:
   - component: {fileID: 2010807971730304927}
   - component: {fileID: 4860958179473151421}
   - component: {fileID: 2916203344856858744}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: trashcan
-  m_TagString: Untagged
+  m_TagString: Trashcan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7913935184075788332}
   - component: {fileID: 3042860467031016706}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: collider
   m_TagString: Trashcan
   m_Icon: {fileID: 0}
@@ -242,6 +242,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: trashcan
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e2e902a3b17aadf41acf193b153ebf88,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2e902a3b17aadf41acf193b153ebf88, type: 3}
