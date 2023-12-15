@@ -72,6 +72,7 @@ public class AudioManager : MonoBehaviour
         if (clip == audios.None)
             return;
 
+        print(clip);
         AudioClipPacket audioClipPack;
         audioLibrary.TryGetValue(clip, out audioClipPack);
         if (audioClipPack == null)
@@ -105,7 +106,8 @@ public class AudioManager : MonoBehaviour
         audioLibrary.Add(audios.BUTTON_CLICK, buttonClick);
         audioLibrary.Add(audios.WALRUS_SLIDE, walrus_slide);
         audioLibrary.Add(audios.WALRUS_SQUASH, walrus_squash);
-        audioLibrary.Add(audios.WALRUS_DIE, walrus_die);  
+        audioLibrary.Add(audios.WALRUS_DIE, walrus_die);
+        audioLibrary.Add(audios.MELON, melons);
     }
 
     // ===== BGM PLAYER =====
@@ -133,6 +135,13 @@ public class AudioManager : MonoBehaviour
             bgm_player_1.clip = bgm.clip[0];
             StartCoroutine(ChangeVolumeOverTime(bgm_player_1, bgm.volume, changeSpeed));
             StartCoroutine(ChangeVolumeOverTime(bgm_player_2, 0, changeSpeed));
+        }
+    }
+    public void SkipBGMTo(float time)
+    {
+        if (currentDisctPlayer == 1)
+        {
+            bgm_player_1.time = bgm_player_1.clip.length * time;
         }
     }
 

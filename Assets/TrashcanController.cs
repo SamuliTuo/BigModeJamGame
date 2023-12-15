@@ -89,6 +89,9 @@ public class TrashcanController : MonoBehaviour
         if (rolling == false) 
             return;
 
+        if (col.collider.CompareTag("BOSS") && !gotKicked)
+            return;
+
         ContactPoint[] contact = new ContactPoint[col.contactCount];
         int points = col.GetContacts(contact);
 
@@ -109,6 +112,7 @@ public class TrashcanController : MonoBehaviour
             {
                 StopCoroutine(rollingRoutine);
             }
+            print(col.gameObject.name);
             DestroyMe();
         }
     }

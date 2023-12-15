@@ -36,8 +36,9 @@ public class AudioSourceObj : MonoBehaviour
         source.clip = clip;
         source.pitch = Random.Range(clipPack.minPitch, clipPack.maxPitch);
         source.volume = clipPack.volume;
-        
-        float t = clip.length + 0.2f;
+        print(clip.name + ", vol: " + clipPack.volume + ", pitch: " + clipPack.minPitch + ", " + clipPack.maxPitch);
+
+        float t = clip.length + 0.5f;
         source.Play();
         
         while (t > 0) 

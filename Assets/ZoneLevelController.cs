@@ -37,6 +37,11 @@ public class ZoneLevelController : MonoBehaviour
         List<ZoneLevelMelonSpawn> melons = new List<ZoneLevelMelonSpawn>(levelData.melons);
         float t = 0;
 
+        //testing the level
+        t = levelData.START_LEVEL_AT_SECONDS_TESTER;
+        AudioManager.instance.SkipBGMTo(t);
+        //testing the level END
+
         while (t < levelData.levelLengthInSeconds)
         {
             if (obstacles.Count > 0)

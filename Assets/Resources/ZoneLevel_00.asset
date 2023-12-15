@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 147aa466389fcdf4fb9fabec26799773, type: 3}
   m_Name: ZoneLevel_00
   m_EditorClassIdentifier: 
+  START_LEVEL_AT_SECONDS_TESTER: 0
   levelLengthInSeconds: 120
   obstacles:
   - obstacleTime: 17
@@ -19,15 +20,15 @@ MonoBehaviour:
     obstaclePrefab: {fileID: 4177015209516682082, guid: 1d37a91e15772c5489232d5ba2d3c769,
       type: 3}
     wallColor: {r: 0.19854528, g: 0.0972321, b: 0.21698111, a: 0}
-    obstacleScreenPos_y: 0.5
-    obstacleScreenPos_X: 0.5
+    obstacleScreenPos_y: 0.1
+    obstacleScreenPos_X: 0.1
   - obstacleTime: 20
     obstacleTimeToReachPlayer: 5
     obstaclePrefab: {fileID: 5861939474482473444, guid: b4ca60bcd06d3304f89384e1519b11c9,
       type: 3}
     wallColor: {r: 0.10693864, g: 0.06741722, b: 0.14150941, a: 0}
-    obstacleScreenPos_y: 0.274
-    obstacleScreenPos_X: 0.389
+    obstacleScreenPos_y: 0.9
+    obstacleScreenPos_X: 0.9
   - obstacleTime: 25
     obstacleTimeToReachPlayer: 4
     obstaclePrefab: {fileID: 5170918696155339073, guid: 95381fed39771c54db0c0980b53cd379,
