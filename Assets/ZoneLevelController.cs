@@ -45,7 +45,6 @@ public class ZoneLevelController : MonoBehaviour
 
         while (t < levelData.levelLengthInSeconds)
         {
-            print(t);
             if (obstacles.Count > 0)
             {
                 if (t >= obstacles[0].obstacleTime - obstacles[0].obstacleTimeToReachPlayer)

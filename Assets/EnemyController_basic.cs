@@ -7,6 +7,7 @@ public class EnemyController_basic : MonoBehaviour
 {
     public bool dead;
     public bool pushed;
+    public bool bossMode;
 
     [SerializeField] private int hp = 1;
     [SerializeField] private float timeBetweenMoves = 0.5f;
@@ -48,7 +49,10 @@ public class EnemyController_basic : MonoBehaviour
         {
             targets.Add(transform.position);
             currentTarget = 0;
-            moveRoutine = StartCoroutine(MoveCoroutine());
+            if (bossMode)
+                moveRoutine = StartCoroutine(BossMoveCoroutine());
+            else 
+                moveRoutine = StartCoroutine(MoveCoroutine());
         }
     }
 
@@ -195,5 +199,71 @@ public class EnemyController_basic : MonoBehaviour
                 StartCoroutine(Die());
             }
         }
+    }
+
+
+
+
+
+    IEnumerator BossMoveCoroutine()
+    {
+        Vector3 startpos = transform.position;
+        Vector3 endpos = targets[currentTarget];
+        Vector3 dir = endpos - startpos;
+        float maxT = (startpos - endpos).magnitude;
+        float t = 0;
+        float perc;
+
+        if (useMoveAnticipation)
+        {
+            animator.Play("attackAnticipation", 0, 0);
+            Quaternion startrot = model.rotation;
+            while (t < anticipationTime)
+            {
+                model.rotation = Quaternion.Slerp(startrot, Quaternion.LookRotation(dir, Vector3.up), t / anticipationTime);
+                col.transform.rotation = stompCol.transform.rotation = Quaternion.Slerp(startrot, Quaternion.LookRotation(new Vector3(dir.x, 0, dir.z), Vector3.up), t / anticipationTime);
+                t += Time.deltaTime;
+                yield return null;
+            }
+            t = 0;
+        }
+
+        animator.Play("move", 0, 0);
+        AudioManager.instance.PlayClip(movesound, transform.position);
+        while (t < maxT)
+        {
+            perc = t / maxT;
+            if (useSmoothStep)
+                perc = perc * perc * (3f - 2f * perc);
+            else if (useEaseOut)
+                perc = Mathf.Sin(perc * Mathf.PI * 0.5f);
+
+            //Vector3 startRot = model.forward;
+            //model.rotation = Quaternion.LookRotation(Vector3.RotateTowards(startRot, dir, Time.deltaTime, Time.deltaTime));
+            model.rotation = Quaternion.LookRotation(dir, Vector3.up);
+            transform.position = Vector3.Lerp(startpos, endpos, perc);
+            col.transform.rotation = stompCol.transform.rotation = Quaternion.LookRotation(new Vector3(dir.x, 0, dir.z), Vector3.up);
+            t += Time.deltaTime * moveSpeed;
+            yield return null;
+        }
+
+        if (timeBetweenMoves > 0)
+        {
+            animator.CrossFade("idle", 0.2f, 0, 0);
+            t = 0;
+            while (t < timeBetweenMoves)
+            {
+                t += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        currentTarget++;
+        if (currentTarget >= targets.Count)
+        {
+            currentTarget = 0;
+        }
+
+        moveRoutine = StartCoroutine(MoveCoroutine());
     }
 }

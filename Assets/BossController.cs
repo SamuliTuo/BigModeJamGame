@@ -15,7 +15,9 @@ public class BossController : MonoBehaviour
     public GameObject trashTruck;
 
     public List<Transform> barrelThrowSpots = new List<Transform>();
-    public List<Transform> walrusSpawnSpots = new List<Transform>();
+    public List<Transform> walrusSpawnSpots_left = new List<Transform>();
+    public List<Transform> walrusSpawnSpots_right = new List<Transform>();
+    public List<Transform> walrusSpawnSpots_up = new List<Transform>();
     public List<Transform> birdSpawnSpots = new List<Transform>();
     public Transform bossSummoningSpot;
     public Transform tauntSpot;

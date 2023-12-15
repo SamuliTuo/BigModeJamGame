@@ -490,7 +490,7 @@ MonoBehaviour:
   walrus_slide: {fileID: 11400000, guid: 50a40fd6a25317f49a2997461c7b6130, type: 2}
   walrus_squash: {fileID: 11400000, guid: 36bfb3f9ab8c7d24f9b3c1ef9a0d4b02, type: 2}
   walrus_die: {fileID: 11400000, guid: 35bcc81993c0e85418fff92a529f08a7, type: 2}
-  melons: {fileID: 0}
+  melons: {fileID: 11400000, guid: 584d19efa22bc4a4792bb624c2de7233, type: 2}
 --- !u!1 &1434609280860765754
 GameObject:
   m_ObjectHideFlags: 0
