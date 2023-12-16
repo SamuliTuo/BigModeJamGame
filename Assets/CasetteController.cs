@@ -43,7 +43,7 @@ public class CasetteController : MonoBehaviour
         {
             casetteModel.gameObject.SetActive(false);
             casetteBModel.gameObject.SetActive(false);
-            AudioManager.instance.ChangeBGM(AudioManager.instance.bgm_zone_1, 5f);
+            AudioManager.instance.ChangeBGM(SaveGameManager.instance.GetCorrectZoneBGM(), 5f);
             other.SendMessage("TeleporterPositions", teleporterPositions);
             StartCoroutine(TeleporterBigMode());
         }

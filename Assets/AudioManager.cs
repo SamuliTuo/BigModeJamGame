@@ -76,7 +76,7 @@ public class AudioManager : MonoBehaviour
     }
     void Start()
     {
-        //ChangeBGM(bgm_crash.clip, 0);
+        ChangeBGM(SaveGameManager.instance.GetCorrectBGM(), 0);
     }
 
     public void ChangeSFXVolume(float value)

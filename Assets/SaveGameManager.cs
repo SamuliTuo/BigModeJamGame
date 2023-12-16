@@ -6,6 +6,17 @@ using UnityEngine;
 public class SaveGameManager : MonoBehaviour
 {
     public static SaveGameManager instance;
+    public ZoneLevelScriptable zone01;
+    public ZoneLevelScriptable zone02;
+    public ZoneLevelScriptable zone03;
+
+    public AudioClipPacket level01BGM;
+    public AudioClipPacket level02BGM;
+    public AudioClipPacket level03BGM;
+
+    public AudioClipPacket zone01BGM;
+    public AudioClipPacket zone02BGM;
+    public AudioClipPacket zone03BGM;
 
     public ObjectCollector playerCollector;
     public int currentLevel = 1;
@@ -124,5 +135,36 @@ public class SaveGameManager : MonoBehaviour
             playerCollector = GameObject.Find("Player").GetComponent<ObjectCollector>();
         }
         return playerCollector;
+    }
+
+    public ZoneLevelScriptable GetCorrectZoneLevel()
+    {
+        if (currentLevel == 1)
+            return zone01;
+
+        else if (currentLevel == 2)
+            return zone02;
+
+        else return zone03;
+    }
+    public AudioClipPacket GetCorrectZoneBGM()
+    {
+        if (currentLevel == 1)
+            return zone01BGM;
+
+        else if (currentLevel == 2)
+            return zone02BGM;
+
+        else return zone03BGM;
+    }
+    public AudioClipPacket GetCorrectBGM()
+    {
+        if (currentLevel == 1)
+            return level01BGM;
+
+        else if (currentLevel == 2)
+            return level02BGM;
+
+        else return level03BGM;
     }
 }
