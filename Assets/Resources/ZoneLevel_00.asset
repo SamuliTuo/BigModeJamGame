@@ -21,8 +21,8 @@ MonoBehaviour:
     obstaclePrefab: {fileID: 4177015209516682082, guid: 1d37a91e15772c5489232d5ba2d3c769,
       type: 3}
     wallColor: {r: 0.9528302, g: 0.9347334, b: 0.06741722, a: 0}
-    obstacleScreenPos_y: 0.5
-    obstacleScreenPos_X: 0.5
+    obstacleScreenPos_y: 0.516
+    obstacleScreenPos_X: 0.12
   - obstacleTime: 25
     obstacleTimeToReachPlayer: 4
     obstaclePrefab: {fileID: 5861939474482473444, guid: b4ca60bcd06d3304f89384e1519b11c9,
@@ -30,41 +30,118 @@ MonoBehaviour:
     wallColor: {r: 0.5252476, g: 0.15881987, b: 0.7830189, a: 0}
     obstacleScreenPos_y: 0.674
     obstacleScreenPos_X: 0.352
-  - obstacleTime: 26
+  - obstacleTime: 27
     obstacleTimeToReachPlayer: 4
     obstaclePrefab: {fileID: 5170918696155339073, guid: 95381fed39771c54db0c0980b53cd379,
       type: 3}
     wallColor: {r: 0.8962264, g: 0.12188222, b: 0.114142045, a: 0}
     obstacleScreenPos_y: 0.362
     obstacleScreenPos_X: 0.53
-  - obstacleTime: 33
+  - obstacleTime: 34
     obstacleTimeToReachPlayer: 3
     obstaclePrefab: {fileID: 4177015209516682082, guid: 1d37a91e15772c5489232d5ba2d3c769,
       type: 3}
     wallColor: {r: 0.9528302, g: 0.9347334, b: 0.06741722, a: 0}
-    obstacleScreenPos_y: 0.646
-    obstacleScreenPos_X: 0.645
-  - obstacleTime: 40
+    obstacleScreenPos_y: 0.47
+    obstacleScreenPos_X: 0.63
+  - obstacleTime: 36
     obstacleTimeToReachPlayer: 3
     obstaclePrefab: {fileID: 3944868201679771651, guid: 19e4ed0bf428b1046927c6a77a7874a8,
       type: 3}
     wallColor: {r: 0.12829298, g: 0.8773585, b: 0.53676826, a: 0}
-    obstacleScreenPos_y: 0.306
-    obstacleScreenPos_X: 0.482
-  - obstacleTime: 60
+    obstacleScreenPos_y: 0.329
+    obstacleScreenPos_X: 0.59
+  - obstacleTime: 40
     obstacleTimeToReachPlayer: 3
     obstaclePrefab: {fileID: 5861939474482473444, guid: b4ca60bcd06d3304f89384e1519b11c9,
       type: 3}
     wallColor: {r: 0.5252476, g: 0.15881987, b: 0.7830189, a: 0}
-    obstacleScreenPos_y: 0.693
-    obstacleScreenPos_X: 0.788
-  - obstacleTime: 60
-    obstacleTimeToReachPlayer: 5
+    obstacleScreenPos_y: 0.343
+    obstacleScreenPos_X: 0.406
+  - obstacleTime: 49
+    obstacleTimeToReachPlayer: 3.5
     obstaclePrefab: {fileID: 4262935185932607735, guid: bad5a5759d996a34db150b09591fffbc,
       type: 3}
     wallColor: {r: 0.9245283, g: 0.48406905, b: 0.6940979, a: 0}
-    obstacleScreenPos_y: 0.693
-    obstacleScreenPos_X: 0.788
+    obstacleScreenPos_y: 0.589
+    obstacleScreenPos_X: 0.437
+  - obstacleTime: 55
+    obstacleTimeToReachPlayer: 3
+    obstaclePrefab: {fileID: 5170918696155339073, guid: 95381fed39771c54db0c0980b53cd379,
+      type: 3}
+    wallColor: {r: 0.8962264, g: 0.12188222, b: 0.114142045, a: 0}
+    obstacleScreenPos_y: 0.466
+    obstacleScreenPos_X: 0.683
+  - obstacleTime: 60
+    obstacleTimeToReachPlayer: 2
+    obstaclePrefab: {fileID: 3944868201679771651, guid: 19e4ed0bf428b1046927c6a77a7874a8,
+      type: 3}
+    wallColor: {r: 0.12829298, g: 0.8773585, b: 0.53676826, a: 0}
+    obstacleScreenPos_y: 0.353
+    obstacleScreenPos_X: 0.266
+  - obstacleTime: 67
+    obstacleTimeToReachPlayer: 3
+    obstaclePrefab: {fileID: 4262935185932607735, guid: bad5a5759d996a34db150b09591fffbc,
+      type: 3}
+    wallColor: {r: 0.9245283, g: 0.48406905, b: 0.6940979, a: 0}
+    obstacleScreenPos_y: 0.184
+    obstacleScreenPos_X: 0.211
+  - obstacleTime: 70
+    obstacleTimeToReachPlayer: 2
+    obstaclePrefab: {fileID: 5170918696155339073, guid: 95381fed39771c54db0c0980b53cd379,
+      type: 3}
+    wallColor: {r: 0.9245283, g: 0.48406905, b: 0.6940979, a: 0}
+    obstacleScreenPos_y: 0.611
+    obstacleScreenPos_X: 0.54
+  - obstacleTime: 75
+    obstacleTimeToReachPlayer: 3
+    obstaclePrefab: {fileID: 5861939474482473444, guid: b4ca60bcd06d3304f89384e1519b11c9,
+      type: 3}
+    wallColor: {r: 0.5252476, g: 0.15881987, b: 0.7830189, a: 0}
+    obstacleScreenPos_y: 0.692
+    obstacleScreenPos_X: 0.277
+  - obstacleTime: 80
+    obstacleTimeToReachPlayer: 5
+    obstaclePrefab: {fileID: 5861939474482473444, guid: b4ca60bcd06d3304f89384e1519b11c9,
+      type: 3}
+    wallColor: {r: 0.5252476, g: 0.15881987, b: 0.7830189, a: 0}
+    obstacleScreenPos_y: 0.407
+    obstacleScreenPos_X: 0.504
+  - obstacleTime: 87
+    obstacleTimeToReachPlayer: 5
+    obstaclePrefab: {fileID: 4177015209516682082, guid: 1d37a91e15772c5489232d5ba2d3c769,
+      type: 3}
+    wallColor: {r: 0.9528302, g: 0.9347334, b: 0.06741722, a: 0}
+    obstacleScreenPos_y: 0.311
+    obstacleScreenPos_X: 0.701
+  - obstacleTime: 94
+    obstacleTimeToReachPlayer: 5
+    obstaclePrefab: {fileID: 5861939474482473444, guid: b4ca60bcd06d3304f89384e1519b11c9,
+      type: 3}
+    wallColor: {r: 0.5252476, g: 0.15881987, b: 0.7830189, a: 0}
+    obstacleScreenPos_y: 0.234
+    obstacleScreenPos_X: 0.698
+  - obstacleTime: 99
+    obstacleTimeToReachPlayer: 3
+    obstaclePrefab: {fileID: 5170918696155339073, guid: 95381fed39771c54db0c0980b53cd379,
+      type: 3}
+    wallColor: {r: 0.8962264, g: 0.12188222, b: 0.114142045, a: 0}
+    obstacleScreenPos_y: 0.453
+    obstacleScreenPos_X: 0.617
+  - obstacleTime: 102
+    obstacleTimeToReachPlayer: 3
+    obstaclePrefab: {fileID: 5170918696155339073, guid: 95381fed39771c54db0c0980b53cd379,
+      type: 3}
+    wallColor: {r: 0.8962264, g: 0.12188222, b: 0.114142045, a: 0}
+    obstacleScreenPos_y: 0.234
+    obstacleScreenPos_X: 0.767
+  - obstacleTime: 104
+    obstacleTimeToReachPlayer: 5
+    obstaclePrefab: {fileID: 4177015209516682082, guid: 1d37a91e15772c5489232d5ba2d3c769,
+      type: 3}
+    wallColor: {r: 0.9528302, g: 0.9347334, b: 0.06741722, a: 0}
+    obstacleScreenPos_y: 0.5
+    obstacleScreenPos_X: 0.5
   melons:
   - melonTime: 8
     melonTimeToReachPlayer: 5
@@ -107,55 +184,55 @@ MonoBehaviour:
     melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
       type: 3}
     melonScreenPos_y: 0.5
-    melonScreenPos_X: 0.266
+    melonScreenPos_X: 0.428
   - melonTime: 15
     melonTimeToReachPlayer: 2
     melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
       type: 3}
     melonScreenPos_y: 0.5
-    melonScreenPos_X: 0.335
+    melonScreenPos_X: 0.397
   - melonTime: 16
     melonTimeToReachPlayer: 2
     melonPrefab: {fileID: 486176566393759512, guid: 706f29753e12df846a17b71def145f7f,
       type: 3}
     melonScreenPos_y: 0.5
-    melonScreenPos_X: 0.423
+    melonScreenPos_X: 0.43
   - melonTime: 20
     melonTimeToReachPlayer: 2
     melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
       type: 3}
-    melonScreenPos_y: 0.475
-    melonScreenPos_X: 0.54
+    melonScreenPos_y: 0.451
+    melonScreenPos_X: 0.536
   - melonTime: 20
     melonTimeToReachPlayer: 2
     melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
       type: 3}
-    melonScreenPos_y: 0.514
-    melonScreenPos_X: 0.462
+    melonScreenPos_y: 0.531
+    melonScreenPos_X: 0.446
   - melonTime: 20
     melonTimeToReachPlayer: 2
     melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
       type: 3}
-    melonScreenPos_y: 0.5
-    melonScreenPos_X: 0.5
+    melonScreenPos_y: 0.473
+    melonScreenPos_X: 0.473
   - melonTime: 20.5
     melonTimeToReachPlayer: 2
     melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
       type: 3}
-    melonScreenPos_y: 0.5
-    melonScreenPos_X: 0.5
+    melonScreenPos_y: 0.473
+    melonScreenPos_X: 0.473
   - melonTime: 21
     melonTimeToReachPlayer: 2
     melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
       type: 3}
-    melonScreenPos_y: 0.5
-    melonScreenPos_X: 0.5
+    melonScreenPos_y: 0.473
+    melonScreenPos_X: 0.473
   - melonTime: 22
     melonTimeToReachPlayer: 2
     melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
       type: 3}
-    melonScreenPos_y: 0.5
-    melonScreenPos_X: 0.5
+    melonScreenPos_y: 0.473
+    melonScreenPos_X: 0.473
   - melonTime: 26
     melonTimeToReachPlayer: 1
     melonPrefab: {fileID: 5110993054315109847, guid: d70c81165f7657d4e8f8144baa69a632,
