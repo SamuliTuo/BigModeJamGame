@@ -82,7 +82,7 @@ public class BossController : MonoBehaviour
     void PhaseZero()
     {
         busy = true;
-        StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)]));
+        StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)], true));
         phase = 1;
         // taunt oh yeaaaaaah!
     }
@@ -91,65 +91,117 @@ public class BossController : MonoBehaviour
     {
         busy = true;
 
-        /*
-        //
-        StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, Random.Range(2, 7), 0.5f));
-        return;
-        */
-
         if (nextAction != BossActions.NONE)
         {
             switch (nextAction)
             {
-                case BossActions.JUMP: StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)])); break;
+                case BossActions.JUMP: StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)], true)); break;
                 case BossActions.THROW: StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, 5, Random.Range(0.4f, 0.85f))); break;
-                case BossActions.SUMMON_WALRUS: StartCoroutine(Summon(walrus, currentSpot)); break;
-                case BossActions.SUMMON_BIRD: StartCoroutine(Summon(bird, currentSpot)); break;
+                case BossActions.SUMMON_WALRUS: StartCoroutine(Summon(walrus, currentSpot,Random.Range(5,10))); break;
+                case BossActions.SUMMON_BIRD: StartCoroutine(SummonBird(bird, currentSpot,Random.Range(5,10))); break;
                 case BossActions.SUMMON_COACH: StartCoroutine(SummonWalrusCoach()); break;
                 case BossActions.SUMMON_TRUCK: StartCoroutine(SummonTrashtruck(2)); break;
             }
             return;
         }
 
-        float rand = Random.Range(0, 5);
-        if (rand == 4)
-            StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, Random.Range(2, 7), 0.3f));
-        else if (rand == 3)
-            StartCoroutine(Summon(walrus, currentSpot));
+        float rand = Random.Range(0, 100);
+        if (rand > 66)
+            StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, 6, 0.3f));
+        else if (rand > 30)
+            StartCoroutine(Summon(walrus, currentSpot, Random.Range(5,10)));
+        else
+            StartCoroutine(SummonBird(bird, currentSpot, Random.Range(10, 15)));
+        /*
         else if (rand == 2)
             StartCoroutine(SummonWalrusCoach());
         else if (rand == 1)
             StartCoroutine(SummonTrashtruck(1));
         else if (rand == 0)
-            StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)]));
+            StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)]));*/
     }
 
     void PhaseTwo()
     {
         busy = true;
-        // sama mut myös lintui?
-        // summonoi roskis-autot jollekin sivulle/sivuille
+
+        if (nextAction != BossActions.NONE)
+        {
+            switch (nextAction)
+            {
+                case BossActions.JUMP: StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)], true)); break;
+                case BossActions.THROW: StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, 5, Random.Range(0.4f, 0.85f))); break;
+                case BossActions.SUMMON_WALRUS: StartCoroutine(Summon(walrus, currentSpot, Random.Range(10,15))); break;
+                case BossActions.SUMMON_BIRD: StartCoroutine(Summon(bird, currentSpot, Random.Range(10,15))); break;
+                case BossActions.SUMMON_COACH: StartCoroutine(SummonWalrusCoach()); break;
+                case BossActions.SUMMON_TRUCK: StartCoroutine(SummonTrashtruck(2)); break;
+            }
+            return;
+        }
+
+        float rand = Random.Range(0, 100);
+        if (rand >= 66)
+            StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, 6, 0.3f));
+        else if (rand >= 40)
+            StartCoroutine(Summon(walrus, currentSpot, Random.Range(10, 15)));
+        else if (rand >= 20)
+            StartCoroutine(SummonBird(bird, currentSpot, Random.Range(10,15)));
+        else
+            StartCoroutine(SummonWalrusCoach());
+        /*
+        else if (rand == 1)
+            StartCoroutine(SummonTrashtruck(1));
+        else if (rand == 0)
+            StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)]));
+        */
     }
 
     void PhaseThree()
     {
         busy = true;
-        // barreleita sieltä täältä
-        // vihuja lähes jatkuvasti
-        // välillä barreleita yhdestä suunnasta hullun paljon
+
+        if (nextAction != BossActions.NONE)
+        {
+            switch (nextAction)
+            {
+                case BossActions.JUMP: StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)], true)); break;
+                case BossActions.THROW: StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, 5, Random.Range(0.4f, 0.85f))); break;
+                case BossActions.SUMMON_WALRUS: StartCoroutine(Summon(walrus, currentSpot, Random.Range(10, 15))); break;
+                case BossActions.SUMMON_BIRD: StartCoroutine(Summon(bird, currentSpot, Random.Range(10, 15))); break;
+                case BossActions.SUMMON_COACH: StartCoroutine(SummonWalrusCoach()); break;
+                case BossActions.SUMMON_TRUCK: StartCoroutine(SummonTrashtruck(2)); break;
+            }
+            return;
+        }
+
+        float rand = Random.Range(0, 100);
+        if (rand >= 70)
+            StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, 6, 0.3f));
+        else if (rand >= 57)
+            StartCoroutine(Summon(walrus, currentSpot, Random.Range(10, 15)));
+        else if (rand >= 43)
+            StartCoroutine(SummonBird(bird, currentSpot, Random.Range(10, 15)));
+        else if (rand >= 20)
+            StartCoroutine(SummonWalrusCoach());
+        else if (rand >= 10)
+            StartCoroutine(SummonTrashtruck(1));
+        else
+            StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)], true));
     }
 
 
 
     // =====  ACTIONS  =====
-    IEnumerator ChangeToSpot(Transform spot)
+    IEnumerator ChangeToSpot(Transform spot, bool useJumpAnim)
     {
         Vector3 startpos = transform.position;
         Quaternion startrot = transform.rotation;
         Vector3 midpos = Vector3.Lerp(startpos, spot.position, 0.5f) + Vector3.up * bezierUpOffset;
         Vector3 endpos = spot.position - spot.forward * 0.5f;
         float t = 0;
-        _anim.Play("jump_start", 0, 0);
+        if (useJumpAnim)
+            _anim.Play("jump_start", 0, 0);
+
         while (t < spotChangeTime)
         {
             float perc = t / spotChangeTime;
@@ -161,7 +213,9 @@ public class BossController : MonoBehaviour
         transform.position = endpos;
         transform.rotation = spot.rotation;
         t = 0;
-        _anim.Play("jump_landing", 0, 0);
+        if (useJumpAnim)
+            _anim.Play("jump_landing", 0, 0);
+
         while (t < 0.3f)
         {
             t += Time.deltaTime;
@@ -212,7 +266,7 @@ public class BossController : MonoBehaviour
     public float summonForwardOffset = 3;
     public float summonSpeed = 2;
     public float walrusSummonY = 8.309f;
-    IEnumerator Summon(GameObject _enemy, Transform _spawnSpot)
+    IEnumerator Summon(GameObject _enemy, Transform _spawnSpot, int summons)
     {
         bool facingRight = false;
         bool facingDown = false;
@@ -223,7 +277,51 @@ public class BossController : MonoBehaviour
             facingRight = true;
 
         float i = 0;
-        int summons = Random.Range(5, 10);
+        Transform spownposition;
+
+        nextAction = BossActions.JUMP;
+        busy = false;
+        _anim.Play("summon");
+
+        float t2 = 0;
+        while (t2 < 1f)
+        {
+            t2 += Time.deltaTime;
+            yield return null;
+        }
+
+        while (i < summons)
+        {
+            if (facingRight)
+                spownposition = walrusSpawnSpots_left[Random.Range(0, walrusSpawnSpots_left.Count)];
+            else if (facingDown)
+                spownposition = walrusSpawnSpots_up[Random.Range(0, walrusSpawnSpots_up.Count)];
+            else
+                spownposition = walrusSpawnSpots_right[Random.Range(0, walrusSpawnSpots_right.Count)];
+            Instantiate(_enemy, spownposition.position, _spawnSpot.rotation);
+
+            float t = 0;
+            while (t < summonSpeed)
+            {
+                t += Time.deltaTime;
+                yield return null;
+            }
+            i++;
+            yield return null;
+        }
+    }
+
+    IEnumerator SummonBird(GameObject _enemy, Transform _spawnSpot, int summons)
+    {
+        bool facingRight = false;
+        bool facingDown = false;
+
+        if (Vector3.Dot(_spawnSpot.forward, new Vector3(1, 0, 0)) >= 0.8f)
+            facingDown = true;
+        else if (Vector3.Dot(_spawnSpot.forward, new Vector3(0, 0, 1)) >= 0.8f)
+            facingRight = true;
+
+        float i = 0;
         Transform spownposition;
 
         nextAction = BossActions.JUMP;
@@ -356,7 +454,7 @@ public class BossController : MonoBehaviour
         Vector3 midpos = Vector3.Lerp(startpos, stunnedSpot.position, 0.5f) + Vector3.up * bezierUpOffset;
         Vector3 endpos = stunnedSpot.position - stunnedSpot.forward * 0.5f;
         float t = 0;
-        _anim.Play("jump_start", 0, 0);
+        _anim.Play("flip", 0, 0);
         while (t < spotChangeTime)
         {
             float perc = t / spotChangeTime;
@@ -413,7 +511,21 @@ public class BossController : MonoBehaviour
 
 
         busy = true;
-        phase++;
-        StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)]));
+        if (phase < 3)
+        {
+            phase++;
+            _anim.Play("flip");
+            StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)], false));
+        }
+            
+        else
+        {
+            StartFinalZone();
+        }
+    }
+
+    void StartFinalZone()
+    {
+
     }
 }

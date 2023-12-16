@@ -3769,6 +3769,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1287071939, guid: 8eba6f8486048cc4f8d72bdf0fe924a9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1287071939, guid: 8eba6f8486048cc4f8d72bdf0fe924a9, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1287071939, guid: 8eba6f8486048cc4f8d72bdf0fe924a9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1287071939, guid: 8eba6f8486048cc4f8d72bdf0fe924a9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437104241, guid: 8eba6f8486048cc4f8d72bdf0fe924a9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437104241, guid: 8eba6f8486048cc4f8d72bdf0fe924a9, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437104241, guid: 8eba6f8486048cc4f8d72bdf0fe924a9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437104241, guid: 8eba6f8486048cc4f8d72bdf0fe924a9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1007955275872517542, guid: 8eba6f8486048cc4f8d72bdf0fe924a9,
         type: 3}
       propertyPath: m_Pivot.x
@@ -8519,6 +8551,7 @@ MonoBehaviour:
   screenSize: {x: 0, y: 0}
   cam: {fileID: 1940887629}
   holyWallMat: {fileID: 2100000, guid: b3d6c18f3c44be244af8bccfe86cf9ec, type: 2}
+  player: {fileID: 0}
   tester1: {fileID: 0}
   tester2: {fileID: 0}
 --- !u!4 &324742748 stripped
@@ -43186,6 +43219,7 @@ MonoBehaviour:
   teleporterGrowSpeed: 2
   teleporter: {fileID: 0}
   receiver: {fileID: 0}
+  casetteBModel: {fileID: 0}
 --- !u!4 &1476408360
 Transform:
   m_ObjectHideFlags: 0
@@ -62867,6 +62901,11 @@ PrefabInstance:
       propertyPath: teleporter
       value: 
       objectReference: {fileID: 1868879959}
+    - target: {fileID: 5963664228032382320, guid: bad7fd7226fd6504ca8e127710106446,
+        type: 3}
+      propertyPath: casetteBModel
+      value: 
+      objectReference: {fileID: 1476408360}
     - target: {fileID: 5963664228032382321, guid: bad7fd7226fd6504ca8e127710106446,
         type: 3}
       propertyPath: m_RootOrder
