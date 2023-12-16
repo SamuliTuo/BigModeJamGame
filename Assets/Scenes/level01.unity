@@ -5642,6 +5642,12 @@ PrefabInstance:
       objectReference: {fileID: 166928621}
     - target: {fileID: 6505583267318489084, guid: 49d593eb803cd1148a61232e6d8a8199,
         type: 3}
+      propertyPath: testLevel
+      value: 
+      objectReference: {fileID: 11400000, guid: 9400d15b4b8863c42a45e0021b734d79,
+        type: 2}
+    - target: {fileID: 6505583267318489084, guid: 49d593eb803cd1148a61232e6d8a8199,
+        type: 3}
       propertyPath: playerClone
       value: 
       objectReference: {fileID: 365631350}
