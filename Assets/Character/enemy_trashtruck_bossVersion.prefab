@@ -88,7 +88,7 @@ MonoBehaviour:
   trashThrowSpot2: {fileID: 3643518406015487349}
   trashThrowSpot3: {fileID: 528636670}
   interval: 1
-  throwSpeed: 10
+  throwSpeed: 5
   upFactor: 0.3
   spitSound: 27
   dieSound: 26
@@ -347,6 +347,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8682594, y: 2.2230566, z: 1.1307037}
   m_Center: {x: 0.00000013756284, y: 1.128494, z: -0.22464792}
+--- !u!95 &298516016497654320
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368738274451060133}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 15a43bfc8c8bd32468788c8ef57506a3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!4 &1852506230238654239 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 181ad3169478d93458a48016c3322c77,

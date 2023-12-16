@@ -16,19 +16,22 @@ public class TrashtruckController : MonoBehaviour
     [SerializeField] private audios spitSound = audios.None;
     [SerializeField] private audios dieSound = audios.None;
     public int barrelsBeforeDie = 0;
+    private Animator anim;
+    private Coroutine throwing = null;
 
-    private Coroutine throwing = null;// private bool throwing = false;
-
+    private void Start()
+    {
+        anim = GetComponentInChildren<Animator>();
+    }
     public void TakeDamage()
     {
         print("damg");
         //Animator.playe(dmg);
         hp--;
         AudioManager.instance.PlayClip(audios.TRUCK_DIE, transform.position);
-        if (hp == 0)
+        if (hp == 0 && !dying)
         {
-            StopCoroutine(throwing);
-            Destroy(gameObject);
+            StartCoroutine(Die());
         }
     }
 
@@ -53,6 +56,7 @@ public class TrashtruckController : MonoBehaviour
         var clone = Instantiate(trashcan, trashThrowSpot1.position, Quaternion.LookRotation(trashThrowSpot1.right));
         clone.GetComponent<TrashcanController>().GotThrown(trashThrowSpot1, throwSpeed, upFactor);
         AudioManager.instance.PlayClip(audios.TRUCK_SPIT, transform.position);
+        anim.Play("left");
         CheckForDying();
         while (t < interval) 
         { 
@@ -65,6 +69,7 @@ public class TrashtruckController : MonoBehaviour
         clone2.GetComponent<TrashcanController>().GotThrown(trashThrowSpot2, throwSpeed, upFactor);
         AudioManager.instance.PlayClip(audios.TRUCK_SPIT, transform.position);
         CheckForDying();
+        anim.Play("right");
         while (t < interval)
         {
             t += Time.deltaTime;
@@ -76,6 +81,7 @@ public class TrashtruckController : MonoBehaviour
         clone3.GetComponent<TrashcanController>().GotThrown(trashThrowSpot3, throwSpeed, upFactor);
         AudioManager.instance.PlayClip(audios.TRUCK_SPIT, transform.position);
         CheckForDying();
+        anim.Play("mid");
         while (t < interval)
         {
             t += Time.deltaTime;
@@ -92,10 +98,26 @@ public class TrashtruckController : MonoBehaviour
             barrelsBeforeDie--;
             if (barrelsBeforeDie == 0)
             {
-                AudioManager.instance.PlayClip(audios.TRUCK_DIE, transform.position);
-                StopCoroutine(throwing);
-                Destroy(gameObject);
+                if (!dying)
+                    StartCoroutine(Die());
             }
         }
+    }
+
+    bool dying = false;
+    IEnumerator Die()
+    {
+        dying = true;
+        AudioManager.instance.PlayClip(audios.TRUCK_DIE, transform.position);
+        StopCoroutine(throwing);
+        anim.Play("die");
+
+        float t = 0;
+        while (t < 1.3f)
+        {
+            t += Time.deltaTime;
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 }
