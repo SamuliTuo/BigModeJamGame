@@ -234,7 +234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 14899246}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -61.8, y: 9.31, z: 18.08}
+  m_LocalPosition: {x: -61.8, y: 9.71, z: 18.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3803,7 +3803,7 @@ MonoBehaviour:
     type: 3}
   bird: {fileID: 0}
   car: {fileID: 0}
-  trashTruck: {fileID: 2439083604239664323, guid: ac4f25a64d64f0c4a9b792b16841c356,
+  trashTruck: {fileID: 2439083604239664323, guid: ff2e27c41e29f4f49810e16226b6258c,
     type: 3}
   stunnedSpot: {fileID: 272009973}
   barrelThrowSpots:
@@ -13037,6 +13037,8 @@ MonoBehaviour:
   CameraAngleOverride: 0
   LockCameraPosition: 0
   _threshold: 0.01
+  sickoModeMaterial: {fileID: 0}
+  urbanModeMaterial: {fileID: 0}
   minCamSpeedMult: 0.2
   maxCamSpeedMult: 2
   playerClone: {fileID: 0}

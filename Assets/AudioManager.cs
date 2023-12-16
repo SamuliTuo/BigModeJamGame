@@ -10,7 +10,11 @@ public enum audios
     BGM_CRASH, BGM_ZONE1, BGM_URBAN, BGM_ZONE2, BGM_BOSS1, BGN_BOSS_ZONE,
     PAUSE, BUTTON_CLICK,
     WALRUS_SLIDE, WALRUS_SQUASH, WALRUS_DIE,
-    MELON
+    SEAGULL_MOVE, SEAGULL_DIE, SEAGULL_MOVE_ANTI, SEAGULL_SQUASH, CITYBIRD_DIE, CITYBIRD_SQUASH,
+    CAR_MOVE, CAR_DIE, CAR_SQUASH, CAR_MOVE_ANTI,
+    PLAYER_JUMP, PLAYER_SPIN, PLAYER_KICK, PLAYER_KICK_IMPACT,
+    TRUCK_DIE, TRUCK_SPIT,
+    MELON, CRATE_BREAK,
 }
 public class AudioManager : MonoBehaviour
 {
@@ -38,6 +42,23 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClipPacket walrus_squash = null;
     [SerializeField] private AudioClipPacket walrus_die = null;
     [SerializeField] private AudioClipPacket melons = null;
+    [SerializeField] private AudioClipPacket crateBreak = null;
+    [SerializeField] private AudioClipPacket truckSpin = null;
+    [SerializeField] private AudioClipPacket truckDie = null;
+    [SerializeField] private AudioClipPacket playerSpin = null;
+    [SerializeField] private AudioClipPacket playerKick = null;
+    [SerializeField] private AudioClipPacket playerJump = null;
+    [SerializeField] private AudioClipPacket playerKick_impact = null;
+    [SerializeField] private AudioClipPacket carMove = null;
+    [SerializeField] private AudioClipPacket carMoveAnti = null;
+    [SerializeField] private AudioClipPacket carDie = null;
+    [SerializeField] private AudioClipPacket carSquash = null;
+    [SerializeField] private AudioClipPacket seagull_move = null;
+    [SerializeField] private AudioClipPacket seagull_moveAnti = null;
+    [SerializeField] private AudioClipPacket seagull_die = null;
+    [SerializeField] private AudioClipPacket seagull_squash = null;
+    [SerializeField] private AudioClipPacket cityBird_die = null;
+    [SerializeField] private AudioClipPacket cityBird_squash = null;
 
     private Dictionary<audios, AudioClipPacket> audioLibrary = new Dictionary<audios, AudioClipPacket>();
     private float volume_SFX;
@@ -97,16 +118,7 @@ public class AudioManager : MonoBehaviour
         bgm_player_2.UnPause();
     }
     
-    private void PopulateAudioLibrary()
-    {
-        audioLibrary.Clear();
-        audioLibrary.Add(audios.PAUSE, pauseButton);
-        audioLibrary.Add(audios.BUTTON_CLICK, buttonClick);
-        audioLibrary.Add(audios.WALRUS_SLIDE, walrus_slide);
-        audioLibrary.Add(audios.WALRUS_SQUASH, walrus_squash);
-        audioLibrary.Add(audios.WALRUS_DIE, walrus_die);
-        audioLibrary.Add(audios.MELON, melons);
-    }
+
 
     // ===== BGM PLAYER =====
     int currentDisctPlayer = 0; // 1 or 2
@@ -184,5 +196,33 @@ public class AudioManager : MonoBehaviour
     void OnReturnAudioSourceToPool(GameObject audi)
     {
         audi.SetActive(false);
+    }
+
+    private void PopulateAudioLibrary()
+    {
+        audioLibrary.Clear();
+        audioLibrary.Add(audios.PAUSE, pauseButton);
+        audioLibrary.Add(audios.BUTTON_CLICK, buttonClick);
+        audioLibrary.Add(audios.WALRUS_SLIDE, walrus_slide);
+        audioLibrary.Add(audios.WALRUS_SQUASH, walrus_squash);
+        audioLibrary.Add(audios.WALRUS_DIE, walrus_die);
+        audioLibrary.Add(audios.MELON, melons);
+        audioLibrary.Add(audios.CRATE_BREAK, crateBreak);
+        audioLibrary.Add(audios.TRUCK_SPIT, truckSpin);
+        audioLibrary.Add(audios.TRUCK_DIE, truckDie);
+        audioLibrary.Add(audios.PLAYER_SPIN, playerSpin);
+        audioLibrary.Add(audios.PLAYER_KICK, playerKick);
+        audioLibrary.Add(audios.PLAYER_KICK_IMPACT, playerKick_impact);
+        audioLibrary.Add(audios.PLAYER_JUMP, playerJump);
+        audioLibrary.Add(audios.CAR_MOVE, carMove);
+        audioLibrary.Add(audios.CAR_MOVE_ANTI, carMoveAnti);
+        audioLibrary.Add(audios.CAR_DIE, carDie);
+        audioLibrary.Add(audios.CAR_SQUASH, carSquash);
+        audioLibrary.Add(audios.SEAGULL_MOVE, seagull_move);
+        audioLibrary.Add(audios.SEAGULL_MOVE_ANTI, seagull_moveAnti);
+        audioLibrary.Add(audios.SEAGULL_DIE, seagull_die);
+        audioLibrary.Add(audios.SEAGULL_SQUASH, seagull_squash);
+        audioLibrary.Add(audios.CITYBIRD_DIE, cityBird_die);
+        audioLibrary.Add(audios.CITYBIRD_SQUASH, cityBird_squash);
     }
 }

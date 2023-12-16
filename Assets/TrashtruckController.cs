@@ -13,6 +13,9 @@ public class TrashtruckController : MonoBehaviour
     [SerializeField] private float interval = 1.0f;
     [SerializeField] private float throwSpeed = 10;
     [SerializeField] private float upFactor = 0.3f;
+    [SerializeField] private audios spitSound = audios.None;
+    [SerializeField] private audios dieSound = audios.None;
+    public int barrelsBeforeDie = 0;
 
     private Coroutine throwing = null;// private bool throwing = false;
 
@@ -21,6 +24,7 @@ public class TrashtruckController : MonoBehaviour
         print("damg");
         //Animator.playe(dmg);
         hp--;
+        AudioManager.instance.PlayClip(audios.TRUCK_DIE, transform.position);
         if (hp == 0)
         {
             StopCoroutine(throwing);
@@ -48,6 +52,8 @@ public class TrashtruckController : MonoBehaviour
         float t = 0;
         var clone = Instantiate(trashcan, trashThrowSpot1.position, Quaternion.LookRotation(trashThrowSpot1.right));
         clone.GetComponent<TrashcanController>().GotThrown(trashThrowSpot1, throwSpeed, upFactor);
+        AudioManager.instance.PlayClip(audios.TRUCK_SPIT, transform.position);
+        CheckForDying();
         while (t < interval) 
         { 
             t += Time.deltaTime;
@@ -57,6 +63,8 @@ public class TrashtruckController : MonoBehaviour
         t = 0;
         var clone2 = Instantiate(trashcan, trashThrowSpot2.position, Quaternion.LookRotation(trashThrowSpot1.right));
         clone2.GetComponent<TrashcanController>().GotThrown(trashThrowSpot2, throwSpeed, upFactor);
+        AudioManager.instance.PlayClip(audios.TRUCK_SPIT, transform.position);
+        CheckForDying();
         while (t < interval)
         {
             t += Time.deltaTime;
@@ -66,6 +74,8 @@ public class TrashtruckController : MonoBehaviour
         t = 0;
         var clone3 = Instantiate(trashcan, trashThrowSpot3.position, Quaternion.LookRotation(trashThrowSpot3.right));
         clone3.GetComponent<TrashcanController>().GotThrown(trashThrowSpot3, throwSpeed, upFactor);
+        AudioManager.instance.PlayClip(audios.TRUCK_SPIT, transform.position);
+        CheckForDying();
         while (t < interval)
         {
             t += Time.deltaTime;
@@ -73,5 +83,19 @@ public class TrashtruckController : MonoBehaviour
         }
 
         throwing = StartCoroutine(Trashthrow());
+    }
+
+    void CheckForDying()
+    {
+        if (barrelsBeforeDie > 0)
+        {
+            barrelsBeforeDie--;
+            if (barrelsBeforeDie == 0)
+            {
+                AudioManager.instance.PlayClip(audios.TRUCK_DIE, transform.position);
+                StopCoroutine(throwing);
+                Destroy(gameObject);
+            }
+        }
     }
 }

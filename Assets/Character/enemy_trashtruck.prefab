@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e663e7d1975844b9fc2e4dc6883983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 6
+  hp: 2
   trashcan: {fileID: 2010807971730304926, guid: 1574e5bef3391b848af52833c97f6c73,
     type: 3}
   trashThrowSpot1: {fileID: 4253707009856955874}
@@ -90,6 +90,9 @@ MonoBehaviour:
   interval: 1
   throwSpeed: 10
   upFactor: 0.3
+  spitSound: 27
+  dieSound: 26
+  barrelsBeforeDie: 0
 --- !u!54 &1563012567
 Rigidbody:
   m_ObjectHideFlags: 0

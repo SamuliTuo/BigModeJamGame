@@ -16,8 +16,10 @@ public class UrbanAttackCollider : MonoBehaviour
         root = transform.parent;
     }
 
+    bool playedAudio = false;
     public void InitAttack(float pushForce)
     {
+        playedAudio = false;
         this.pushForce = pushForce;
         attacking = true;
         hitObjects.Clear();
@@ -28,17 +30,20 @@ public class UrbanAttackCollider : MonoBehaviour
         hitObjects.Clear();
     }
 
+
     private void OnTriggerStay(Collider other)
     {
         if (!hitObjects.Contains(other.gameObject) && !other.CompareTag("Player"))
         {
             if (other.CompareTag("Breakable"))
             {
+                PlayAudio();
                 hitObjects.Add(other.gameObject);
                 other.GetComponent<BreakableObject>().PushMe(transform.forward, pushForce);// root.position + Vector3.up * 0.7f, pushForce);
             }
             else if (other.CompareTag("Trashcan"))
             {
+                PlayAudio();
                 var obj = other.GetComponentInParent<TrashcanController>();
                 obj.GetKicked(transform, pushForce); //root.position + Vector3.up * 0.7f, pushForce);
                 hitObjects.Add(obj.gameObject);
@@ -49,6 +54,7 @@ public class UrbanAttackCollider : MonoBehaviour
             }
             else if (other.CompareTag("Enemy"))
             {
+                PlayAudio();
                 var script = other.transform.root.GetComponent<EnemyController_basic>();
                 script?.GotKicked(transform, pushForce);
                 hitObjects.Add(script.gameObject);
@@ -59,6 +65,7 @@ public class UrbanAttackCollider : MonoBehaviour
             }
             else if (other.CompareTag("BOSS"))
             {
+                PlayAudio();
                 var bossController = other.transform.root.GetComponent<BossController>();
                 if (bossController != null)
                 {
@@ -68,6 +75,14 @@ public class UrbanAttackCollider : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+    void PlayAudio()
+    {
+        if (!playedAudio)
+        {
+            playedAudio = true;
+            AudioManager.instance.PlayClip(audios.PLAYER_KICK_IMPACT, transform.position);
         }
     }
 }

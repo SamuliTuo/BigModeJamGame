@@ -47,6 +47,7 @@ public class PlayerAttacks : MonoBehaviour
                 attackCollider_normal.InitAttack();
                 attacking = true;
                 _animator.Play("attack_normal");
+                AudioManager.instance.PlayClip(audios.PLAYER_SPIN, transform.position);
                 StartCoroutine(NormalAttack());
             }
             else if (_controller.Mode == PlayerModes.URBAN)
@@ -55,6 +56,7 @@ public class PlayerAttacks : MonoBehaviour
                 attackCollider_urban.InitAttack(kickPushForce);
                 attacking = true;
                 _animator.Play("attack_urban");
+                AudioManager.instance.PlayClip(audios.PLAYER_SPIN, transform.position);
                 StartCoroutine(UrbanAttack());
             }
             _input.attack = false;

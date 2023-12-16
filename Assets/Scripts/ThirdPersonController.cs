@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
@@ -31,6 +32,7 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        public bool URBANMODE_FORCE_ON = false;
         [Header("Player")]
 
         [Tooltip("How the player controls.")]
@@ -38,7 +40,6 @@ namespace StarterAssets
         [HideInInspector] public PlayerBigModes BigMode = PlayerBigModes.NORMAL;
         [HideInInspector] public List<PlayerModes> unlockedModes = new List<PlayerModes>();
         public float jumpHeight_stomp = 1.0f;
-
 
         [Header("NORMAL mode stats:")]
         public float moveSpeed_normal = 1.0f;
@@ -152,6 +153,8 @@ namespace StarterAssets
 
         private Vector3 _cloneOffset;
         private bool _hasAnimator;
+        public Material sickoModeMaterial;
+        public Material urbanModeMaterial;
 
         public bool IsCurrentDeviceMouse
         {
@@ -401,7 +404,7 @@ namespace StarterAssets
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
-
+                    PlayJumpAudio();
                     // update animator if using character
                     if (_hasAnimator)
                     {
@@ -582,12 +585,19 @@ namespace StarterAssets
             }
             _UI?.SetMode(Mode);
         }
-        
 
+
+        Transform model;
         void SetStatsByMode()
         {
+            if (model == null)
+            {
+                model = transform.Find("capybara_05").GetChild(1);
+            }
+
             if (Mode == PlayerModes.NORMAL)
             {
+                model.GetComponent<SkinnedMeshRenderer>().material = sickoModeMaterial;
                 _animator.runtimeAnimatorController = aoc_sicko;
                 MoveSpeed = moveSpeed_normal;
                 SprintSpeed = sprintSpeed_normal;
@@ -596,6 +606,7 @@ namespace StarterAssets
             }
             else if (Mode == PlayerModes.URBAN)
             {
+                model.GetComponent<SkinnedMeshRenderer>().material = urbanModeMaterial;
                 _animator.runtimeAnimatorController = aoc_urban;
                 MoveSpeed = moveSpeed_urban;
                 SprintSpeed = sprintSpeed_urban;
@@ -614,6 +625,26 @@ namespace StarterAssets
             _verticalVelocity = Mathf.Sqrt(jumpHeight_stomp * -2f * Gravity);
             _animator.SetBool(_animIDJump, true);
             _animator.Play("JumpStart");
+        }
+        bool jumpAudioReady = true;
+        void PlayJumpAudio()
+        {
+            if (jumpAudioReady)
+            {
+                AudioManager.instance.PlayClip(audios.PLAYER_JUMP, transform.position);
+                jumpAudioReady = false;
+                StartCoroutine(JumpAudioCooldown());
+            }
+        }
+        IEnumerator JumpAudioCooldown()
+        {
+            float t = 0;
+            while (t < 0.2f)
+            {
+                t += Time.deltaTime;
+                yield return null;
+            }
+            jumpAudioReady = true;
         }
 
         public bool gamePaused = false;
@@ -654,7 +685,18 @@ namespace StarterAssets
 
         public void CheckPlayerModes()
         {
-            unlockedModes = SaveGameManager.instance.GetUnlockedModes();
+            if (URBANMODE_FORCE_ON)
+            {
+                unlockedModes = new List<PlayerModes>
+                {
+                    PlayerModes.NORMAL,
+                    PlayerModes.URBAN
+                };
+            }
+            else
+            {
+                unlockedModes = SaveGameManager.instance.GetUnlockedModes();
+            }
         }
     }
 }

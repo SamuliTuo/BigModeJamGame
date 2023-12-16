@@ -44,10 +44,8 @@ public class TrashcanController : MonoBehaviour
         rolling = true;
 
         gameObject.layer = LayerMask.NameToLayer("TrashcanKICKED");
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("TrashcanKICKED");
-        }
+        transform.GetChild(1).gameObject.layer = LayerMask.NameToLayer("TrashcanKICKED");
+        transform.GetChild(1).GetChild(0).gameObject.layer = LayerMask.NameToLayer("TrashcanKICKED");
 
         if (rollingRoutine != null) 
         { 
@@ -63,7 +61,7 @@ public class TrashcanController : MonoBehaviour
         col1.material = col2.material = frictionlessMat;
         hitsEnemy = true;
         hitsPlayer = false;
-        StartCoroutine(RollingRoutine(kicker.forward, pushForce, 0.3f));
+        StartCoroutine(RollingRoutine(kicker.forward, pushForce, 0.45f));
     }
 
     public void GotThrown(Transform kicker, float speed, float upFactor)

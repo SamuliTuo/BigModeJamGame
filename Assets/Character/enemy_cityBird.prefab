@@ -97,6 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dead: 0
   pushed: 0
+  bossMode: 0
+  bossMode_director: 0
   hp: 1
   timeBetweenMoves: 0.5
   moveSpeed: 6
@@ -105,10 +107,12 @@ MonoBehaviour:
   animator: {fileID: 0}
   useMoveAnticipation: 1
   anticipationTime: 0.75
-  movesound: 9
-  stompedSound: 0
-  attackedSound: 0
+  movesound: 12
+  stompedSound: 17
+  attackedSound: 16
+  moveAnticipationSound: 14
   targets: []
+  walrusSpawn: {fileID: 0}
 --- !u!54 &479733149391171935
 Rigidbody:
   m_ObjectHideFlags: 0

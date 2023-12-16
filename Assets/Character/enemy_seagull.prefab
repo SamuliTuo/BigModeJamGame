@@ -50,6 +50,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5050965bb0b201644a52b0f116f43954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dead: 0
+  pushed: 0
+  bossMode: 0
+  bossMode_director: 0
   hp: 1
   timeBetweenMoves: 0.5
   moveSpeed: 4
@@ -58,11 +62,12 @@ MonoBehaviour:
   animator: {fileID: 0}
   useMoveAnticipation: 1
   anticipationTime: 0.75
-  movesound: 9
-  stompedSound: 0
-  attackedSound: 0
+  movesound: 12
+  stompedSound: 15
+  attackedSound: 13
+  moveAnticipationSound: 14
   targets: []
-  dead: 0
+  walrusSpawn: {fileID: 0}
 --- !u!54 &4742207779379625710
 Rigidbody:
   m_ObjectHideFlags: 0
