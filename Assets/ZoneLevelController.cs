@@ -82,6 +82,7 @@ public class ZoneLevelController : MonoBehaviour
 
     void LoadNextScene(string levelName)
     {
+        SaveGameManager.instance.currentLevel++;
         SceneManager.LoadScene(levelName);
     }
 

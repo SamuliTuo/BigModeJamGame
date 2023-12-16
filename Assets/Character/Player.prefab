@@ -3440,6 +3440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  URBANMODE_FORCE_ON: 0
   Mode: 0
   BigMode: 0
   unlockedModes: 
@@ -3494,7 +3495,7 @@ MonoBehaviour:
   playerClone: {fileID: 0}
   camA: {fileID: 0}
   camB: {fileID: 0}
-  testLevel: {fileID: 11400000, guid: 5f89c4f217a7e484894ddcd5b22cd289, type: 2}
+  testLevel: {fileID: 11400000, guid: 9400d15b4b8863c42a45e0021b734d79, type: 2}
   gamePaused: 0
 --- !u!114 &7423176135341404348
 MonoBehaviour:
@@ -3525,6 +3526,7 @@ MonoBehaviour:
   RotationSmoothTime: 0.154
   transitioning: 0
   fadeSpeed: 0.1
+  playerCurrentPose: 0
 --- !u!114 &3938423008057996551
 MonoBehaviour:
   m_ObjectHideFlags: 0

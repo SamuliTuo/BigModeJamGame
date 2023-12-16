@@ -511,7 +511,7 @@ namespace StarterAssets
             MoveSpeed = SprintSpeed = 0.1f;
             _zoneModeController.InitZoneMode();
             print("stop player movements here");
-            ZoneLevelController.instance.StartZoneModeLevel(testLevel, transform);
+            ZoneLevelController.instance.StartZoneModeLevel(SaveGameManager.instance.GetCorrectZoneLevel(), transform);
         }
         bool transitioningToZoneMode = false;
         IEnumerator StartZoneInputLock()
