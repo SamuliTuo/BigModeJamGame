@@ -12,6 +12,7 @@ public class CasetteController : MonoBehaviour
     [SerializeField] private float teleporterGrowSpeed = 0.1f;
     [SerializeField] private Transform teleporter = null;
     [SerializeField] private Transform receiver = null;
+    public Transform casetteBModel;
 
     private Vector3 startPos;
     private Transform casetteModel;
@@ -40,6 +41,8 @@ public class CasetteController : MonoBehaviour
     {
         if (other.CompareTag("Player") && growRoutine == null)
         {
+            casetteModel.gameObject.SetActive(false);
+            casetteBModel.gameObject.SetActive(false);
             AudioManager.instance.ChangeBGM(AudioManager.instance.bgm_zone_1, 5f);
             other.SendMessage("TeleporterPositions", teleporterPositions);
             StartCoroutine(TeleporterBigMode());

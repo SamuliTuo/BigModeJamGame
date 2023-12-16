@@ -12,6 +12,10 @@ public class ZoneLevelController : MonoBehaviour
     public Vector2 screenSize;
     public Camera cam;
     public Material holyWallMat;
+    public Transform player;
+
+    private ZoneModeController playerZoneController;
+    private ObjectCollector collector;
 
     public static ZoneLevelController instance { get; private set; }
 
@@ -27,8 +31,11 @@ public class ZoneLevelController : MonoBehaviour
         }
     }
 
-    public void StartZoneModeLevel(ZoneLevelScriptable levelData)
+    public void StartZoneModeLevel(ZoneLevelScriptable levelData, Transform player)
     {
+        this.player = player;
+        playerZoneController = player.GetComponent<ZoneModeController>();
+        collector = player.GetComponent<ObjectCollector>();
         SaveGameManager.instance.inZone = true;
         screenSize = new Vector2(Screen.width, Screen.height);
         StartCoroutine(ZoneLevelCoroutine(levelData));
@@ -108,6 +115,17 @@ public class ZoneLevelController : MonoBehaviour
             yield return null;
         }
 
+        if (DetermineIfPoseMatches(obstacle))
+        {
+            float distance = new Vector2(player.transform.position.x - clone.transform.position.x, player.transform.position.y - clone.transform.position.y).magnitude;
+            if (distance < 0.7f)
+            {
+                float perc = distance / 0.7f;
+                int amount = (int)Mathf.Lerp(10, 1, perc);
+                collector.CollectMelon(player.position + Vector3.up * 0.7f, amount);
+            }
+        }
+
         Destroy(clone);
     }
 
@@ -134,6 +152,11 @@ public class ZoneLevelController : MonoBehaviour
             t += Time.deltaTime;
             yield return null;
         }
+        /*t = 0;
+        while (t < 1)
+        {
+            
+        }*/
 
         if (clone != null)
         {
@@ -214,5 +237,22 @@ public class ZoneLevelController : MonoBehaviour
         meshFilter.mesh = mesh;
 
         return mesh;
+    }
+
+    bool DetermineIfPoseMatches(ZoneLevelObstacle o)
+    {
+        switch (o.obstaclePrefab.name)
+        {
+            case "holyWall_up": if (playerZoneController.playerCurrentPose == ZoneModePoses.UP) return true; break;
+            case "holyWall_down": if (playerZoneController.playerCurrentPose == ZoneModePoses.DOWN) return true; break;
+            case "holyWall_left": if (playerZoneController.playerCurrentPose == ZoneModePoses.LEFT) return true; break;
+            case "holyWall_right": if (playerZoneController.playerCurrentPose == ZoneModePoses.RIGHT) return true; break;
+            case "holyWall_mid": if (playerZoneController.playerCurrentPose == ZoneModePoses.MID) return true; break;
+            case "holyWall_upRight": if (playerZoneController.playerCurrentPose == ZoneModePoses.UP_RIGHT) return true; break;
+            case "holyWall_upLeft": if (playerZoneController.playerCurrentPose == ZoneModePoses.UP_LEFT) return true; break;
+            case "holyWall_downRight": if (playerZoneController.playerCurrentPose == ZoneModePoses.DOWN_RIGHT) return true; break;
+            case "holyWall_downLeft": if (playerZoneController.playerCurrentPose == ZoneModePoses.DOWN_LEFT) return true; break;
+        }
+        return false;
     }
 }

@@ -2,7 +2,6 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -224,6 +223,9 @@ namespace StarterAssets
                 _zoneModeController.UpdateZoneMode();
                 return;
             }
+
+            if (transitioningToZoneMode)
+                return;
 
             _hasAnimator = true;// TryGetComponent(out _animator);
 
@@ -501,6 +503,7 @@ namespace StarterAssets
         // This gets triggered when player touch the CASETTE
         public void TeleporterPositions(List<Vector3> portalPositions)
         {
+            StartCoroutine(StartZoneInputLock());
             this.portalPositions = portalPositions;
             _cloneOffset = portalPositions[1] - portalPositions[0];
             playerClone.transform.position = transform.position + _cloneOffset;
@@ -508,9 +511,19 @@ namespace StarterAssets
             MoveSpeed = SprintSpeed = 0.1f;
             _zoneModeController.InitZoneMode();
             print("stop player movements here");
-            ZoneLevelController.instance.StartZoneModeLevel(testLevel);
+            ZoneLevelController.instance.StartZoneModeLevel(testLevel, transform);
         }
-
+        bool transitioningToZoneMode = false;
+        IEnumerator StartZoneInputLock()
+        {
+            transitioningToZoneMode = true;
+            float t = 0;
+            while (t < 5)
+            {
+                yield return null;
+            }
+            transitioningToZoneMode = false;
+        }
         // This gets triggered when the camera touches the growing PORTAL
         public void TeleportToZoneMode()
         {
