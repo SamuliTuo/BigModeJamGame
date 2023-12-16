@@ -8,6 +8,8 @@ using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.Windows;
 
+public enum ZoneModePoses { MID, UP, DOWN, LEFT, RIGHT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT }
+
 public class ZoneModeController : MonoBehaviour
 {
     [SerializeField] private GameObject CinemachineCameraTarget = null;
@@ -192,15 +194,14 @@ public class ZoneModeController : MonoBehaviour
 
     [SerializeField] private float fadeSpeed = 0.1f;
 
-    private enum poses { MID, UP, DOWN, LEFT, RIGHT }
-    private poses pose = poses.MID;
+    public ZoneModePoses playerCurrentPose = ZoneModePoses.MID;
     void UpdatePose()
     {
         if (_control.IsCurrentDeviceMouse)
         {
-            if (_input.attack2 && pose != poses.MID)
+            if (_input.attack2 && playerCurrentPose != ZoneModePoses.MID)
             {
-                pose = poses.MID;
+                playerCurrentPose = ZoneModePoses.MID;
                 _animator.CrossFade("zone_mid", fadeSpeed, 0, 0);
                 _input.attack2 = false;
             }
@@ -216,9 +217,9 @@ public class ZoneModeController : MonoBehaviour
             {
                 DetermineZoneDir();
             }
-            else if (pose != poses.MID)
+            else if (playerCurrentPose != ZoneModePoses.MID)
             {
-                pose = poses.MID;
+                playerCurrentPose = ZoneModePoses.MID;
                 _animator.CrossFade("zone_mid", fadeSpeed, 0, 0);
             }
         }   
@@ -230,27 +231,27 @@ public class ZoneModeController : MonoBehaviour
         float y = _input.look.y;
         if (Mathf.Abs(x) > Mathf.Abs(y))
         {
-            if (x < 0 && pose != poses.LEFT)
+            if (x < 0 && playerCurrentPose != ZoneModePoses.LEFT)
             {
-                pose = poses.LEFT;
+                playerCurrentPose = ZoneModePoses.LEFT;
                 _animator.CrossFade("zone_left", fadeSpeed, 0, 0);
             }
-            else if (x > 0 && pose != poses.RIGHT)
+            else if (x > 0 && playerCurrentPose != ZoneModePoses.RIGHT)
             {
-                pose = poses.RIGHT;
+                playerCurrentPose = ZoneModePoses.RIGHT;
                 _animator.CrossFade("zone_right", fadeSpeed, 0, 0);
             }
         }
         else if (Mathf.Abs(y) > Mathf.Abs(x))
         {
-            if (y < 0 && pose != poses.UP)
+            if (y < 0 && playerCurrentPose != ZoneModePoses.UP)
             {
-                pose = poses.UP;
+                playerCurrentPose = ZoneModePoses.UP;
                 _animator.CrossFade("zone_up", fadeSpeed, 0, 0);
             }
-            else if (y > 0 && pose != poses.DOWN)
+            else if (y > 0 && playerCurrentPose != ZoneModePoses.DOWN)
             {
-                pose = poses.DOWN;
+                playerCurrentPose = ZoneModePoses.DOWN;
                 _animator.CrossFade("zone_down", fadeSpeed, 0, 0);
             }
         }
