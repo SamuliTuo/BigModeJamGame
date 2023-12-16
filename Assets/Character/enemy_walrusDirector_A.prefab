@@ -216,6 +216,7 @@ MonoBehaviour:
   movesound: 9
   stompedSound: 10
   attackedSound: 11
+  moveAnticipationSound: 0
   targets: []
   walrusSpawn: {fileID: 5241179352768776849, guid: 65c8dae48f9325e4ab0f1741a41ea90d,
     type: 3}
@@ -283,52 +284,52 @@ PrefabInstance:
     - target: {fileID: 6438980370132827215, guid: 287181e24a4893b46acc2075bea31134,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.2685617
+      value: -1.422
       objectReference: {fileID: 0}
     - target: {fileID: 6438980370132827215, guid: 287181e24a4893b46acc2075bea31134,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.11182821
+      value: -0.312
       objectReference: {fileID: 0}
     - target: {fileID: 6438980370132827215, guid: 287181e24a4893b46acc2075bea31134,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.116075635
+      value: -0.091
       objectReference: {fileID: 0}
     - target: {fileID: 6438980370132827215, guid: 287181e24a4893b46acc2075bea31134,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.57147944
+      value: 0.6437526
       objectReference: {fileID: 0}
     - target: {fileID: 6438980370132827215, guid: 287181e24a4893b46acc2075bea31134,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.5510021
+      value: -0.6880215
       objectReference: {fileID: 0}
     - target: {fileID: 6438980370132827215, guid: 287181e24a4893b46acc2075bea31134,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.31930867
+      value: 0.11886746
       objectReference: {fileID: 0}
     - target: {fileID: 6438980370132827215, guid: 287181e24a4893b46acc2075bea31134,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.51754224
+      value: -0.31317672
       objectReference: {fileID: 0}
     - target: {fileID: 6438980370132827215, guid: 287181e24a4893b46acc2075bea31134,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -79.756
+      value: -54.231
       objectReference: {fileID: 0}
     - target: {fileID: 6438980370132827215, guid: 287181e24a4893b46acc2075bea31134,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -259.64398
+      value: -272.451
       objectReference: {fileID: 0}
     - target: {fileID: 6438980370132827215, guid: 287181e24a4893b46acc2075bea31134,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 264.719
+      value: 255.849
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 287181e24a4893b46acc2075bea31134, type: 3}

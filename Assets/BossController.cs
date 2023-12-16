@@ -91,17 +91,18 @@ public class BossController : MonoBehaviour
     {
         busy = true;
 
+        /*
         //
         StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, Random.Range(2, 7), 0.5f));
         return;
-        //
+        */
 
         if (nextAction != BossActions.NONE)
         {
             switch (nextAction)
             {
                 case BossActions.JUMP: StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)])); break;
-                case BossActions.THROW: StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, Random.Range(2, 7), Random.Range(0.3f, 0.7f))); break;
+                case BossActions.THROW: StartCoroutine(ThrowBarrel(currentSpot, trashcanThrowSpeed_normal, 5, Random.Range(0.4f, 0.85f))); break;
                 case BossActions.SUMMON_WALRUS: StartCoroutine(Summon(walrus, currentSpot)); break;
                 case BossActions.SUMMON_BIRD: StartCoroutine(Summon(bird, currentSpot)); break;
                 case BossActions.SUMMON_COACH: StartCoroutine(SummonWalrusCoach()); break;
@@ -184,7 +185,7 @@ public class BossController : MonoBehaviour
 
         while (i < _count)
         {
-            Vector3 spot = _throwSpot.position + (transform.right * Random.Range(-4, 4));
+            Vector3 spot = _throwSpot.position + (transform.right * Random.Range(-2, 2));
             var clone = Instantiate(trashcan, spot, Quaternion.LookRotation(_throwSpot.right));
             clone.GetComponent<TrashcanController>().GotThrown(spot, _throwSpot.forward, _throwSpot.right, _throwSpeed, upFactor);
             t = 0;
@@ -227,9 +228,10 @@ public class BossController : MonoBehaviour
 
         nextAction = BossActions.JUMP;
         busy = false;
+        _anim.Play("summon");
 
         float t2 = 0;
-        while (t2 < 0.4f)
+        while (t2 < 1f)
         {
             t2 += Time.deltaTime;
             yield return null;
@@ -268,6 +270,7 @@ public class BossController : MonoBehaviour
 
         if (availableSpots.Count > 0)
         {
+            _anim.Play("summon");
             t = 0;
             while (t < 1)
             {
@@ -292,6 +295,7 @@ public class BossController : MonoBehaviour
         float t = 0;
         int i = 0;
 
+        _anim.Play("summon");
         while (t < 1)
         {
             t += Time.deltaTime; yield return null;
@@ -311,7 +315,7 @@ public class BossController : MonoBehaviour
             if (availableSpots.Count > 0)
             {
                 Transform spot = availableSpots[Random.Range(0, availableSpots.Count)];
-                var clone = Instantiate(trashTruck, spot.position, Quaternion.LookRotation(-spot.forward));
+                var clone = Instantiate(trashTruck, spot.position, Quaternion.LookRotation(spot.forward));
                 clone.GetComponent<TrashtruckController>().InitBossMode(trashtruck_throwforce, trashtruck_throwspeed);
 
 
@@ -379,6 +383,35 @@ public class BossController : MonoBehaviour
     public bool stunned = false;
     public void TakeDamage()
     {
+        foreach (KeyValuePair<Transform, TrashtruckController> pair in trucksSpawned)
+        {
+            if (pair.Value != null)
+            {
+                pair.Value.TakeDamage();
+            }
+        }
+        foreach (KeyValuePair<Transform, EnemyController_basic> pair in coachesSpawned)
+        {
+            if (pair.Value != null)
+            {
+                if (!pair.Value.dead)
+                {
+                    StartCoroutine(pair.Value.Die());
+                }
+            }
+        }
+        coachesSpawned = new Dictionary<Transform, EnemyController_basic>();
+        trucksSpawned = new Dictionary<Transform, TrashtruckController>();
+
+        foreach (var item in walrusSpawnPoints_coach)
+        {
+            coachesSpawned.Add(item, null);
+        }
+        trucksSpawned.Add(trashtruckSpawnSpot_left, null);
+        trucksSpawned.Add(trashtruckSpawnSpot_up, null);
+        trucksSpawned.Add(trashtruckSpawnSpot_right, null);
+
+
         busy = true;
         phase++;
         StartCoroutine(ChangeToSpot(barrelThrowSpots[Random.Range(0, barrelThrowSpots.Count)]));

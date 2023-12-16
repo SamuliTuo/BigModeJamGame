@@ -21,6 +21,7 @@ public class EnemyController_basic : MonoBehaviour
     [SerializeField] private audios movesound = audios.None;
     [SerializeField] private audios stompedSound = audios.None;
     [SerializeField] private audios attackedSound = audios.None;
+    [SerializeField] private audios moveAnticipationSound = audios.None;
 
     private Rigidbody rb;
     Transform model;
@@ -73,6 +74,7 @@ public class EnemyController_basic : MonoBehaviour
 
         if (useMoveAnticipation)
         {
+            AudioManager.instance.PlayClip(moveAnticipationSound, transform.position);
             animator.Play("attackAnticipation", 0, 0);
             Quaternion startrot = model.rotation;
             while (t < anticipationTime)
@@ -182,7 +184,7 @@ public class EnemyController_basic : MonoBehaviour
         pushed = true;
     }
 
-    IEnumerator Die()
+    public IEnumerator Die()
     {
         col.enabled = stompCol.enabled = kickedCol.enabled = false;
         float t = 0;

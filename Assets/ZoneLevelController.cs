@@ -122,7 +122,7 @@ public class ZoneLevelController : MonoBehaviour
         Vector3 startpos = zoneLevelMidPoint.position + (levelOrientation.forward * spawnDistance) + offset;
         Vector3 endpos = zoneLevelMidPoint.position + offset;
 
-        var clone = Instantiate(melon.melonPrefab, startpos, Quaternion.LookRotation(levelOrientation.up));
+        var clone = Instantiate(melon.melonPrefab, startpos, Quaternion.LookRotation(levelOrientation.forward));
         float t = 0;
 
         while (t < melon.melonTimeToReachPlayer)
